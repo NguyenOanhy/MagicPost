@@ -1,0 +1,8 @@
+export {default as Home} from './Home'
+export {default as Login} from './Login'
+export {default as Signup} from './Signup'
+export {default as Forgotpassword} from './Forgotpassword'
+export {default as Sidebar} from './Sidebar'
+export {default as PriceShipping} from './PriceShipping'
+export {default as Management} from './Management'
+export {default as Reports} from './Reports'
