@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import icons from '../utils/icons';
 
-const { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle } = icons;
+const { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle, TbLayoutSidebarRightExpand, TbLayoutSidebarLeftExpand } = icons;
 
 const Sidebar = () => {
   const [expanded, setExpanded] = useState(true);
@@ -33,12 +33,11 @@ const Sidebar = () => {
   return (
     <div className={`bg-gray-200 ${expanded ? 'w-48' : 'w-16'}`}>
       <div
-        className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-300"
+        className="flex px-4 py-2 text-gray-800 hover:bg-gray-300"
         onClick={toggleExpand}
         role="button"
       >
-        <span className="text-xl">{expanded ? '-' : '+'}</span>
-        {expanded && <span className="text-base ml-2">Sidebar</span>}
+        {expanded ? <TbLayoutSidebarLeftExpand size={30} /> : <TbLayoutSidebarRightExpand size={30} />}
       </div>
         <ul className="space-y-2">
           {pages.map((page, index) => (

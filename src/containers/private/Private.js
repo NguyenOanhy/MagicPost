@@ -5,8 +5,8 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 
 const Private = () => {
   return (
-    <div className='h-full flex'>
-      <div className='w-[240px] flex-none'>
+    <div className='flex h-screen'>
+      <div className='flex'>
         <Sidebar />
       </div>
       <div className='flex-auto mt-16'>
