@@ -44,7 +44,7 @@ const Sidebar = () => {
           {pages.map((page, index) => (
             <li key={index}>
               <NavLink
-                to={{ pathname: `/${page.name.toLowerCase()}` }}
+                to={{ pathname: `/private/${page.name.toLowerCase()}` }}
                 className="flex items-center space-x-2 px-4 py-2 text-gray-800 hover:bg-gray-300"
                 activeClassName="bg-gray-300 text-gray-800"
               >

@@ -1,15 +1,14 @@
 const path = {
-    PUBLIC: '/',
     PRIVATE: '/private',
-    HOME: '',
+    HOME: '/',
     LOGIN: '/login',
     FORGOTPW: '/forgot-password',
     SIGNUP: '/signup',
-    PRICESHIPPING: '/price-shipping',
-    ORDERS: '/orders',
-    ORDERCREATE: '/orders/create',
-    REPORTS: '/reports',
-    MANAGEMENT: '/management',
+    PRICESHIPPING: 'priceshipping',
+    ORDERS: 'orders',
+    ORDERCREATE: 'orders/create',
+    REPORTS: 'reports',
+    MANAGEMENT: 'management',
     
 }
 

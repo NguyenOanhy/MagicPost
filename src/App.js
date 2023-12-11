@@ -10,18 +10,15 @@ export default function App() {
   return (
     <>
     <Routes>
-        <Route path={path.PUBLIC} element={<Public />}> 
-          <Route path={path.HOME} element={<Home/>} />
-        </Route>
+        <Route path={path.HOME} element={<Home/>} />
         <Route path={path.LOGIN} element={<Login/>} /> 
         <Route path={path.FORGOTPW} element={<Forgotpassword/>} />
         <Route path={path.SIGNUP} element={<Signup/>} />
-        <Route path={path.ORDERS} element={<OrderCreate/>} /> 
-        <Route path={path.PRICESHIPPING} element={<PriceShipping/>} />
-        <Route path={path.MANAGEMENT} element={<Management/>} />
-        <Route path={path.REPORTS} element={<Reports/>} />
-
         <Route path={path.PRIVATE} element={<Private />}> 
+          <Route path={path.ORDERS} element={<OrderCreate/>} /> 
+          <Route path={path.PRICESHIPPING} element={<PriceShipping/>} />
+          <Route path={path.MANAGEMENT} element={<Management/>} />
+          <Route path={path.REPORTS} element={<Reports/>} />
         </Route>
     </Routes>
     </>
