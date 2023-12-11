@@ -93,4 +93,32 @@ const addDataToFirestore = async (m_name, m_content, m_image, dbName) => {
   }
 };
 
-export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore};
+//them user vao firebase
+const addUserToFirestore = async (m_name, m_phone, m_position, m_email, dbName) => {
+  // const minValue = 10;
+  // const maxValue = 200;
+  // const randomLike = Math.floor(Math.random() * (maxValue - minValue) + minValue);
+  // const randomDislike = Math.floor(Math.random() * (maxValue - minValue) + minValue);
+  try {
+    const collectionRef = collection(db, dbName);
+    const currentTimeStamp = new Date().getTime();
+    let m_uid = null;
+    if (auth.currentUser === null) {
+      m_uid = null;
+    } else {
+      m_uid = auth.currentUser.uid;
+    }
+    const userRef = await addDoc(collectionRef, {
+      name: m_name,
+      phone: m_phone,
+      position: m_position,
+      email: m_email,
+      date: currentTimeStamp,
+    });
+    console.log("User ID: ", userRef.id);
+  } catch (error) {
+    console.error("Error adding document: ", error);
+  }
+};
+
+export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore};
