@@ -1,35 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { AddressInputs } from "./input/AddressInputs";
+import { ShippingInputs } from "./input/ShippingInputs";
 import ShippingLabel from "./input/ShippingLabel";
 import { v4 as uuidv4 } from "uuid";
 import QRCode from "react-qr-code";
 import {addOrderToFirestore} from "../../firebase"
+import {ProductInputs} from "./input/ProductInputs";
 
 const OrderCreate = () => {
+  const currentTimeStamp = new Date().getTime();
   const [shipperInput, setShipperInput] = useState({
     name: "",
-    streetLine1: "",
-    streetLine2: "",
-    city: "",
-    state: "",
-    zip: "",
+    phone: "",
+    address: "",
+    area: "",
+    postcode: "",
   });
   const [recipientInput, setRecipientInput] = useState({
     name: "",
-    streetLine1: "",
-    streetLine2: "",
-    city: "",
-    state: "",
-    zip: "",
+    phone: "",
+    address: "",
+    area: "",
+    postcode: "",
   });
-  const [product, setProduct] = useState({
-    name: "ghế",
-    price: "100000"
+  const [productInput, setProductInput] = useState({
+    name: "",
+    price: "",
+    type: "",
+    weight: ""
   });
-  const [shipping_detail, setShipperDetail] = useState({
-    shipping_price: "20000",
-    payment_method: "Trả bởi người gửi",
-    note: "Hàng dễ vỡ",
+  const [shippingDetailInput, setShippingDetailInput] = useState({
+    shipping_price: "",
+    payment_method: "",
+    date: "",
+    note: "",
   });
   const [submittedData, setSubmittedData] = useState(null);
   const [isValidData, setIsValidData] = useState(false);
@@ -38,23 +42,21 @@ const OrderCreate = () => {
   const handleSubmit = () => {
     setIsValidData(true);
     convertUUIDtoBase64();
-    addOrderToFirestore(shipperInput, recipientInput, product, shipping_detail, "order");
+    addOrderToFirestore(shipperInput, recipientInput, productInput, shippingDetailInput, "order");
     setSubmittedData({
       shipper: {
         name: shipperInput.name,
-        streetLine1: shipperInput.streetLine1,
-        streetLine2: shipperInput.streetLine2,
-        city: shipperInput.city,
-        state: shipperInput.state,
-        zip: shipperInput.zip,
+        phone: shipperInput.phone,
+        address: shipperInput.address,
+        area: shipperInput.area,
+        postcode: shipperInput.postcode,
       },
       recipient: {
-        name: recipientInput.name,
-        streetLine1: recipientInput.streetLine1,
-        streetLine2: recipientInput.streetLine2,
-        city: recipientInput.city,
-        state: recipientInput.state,
-        zip: recipientInput.zip,
+        name: shipperInput.name,
+        phone: shipperInput.phone,
+        address: shipperInput.address,
+        area: shipperInput.area,
+        postcode: shipperInput.postcode,
       },
     });
   };
@@ -70,16 +72,32 @@ const OrderCreate = () => {
       <div className="flex justify-center">
         <div className="p-4">
           <AddressInputs
-            name="Shipper:"
+            name="Người gửi hàng:"
             userInput={shipperInput}
             setInput={setShipperInput}
           />
         </div>
         <div className="p-4">
           <AddressInputs
-            name="Recipient:"
+            name="Người nhận hàng:"
             userInput={recipientInput}
             setInput={setRecipientInput}
+          />
+        </div>
+      </div>
+      <div className="flex justify-center">
+        <div className="p-4">
+          <ProductInputs
+            name="Thông tin hàng gửi:"
+            userInput={productInput}
+            setInput={setProductInput}
+          />
+        </div>
+        <div className="p-4">
+          <ShippingInputs
+            name="Thông tin vận chuyển:"
+            userInput={shippingDetailInput}
+            setInput={setShippingDetailInput}
           />
         </div>
       </div>
@@ -88,7 +106,7 @@ const OrderCreate = () => {
           className="px-6 py-3 text-lg font-semibold text-white bg-green-500 rounded-lg"
           onClick={handleSubmit}
         >
-          GENERATE LABEL
+          TẠO ĐƠN HÀNG
         </button>
       </div>
       {isValidData && (

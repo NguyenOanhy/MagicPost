@@ -79,9 +79,6 @@ const addDataToFirestore = async (m_name, m_content, m_image, dbName) => {
       uid: m_uid,
       timestamp: currentTimeStamp,
       image: m_image
-      // tag: m_tag,
-      // like: randomLike,
-      // dislike: randomDislike
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (error) {

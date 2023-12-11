@@ -1,31 +1,27 @@
 import React from "react";
 import { Input } from "./Input";
 
-export const InputSixStacksForm = ({
+export const InputFiveStacksForm = ({
   typeOne,
   typeTwo,
   typeThree,
   typeFour,
   typeFive,
-  typeSix,
   placeholderOne,
   placeholderTwo,
   placeholderThree,
   placeholderFour,
   placeholderFive,
-  placeholderSix,
   onChangeOne,
   onChangeTwo,
   onChangeThree,
   onChangeFour,
   onChangeFive,
-  onChangeSix,
   valueOne,
   valueTwo,
   valueThree,
   valueFour,
   valueFive,
-  valueSix
 }) => {
   const eachInputForm = {
     display: "flex",
@@ -63,11 +59,57 @@ export const InputSixStacksForm = ({
         onChange={onChangeFive}
         value={valueFive}
       />
+    </div>
+  );
+};
+
+export const InputFourStacksForm = ({
+  typeOne,
+  typeTwo,
+  typeThree,
+  typeFour,
+  placeholderOne,
+  placeholderTwo,
+  placeholderThree,
+  placeholderFour,
+  onChangeOne,
+  onChangeTwo,
+  onChangeThree,
+  onChangeFour,
+  valueOne,
+  valueTwo,
+  valueThree,
+  valueFour,
+}) => {
+  const eachInputForm = {
+    display: "flex",
+    flexDirection: "column"
+  };
+  return (
+    <div style={eachInputForm}>
       <Input
-        type={typeSix}
-        placeholder={placeholderSix}
-        onChange={onChangeSix}
-        value={valueSix}
+        type={typeOne}
+        placeholder={placeholderOne}
+        onChange={onChangeOne}
+        value={valueOne}
+      />
+      <Input
+        type={typeTwo}
+        placeholder={placeholderTwo}
+        onChange={onChangeTwo}
+        value={valueTwo}
+      />
+      <Input
+        type={typeThree}
+        placeholder={placeholderThree}
+        onChange={onChangeThree}
+        value={valueThree}
+      />
+      <Input
+        type={typeFour}
+        placeholder={placeholderFour}
+        onChange={onChangeFour}
+        value={valueFour}
       />
     </div>
   );

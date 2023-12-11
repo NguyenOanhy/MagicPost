@@ -1,5 +1,5 @@
 import React from "react";
-import { InputSixStacksForm } from "./InputSixStackForm";
+import { InputFiveStacksForm } from "./InputForm";
 
 export const AddressInputs = ({ name, userInput, setInput }) => {
   const eachInputBox = {
@@ -8,41 +8,36 @@ export const AddressInputs = ({ name, userInput, setInput }) => {
   return (
     <div style={eachInputBox}>
       <h1>{name}</h1>
-      <InputSixStacksForm
-        //Name/Company
+      <InputFiveStacksForm
+        //name
         typeOne="text"
-        placeholderOne="Name / Company"
+        placeholderOne="Họ và tên"
         onChangeOne={(e) => setInput({ ...userInput, name: e.target.value })}
         valueOne={userInput.name}
-        //Street Line 1
+        //phone
         typeTwo="text"
-        placeholderTwo="Street Line 1"
+        placeholderTwo="Số điện thoại"
         onChangeTwo={(e) =>
-          setInput({ ...userInput, streetLine1: e.target.value })
+          setInput({ ...userInput, phone: e.target.value })
         }
         valueTwo={userInput.streetLine1}
-        //Street Line 2
+        //address
         typeThree="text"
-        placeholderThree="Street Line 2"
+        placeholderThree="Địa chỉ"
         onChangeThree={(e) =>
-          setInput({ ...userInput, streetLine2: e.target.value })
+          setInput({ ...userInput, address: e.target.value })
         }
         valueThree={userInput.streetLine2}
-        //City
+        //city/province
         typeFour="text"
-        placeholderFour="City"
-        onChangeFour={(e) => setInput({ ...userInput, city: e.target.value })}
+        placeholderFour="Tỉnh/thành phố"
+        onChangeFour={(e) => setInput({ ...userInput, area: e.target.value })}
         valueFour={userInput.city}
-        //State
+        //zipcode
         typeFive="text"
-        placeholderFive="State"
-        onChangeFive={(e) => setInput({ ...userInput, state: e.target.value })}
+        placeholderFive="Mã bưu chính"
+        onChangeFive={(e) => setInput({ ...userInput, postcode: e.target.value })}
         valueFive={userInput.state}
-        //Zip
-        typeSix="text"
-        placeholderSix="Zip"
-        onChangeSix={(e) => setInput({ ...userInput, zip: e.target.value })}
-        valueSix={userInput.zip}
       />
     </div>
   );
