@@ -112,7 +112,7 @@ const addOrderToFirestore = async (m_consignor, m_consignee, m_product, m_shippi
     const collectionRef = collection(db, dbName);
     const currentTimeStamp = new Date().getTime();
     const userRef = await addDoc(collectionRef, {
-      consignor: m_consignee,
+      consignor: m_consignor,
       consignee: m_consignee,
       product: m_product,
       shipping_detail: m_shipping_detail

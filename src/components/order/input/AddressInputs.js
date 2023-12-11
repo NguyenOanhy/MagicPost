@@ -20,24 +20,24 @@ export const AddressInputs = ({ name, userInput, setInput }) => {
         onChangeTwo={(e) =>
           setInput({ ...userInput, phone: e.target.value })
         }
-        valueTwo={userInput.streetLine1}
+        valueTwo={userInput.phone}
         //address
         typeThree="text"
         placeholderThree="Địa chỉ"
         onChangeThree={(e) =>
           setInput({ ...userInput, address: e.target.value })
         }
-        valueThree={userInput.streetLine2}
+        valueThree={userInput.address}
         //city/province
         typeFour="text"
         placeholderFour="Tỉnh/thành phố"
         onChangeFour={(e) => setInput({ ...userInput, area: e.target.value })}
-        valueFour={userInput.city}
+        valueFour={userInput.area}
         //zipcode
         typeFive="text"
         placeholderFive="Mã bưu chính"
         onChangeFive={(e) => setInput({ ...userInput, postcode: e.target.value })}
-        valueFive={userInput.state}
+        valueFive={userInput.postcode}
       />
     </div>
   );

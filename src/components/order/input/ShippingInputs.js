@@ -20,19 +20,19 @@ export const ShippingInputs = ({ name, userInput, setInput }) => {
         onChangeTwo={(e) =>
           setInput({ ...userInput, payment_method: e.target.value })
         }
-        valueTwo={userInput.streetLine1}
+        valueTwo={userInput.payment_method}
         //date
         typeThree="date"
         placeholderThree="Ngày nhận đơn"
         onChangeThree={(e) =>
           setInput({ ...userInput, date: e.target.value })
         }
-        valueThree={userInput.streetLine2}
+        valueThree={userInput.date}
         //note
         typeFour="text"
         placeholderFour="Ghi chú"
         onChangeFour={(e) => setInput({ ...userInput, note: e.target.value })}
-        valueFour={userInput.city}
+        valueFour={userInput.note}
       />
     </div>
   );

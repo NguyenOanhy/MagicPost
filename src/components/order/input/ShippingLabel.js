@@ -1,7 +1,7 @@
 import React from "react";
 import AddressLabel from "./AddressLable";
 
-const ShippingLabel = ({ shipperData, recipientData }) => {
+const ShippingLabel = ({ consignorData, consigneeData }) => {
   const shippingAddressStyles = {
     label: {
       fontFamily: "sans-serif",
@@ -21,22 +21,20 @@ const ShippingLabel = ({ shipperData, recipientData }) => {
     <div style={shippingAddressStyles.label}>
       <div className="shippingAddress">
         <AddressLabel
-          name={shipperData.name}
-          streetLine1={shipperData.streetLine1}
-          streetLine2={shipperData.streetLine2}
-          city={shipperData.city}
-          state={shipperData.state}
-          zip={shipperData.zip}
+          name={consignorData.name}
+          phone={consignorData.phone}
+          address={consignorData.address}
+          area={consignorData.area}
+          postcode={consignorData.postcode}
           setLineHeight=".5rem"
         />
         <p style={shippingAddressStyles.shipToStyle}>SHIP TO:</p>
         <AddressLabel
-          name={recipientData.name}
-          streetLine1={recipientData.streetLine1}
-          streetLine2={recipientData.streetLine2}
-          city={recipientData.city}
-          state={recipientData.state}
-          zip={recipientData.zip}
+          name={consigneeData.name}
+          phone={consigneeData.phone}
+          address={consigneeData.address}
+          area={consigneeData.area}
+          postcode={consigneeData.postcode}
           style={shippingAddressStyles.receipientStyle}
           setLineHeight="1rem"
         />

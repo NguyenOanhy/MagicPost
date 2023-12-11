@@ -8,15 +8,14 @@ import {addOrderToFirestore} from "../../firebase"
 import {ProductInputs} from "./input/ProductInputs";
 
 const OrderCreate = () => {
-  const currentTimeStamp = new Date().getTime();
-  const [shipperInput, setShipperInput] = useState({
+  const [consignorInput, setConsignorInput] = useState({
     name: "",
     phone: "",
     address: "",
     area: "",
     postcode: "",
   });
-  const [recipientInput, setRecipientInput] = useState({
+  const [consigneeInput, setConsigneeInput] = useState({
     name: "",
     phone: "",
     address: "",
@@ -42,21 +41,21 @@ const OrderCreate = () => {
   const handleSubmit = () => {
     setIsValidData(true);
     convertUUIDtoBase64();
-    addOrderToFirestore(shipperInput, recipientInput, productInput, shippingDetailInput, "order");
+    addOrderToFirestore(consignorInput, consigneeInput, productInput, shippingDetailInput, "order");
     setSubmittedData({
-      shipper: {
-        name: shipperInput.name,
-        phone: shipperInput.phone,
-        address: shipperInput.address,
-        area: shipperInput.area,
-        postcode: shipperInput.postcode,
+      consignor: {
+        name: consignorInput.name,
+        phone: consignorInput.phone,
+        address: consignorInput.address,
+        area: consignorInput.area,
+        postcode: consignorInput.postcode,
       },
-      recipient: {
-        name: shipperInput.name,
-        phone: shipperInput.phone,
-        address: shipperInput.address,
-        area: shipperInput.area,
-        postcode: shipperInput.postcode,
+      consignee: {
+        name: consigneeInput.name,
+        phone: consigneeInput.phone,
+        address: consigneeInput.address,
+        area: consigneeInput.area,
+        postcode: consigneeInput.postcode,
       },
     });
   };
@@ -73,15 +72,15 @@ const OrderCreate = () => {
         <div className="p-4">
           <AddressInputs
             name="Người gửi hàng:"
-            userInput={shipperInput}
-            setInput={setShipperInput}
+            userInput={consignorInput}
+            setInput={setConsignorInput}
           />
         </div>
         <div className="p-4">
           <AddressInputs
             name="Người nhận hàng:"
-            userInput={recipientInput}
-            setInput={setRecipientInput}
+            userInput={consigneeInput}
+            setInput={setConsigneeInput}
           />
         </div>
       </div>
@@ -113,8 +112,8 @@ const OrderCreate = () => {
         <div className="flex justify-center mt-8">
           <div className="p-4 border border-black w-96 h-64">
             <ShippingLabel
-              shipperData={submittedData && submittedData.shipper}
-              recipientData={submittedData && submittedData.recipient}
+              consignorData={submittedData && submittedData.consignor}
+              consigneeData={submittedData && submittedData.consignee}
             />
             <div>{base64Value}</div>
             <div>

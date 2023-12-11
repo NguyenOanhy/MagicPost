@@ -20,19 +20,19 @@ export const ProductInputs = ({ name, userInput, setInput }) => {
         onChangeTwo={(e) =>
           setInput({ ...userInput, price: e.target.value })
         }
-        valueTwo={userInput.streetLine1}
+        valueTwo={userInput.price}
         //Product's type
         typeThree="text"
         placeholderThree="Loại hàng gửi"
         onChangeThree={(e) =>
           setInput({ ...userInput, type: e.target.value })
         }
-        valueThree={userInput.streetLine2}
+        valueThree={userInput.type}
         //Product's weight
         typeFour="text"
         placeholderFour="Khối lượng hàng gửi"
         onChangeFour={(e) => setInput({ ...userInput, weight: e.target.value })}
-        valueFour={userInput.city}
+        valueFour={userInput.weight}
       />
     </div>
   );
