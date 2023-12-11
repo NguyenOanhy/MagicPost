@@ -6,9 +6,10 @@ const path = {
     SIGNUP: '/signup',
     PRICESHIPPING: 'priceshipping',
     ORDERS: 'orders',
-    ORDERCREATE: 'orders/create',
+    ORDERCREATE: 'order-create',
     REPORTS: 'reports',
     MANAGEMENT: 'management',
+    PENDING: 'pending-order',
     
 }
 
