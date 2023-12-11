@@ -3,6 +3,7 @@ import { AddressInputs } from "./input/AddressInputs";
 import ShippingLabel from "./input/ShippingLabel";
 import { v4 as uuidv4 } from "uuid";
 import QRCode from "react-qr-code";
+import {addOrderToFirestore} from "../../firebase"
 
 const OrderCreate = () => {
   const [shipperInput, setShipperInput] = useState({
@@ -21,6 +22,15 @@ const OrderCreate = () => {
     state: "",
     zip: "",
   });
+  const [product, setProduct] = useState({
+    name: "ghế",
+    price: "100000"
+  });
+  const [shipping_detail, setShipperDetail] = useState({
+    shipping_price: "20000",
+    payment_method: "Trả bởi người gửi",
+    note: "Hàng dễ vỡ",
+  });
   const [submittedData, setSubmittedData] = useState(null);
   const [isValidData, setIsValidData] = useState(false);
   const [base64Value, setBase64Value] = useState("");
@@ -28,6 +38,7 @@ const OrderCreate = () => {
   const handleSubmit = () => {
     setIsValidData(true);
     convertUUIDtoBase64();
+    addOrderToFirestore(shipperInput, recipientInput, product, shipping_detail, "order");
     setSubmittedData({
       shipper: {
         name: shipperInput.name,

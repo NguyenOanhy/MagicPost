@@ -64,10 +64,6 @@ const getCurrentUserEmail = () => {
 
 //them data vao firebase
 const addDataToFirestore = async (m_name, m_content, m_image, dbName) => {
-  const minValue = 10;
-  const maxValue = 200;
-  // const randomLike = Math.floor(Math.random() * (maxValue - minValue) + minValue);
-  // const randomDislike = Math.floor(Math.random() * (maxValue - minValue) + minValue);
   try {
     const collectionRef = collection(db, dbName);
     const currentTimeStamp = new Date().getTime();
@@ -94,26 +90,18 @@ const addDataToFirestore = async (m_name, m_content, m_image, dbName) => {
 };
 
 //them user vao firebase
-const addUserToFirestore = async (m_name, m_phone, m_position, m_email, dbName) => {
-  // const minValue = 10;
-  // const maxValue = 200;
-  // const randomLike = Math.floor(Math.random() * (maxValue - minValue) + minValue);
-  // const randomDislike = Math.floor(Math.random() * (maxValue - minValue) + minValue);
+const addUserToFirestore = async (m_name, m_phone, m_position, m_birth, m_email, m_auth, dbName) => {
   try {
     const collectionRef = collection(db, dbName);
     const currentTimeStamp = new Date().getTime();
-    let m_uid = null;
-    if (auth.currentUser === null) {
-      m_uid = null;
-    } else {
-      m_uid = auth.currentUser.uid;
-    }
     const userRef = await addDoc(collectionRef, {
       name: m_name,
       phone: m_phone,
       position: m_position,
+      birth: m_birth,
       email: m_email,
       date: currentTimeStamp,
+      authority: m_auth
     });
     console.log("User ID: ", userRef.id);
   } catch (error) {
@@ -121,4 +109,21 @@ const addUserToFirestore = async (m_name, m_phone, m_position, m_email, dbName) 
   }
 };
 
-export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore};
+//them user vao firebase
+const addOrderToFirestore = async (m_consignor, m_consignee, m_product, m_shipping_detail, dbName) => {
+  try {
+    const collectionRef = collection(db, dbName);
+    const currentTimeStamp = new Date().getTime();
+    const userRef = await addDoc(collectionRef, {
+      consignor: m_consignee,
+      consignee: m_consignee,
+      product: m_product,
+      shipping_detail: m_shipping_detail
+    });
+    console.log("User ID: ", userRef.id);
+  } catch (error) {
+    console.error("Error adding document: ", error);
+  }
+};
+
+export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore};

@@ -9,6 +9,8 @@ function Signup() {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [positon, setPosition] = useState('');
+    const [birth, setBirth] = useState('');
+    const [authority, setAuthority] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -22,7 +24,7 @@ function Signup() {
         return;
       }
 
-      addUserToFirestore(name, phone, positon, email, "user");
+      addUserToFirestore(name, phone, positon, birth, email, authority, "user");
   
       // Create the user with email and password
       createUserWithEmailAndPassword(auth, email, password)
@@ -55,6 +57,17 @@ function Signup() {
             />
           </div>
           <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="birth">
+              Ngày sinh
+            </label>
+            <input
+              type="date"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Enter employee's position"
+              onChange={(e) => setBirth(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
               Số điện thoại
             </label>
@@ -69,11 +82,28 @@ function Signup() {
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="position">
               Chức vụ
             </label>
+            <select
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Enter employee's position"
+              onChange={(e) => setPosition(e.target.value)}
+            >
+              <option value="">Chọn chức vụ</option>
+              <option value="Lãnh đạo công ty">Lãnh đạo công ty</option>
+              <option value="Trưởng điểm tập kết">Trưởng điểm tập kết</option>
+              <option value="Trưởng điểm giao dịch">Trưởng điểm giao dịch</option>
+              <option value="Nhân viên tại điểm tập kết">Nhân viên tại điểm tập kết</option>
+              <option value="Nhân viên tại điểm giao dịch">Nhân viên tại điểm giao dịch</option>
+            </select>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="authority">
+              Quyền hạn
+            </label>
             <input
               type="text"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter employee's position"
-              onChange={(e) => setPosition(e.target.value)}
+              onChange={(e) => setAuthority(e.target.value)}
             />
           </div>
           <div className="mb-4">
