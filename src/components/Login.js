@@ -13,7 +13,7 @@ function Login() {
     event.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        navigate(path.PRIVATE);
+        navigate(path.PRIVATE + "/" + path.ORDERS);
       })
       .catch((error) => {
         window.alert("Email or password wrong");

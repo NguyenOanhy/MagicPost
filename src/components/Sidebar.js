@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import icons from '../utils/icons';
 
 const { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle, TbLayoutSidebarRightExpand, TbLayoutSidebarLeftExpand, GoHomeFill } = icons;
 
 const Sidebar = () => {
+  const location = useLocation();
   const [expanded, setExpanded] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0); // Mặc định chọn mục "Trang chủ"
+  const [activeIndex, setActiveIndex] = useState(0); // Default to the "Trang chủ" menu item
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -17,11 +18,6 @@ const Sidebar = () => {
   };
 
   const pages = [
-    {
-      name: 'Trang chủ',
-      path: '',
-      iconClass: <GoHomeFill size={30} />,
-    },
     {
       name: 'Đơn hàng',
       path: 'Orders',
@@ -45,11 +41,15 @@ const Sidebar = () => {
   ];
 
   useEffect(() => {
-    // Kiểm tra nếu đường dẫn hiện tại là '/private' thì chọn mục "Trang chủ"
-    if (window.location.pathname === '/private') {
-      setActiveIndex(0);
+    // Find the index of the current path in the pages array
+    const currentIndex = pages.findIndex(
+      (page) => location.pathname.includes(`/private/${page.path.toLowerCase()}`)
+    );
+
+    if (currentIndex !== -1) {
+      setActiveIndex(currentIndex);
     }
-  }, []);
+  }, [location]);
 
   return (
     <div className={`bg-gray-200 ${expanded ? 'w-48' : 'w-16'}`}>
@@ -64,7 +64,7 @@ const Sidebar = () => {
         {pages.map((page, index) => (
           <li key={index}>
             <NavLink
-              to={index === 0 ? '/private' : `/private/${page.path.toLowerCase()}`}
+              to={`/private/${page.path.toLowerCase()}`}
               className={`flex items-center space-x-2 px-4 py-2 text-gray-800 hover:bg-gray-300 ${
                 activeIndex === index ? 'bg-gray-300 text-gray-800' : ''
               }`}
