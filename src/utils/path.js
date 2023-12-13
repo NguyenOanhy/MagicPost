@@ -1,6 +1,7 @@
 const path = {
     PRIVATE: '/private',
-    HOME: '/',
+    PUBLIC: '/',
+    HOME: '',
     LOGIN: '/login',
     FORGOTPW: '/forgot-password',
     SIGNUP: '/signup',

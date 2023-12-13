@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import icons from '../utils/icons';
 
-const { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle, TbLayoutSidebarRightExpand, TbLayoutSidebarLeftExpand } = icons;
+const { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle, TbLayoutSidebarRightExpand, TbLayoutSidebarLeftExpand, GoHomeFill } = icons;
 
 const Sidebar = () => {
   const [expanded, setExpanded] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0); // Mặc định chọn mục "Trang chủ"
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -18,26 +18,38 @@ const Sidebar = () => {
 
   const pages = [
     {
-      name: 'Đơn hàng', // 'Orders
+      name: 'Trang chủ',
+      path: '',
+      iconClass: <GoHomeFill size={30} />,
+    },
+    {
+      name: 'Đơn hàng',
       path: 'Orders',
       iconClass: <FaBoxOpen size={30} />,
     },
     {
-      name: 'Thống kê', // 'Reports
+      name: 'Thống kê',
       path: 'Reports',
       iconClass: <FaClipboardList size={30} />,
     },
     {
-      name: 'Quản lý', // 'Management
+      name: 'Quản lý',
       path: 'Management',
       iconClass: <FaUsers size={30} />,
     },
     {
-      name: 'Cước phí', // 'PriceShipping
+      name: 'Cước phí',
       path: 'PriceShipping',
       iconClass: <FaInfoCircle size={30} />,
     },
   ];
+
+  useEffect(() => {
+    // Kiểm tra nếu đường dẫn hiện tại là '/private' thì chọn mục "Trang chủ"
+    if (window.location.pathname === '/private') {
+      setActiveIndex(0);
+    }
+  }, []);
 
   return (
     <div className={`bg-gray-200 ${expanded ? 'w-48' : 'w-16'}`}>
@@ -52,7 +64,7 @@ const Sidebar = () => {
         {pages.map((page, index) => (
           <li key={index}>
             <NavLink
-              to={{ pathname: `/private/${page.path.toLowerCase()}` }}
+              to={index === 0 ? '/private' : `/private/${page.path.toLowerCase()}`}
               className={`flex items-center space-x-2 px-4 py-2 text-gray-800 hover:bg-gray-300 ${
                 activeIndex === index ? 'bg-gray-300 text-gray-800' : ''
               }`}
