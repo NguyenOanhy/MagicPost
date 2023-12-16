@@ -1,38 +1,44 @@
 import React from "react";
-import { InputFourStacksForm } from "./InputForm";
+import { Input } from "./Input";
 
 export const ShippingInputs = ({ name, userInput, setInput }) => {
   const eachInputBox = {
     //style the div that contains all the six stacks of inputs
+    marginLeft: '1.5rem'
   };
   return (
     <div style={eachInputBox}>
-      <h1>{name}</h1>
-      <InputFourStacksForm
+      <h2 className="font-bold border-t-0 border-r-0 border-b border-l-0 border-solid pb-2 mb-2" style={{fontSize:'19px', color: '#4991FC', borderColor: '#3780ED'}}>{name}</h2>
+      <Input
         //shipping_price
-        typeOne="text"
-        placeholderOne="Cước phí vận chuyển"
+        type="text"
+        placeholder="Cước phí vận chuyển"
         onChangeOne={(e) => setInput({ ...userInput, shipping_price: e.target.value })}
-        valueOne={userInput.name}
+        value={userInput.shipping_price}
+      />
+      <Input
         //payment_method
-        typeTwo="text"
-        placeholderTwo="Hình thức thanh toán"
-        onChangeTwo={(e) =>
+        type="text"
+        placeholder="Hình thức thanh toán"
+        onChange={(e) =>
           setInput({ ...userInput, payment_method: e.target.value })
         }
-        valueTwo={userInput.payment_method}
-        //date
-        typeThree="date"
-        placeholderThree="Ngày nhận đơn"
-        onChangeThree={(e) =>
-          setInput({ ...userInput, date: e.target.value })
-        }
-        valueThree={userInput.date}
+        value={userInput.payment_method}
+      />
+      <input
+        type="date"
+        className="w-96 h-12 border border-solid border-gray-300 p-2 mt-2 mb-0.5 mr-4 rounded-lg"
+        style={{borderColor: '#4991FC'}}
+        placeholder="Ngày nhận đơn"
+        onChange={(e) => setInput({ ...userInput, date: e.target.value })}
+        value={userInput.date}
+      />
+      <Input
         //note
-        typeFour="text"
-        placeholderFour="Ghi chú"
-        onChangeFour={(e) => setInput({ ...userInput, note: e.target.value })}
-        valueFour={userInput.note}
+        type="text"
+        placeholder="Ghi chú"
+        onChange={(e) => setInput({ ...userInput, note: e.target.value })}
+        value={userInput.note}
       />
     </div>
   );

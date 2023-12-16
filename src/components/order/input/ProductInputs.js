@@ -1,38 +1,45 @@
 import React from "react";
-import { InputFourStacksForm } from "./InputForm";
+import { Input } from "./Input";
 
 export const ProductInputs = ({ name, userInput, setInput }) => {
   const eachInputBox = {
     //style the div that contains all the six stacks of inputs
+    marginLeft: '1.5rem'
   };
   return (
     <div style={eachInputBox}>
-      <h1>{name}</h1>
-      <InputFourStacksForm
+      <h2 className="font-bold border-t-0 border-r-0 border-b border-l-0 border-solid pb-2 mb-2" style={{fontSize:'19px', color: '#4991FC', borderColor: '#4991FC'}}>{name}</h2>
+      <Input
         //Product's name
-        typeOne="text"
-        placeholderOne="Tên hàng gửi"
-        onChangeOne={(e) => setInput({ ...userInput, name: e.target.value })}
-        valueOne={userInput.name}
+        type="text"
+        placeholder="Tên hàng gửi"
+        onChange={(e) => setInput({ ...userInput, name: e.target.value })}
+        value={userInput.name}
+      />
+      <Input
         //Product's price
-        typeTwo="text"
-        placeholderTwo="Giá trị hàng gửi"
-        onChangeTwo={(e) =>
+        type="text"
+        placeholder="Giá trị hàng gửi"
+        onChange={(e) =>
           setInput({ ...userInput, price: e.target.value })
         }
-        valueTwo={userInput.price}
+        value={userInput.price}
+      />
+      <Input
         //Product's type
-        typeThree="text"
-        placeholderThree="Loại hàng gửi"
-        onChangeThree={(e) =>
+        type="text"
+        placeholder="Loại hàng gửi"
+        onChange={(e) =>
           setInput({ ...userInput, type: e.target.value })
         }
-        valueThree={userInput.type}
+        value={userInput.type}
+      />
+      <Input
         //Product's weight
-        typeFour="text"
-        placeholderFour="Khối lượng hàng gửi"
-        onChangeFour={(e) => setInput({ ...userInput, weight: e.target.value })}
-        valueFour={userInput.weight}
+        type="text"
+        placeholder="Khối lượng hàng gửi"
+        onChange={(e) => setInput({ ...userInput, weight: e.target.value })}
+        value={userInput.weight}
       />
     </div>
   );
