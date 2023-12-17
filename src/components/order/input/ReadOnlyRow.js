@@ -9,20 +9,26 @@ const ReadOnlyRow = ({ contact, handleConfirmClick }) => {
   };
 
   return (
-    <tr>
-      <td>{contact.fullName}</td>
+    <tr className="border-separate shadow-lg">
+      <td className="py-2">{contact.fullName}</td>
       <td>{contact.address}</td>
       <td>{contact.phoneNumber}</td>
       <td>{contact.email}</td>
       <td>{confirmed ? "Done" : "Pending"}</td>
       <td>
         {confirmed ? (
-          <span className="text-green-500">Confirmed</span>
+          // <span className="bg-green-100">Deliveried</span>
+          <button
+            type="button"
+            className=" bg-green-100 text-white px-4 rounded-full w-28 items-center"
+          >
+            Deliveried
+          </button>
         ) : (
           <button
             type="button"
             onClick={handleConfirm}
-            className="bg-blue-500 text-white px-4 py-2 rounded"
+            className=" bg-main-400 text-white px-4 rounded-full w-28 items-center"
           >
             Confirm
           </button>

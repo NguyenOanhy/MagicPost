@@ -82,10 +82,10 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className={`bg-gray-200 ${expanded ? 'w-48' : 'w-16'} flex flex-col justify-between`}>
+    <div className={`bg-main-300  text-white ${expanded ? 'w-48' : 'w-16'} flex flex-col justify-between`}>
       <ul className="space-y-2">
         <div
-          className="flex px-4 py-2 text-gray-800 hover:bg-gray-300"
+          className="flex px-4 py-2 text-white hover:bg-white hover:text-main-300"
           onClick={toggleExpand}
           role="button"
         >
@@ -95,8 +95,8 @@ const Sidebar = () => {
           <li key={index}>
             <NavLink
               to={`/private/${page.path.toLowerCase()}`}
-              className={`flex items-center space-x-2 px-4 py-2 text-gray-800 hover:bg-gray-300 ${
-                activeIndex === index ? 'bg-gray-300 text-gray-800' : ''
+              className={`flex items-center space-x-2 px-4 py-2 hover:bg-white hover:text-main-300 ${
+                activeIndex === index ? 'bg-white text-main-300' : ''
               }`}
               activeClassName="bg-gray-300 text-gray-800"
               onClick={() => handleItemClick(index)}

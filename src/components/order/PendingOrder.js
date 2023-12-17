@@ -18,17 +18,17 @@ const PendingOrder = () => {
   };
 
   return (
-    <div className="app-container flex flex-col gap-10 p-4 text-base">
+    <div className="app-container flex flex-col gap-10 text-base">
       <form onSubmit={handleConfirmClick}>
         <table className="w-full border-collapse">
           <thead>
-            <tr>
-              <th className="border bg-blue-400">Name</th>
-              <th className="border bg-blue-400">Address</th>
-              <th className="border bg-blue-400">Phone Number</th>
-              <th className="border bg-blue-400">Email</th>
-              <th className="border bg-blue-400">Status</th>  
-              <th className="border bg-blue-400">Actions</th>
+            <tr className="rounded-lg shadow-lg">
+              <th className="border bg-main-300">Name</th>
+              <th className="border bg-main-300">Address</th>
+              <th className="border bg-main-300">Phone Number</th>
+              <th className="border bg-main-300">Email</th>
+              <th className="border bg-main-300">Status</th>  
+              <th className="border bg-main-300">Actions</th>
             </tr>
           </thead>
           <tbody>

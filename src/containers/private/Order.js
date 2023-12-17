@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PendingOrder from '../../components/order/PendingOrder';
 import OrderCreate from '../../components/order/OrderCreate';
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 const Order = () => {
   const [showPendingOrder, setShowPendingOrder] = useState(true);
@@ -17,7 +19,24 @@ const Order = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="w-full flex flex-col">
+         <Tabs defaultIndex={0}>
+          <TabList>
+            <Tab onClick={handlePendingOrderClick}>Đơn Hàng Đang chờ</Tab>
+            <Tab onClick={handleOrderCreateClick}>Tạo đơn hàng</Tab>
+          </TabList>
+          <TabPanel>
+            <div className='mx-36 mt-10'>
+            {showPendingOrder && <PendingOrder />}
+            </div>
+          </TabPanel> 
+          <TabPanel>
+          <div className='mx-36 mt-10'>
+            {showOrderCreate && <OrderCreate />}
+            </div>
+          </TabPanel>
+        </Tabs> 
+    {/* <div className="flex flex-col items-center">
       <div className="mb-4">
         <button
           onClick={handlePendingOrderClick}
@@ -33,9 +52,9 @@ const Order = () => {
         >
           Tạo đơn hàng
         </button>
-      </div>
+      </div> 
       {showPendingOrder && <PendingOrder />}
-      {showOrderCreate && <OrderCreate />}
+      {showOrderCreate && <OrderCreate />}*/}
     </div>
   );
 };

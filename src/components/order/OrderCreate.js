@@ -91,7 +91,7 @@ const OrderCreate = () => {
     <div>
       <div className="flex justify-center mt-5 ml-1">
       <div className="w-5/6 border border-gray-300 p-4 rounded-lg" >
-          <h2 className="mt-5 text-center text-xl font-bold mb-3" style={{color: '#4991FC', fontSize: '30px'}}>TẠO ĐƠN HÀNG MỚI</h2>
+          <h2 className="mt-5 text-center text-xl font-bold mb-3 text-main-300" style={{fontSize: '30px'}}>TẠO ĐƠN HÀNG MỚI</h2>
             <div className="flex justify-center p-4">
               <AddressInputs
                 name="Người Gửi"
@@ -125,8 +125,7 @@ const OrderCreate = () => {
           {/* </div> */}
           <div className="flex justify-center mt-8">
             <button
-              className="px-6 py-3 text-lg font-semibold text-white rounded-lg"
-              style={{backgroundColor:'#4991FC'}}
+              className="px-6 py-3 text-lg font-semibold text-white rounded-lg bg-main-300"
               onClick={handleSubmit}
             >
               TẠO ĐƠN HÀNG
