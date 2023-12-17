@@ -6,7 +6,9 @@ const AddressLabel = ({
   name,
   phone,
   address,
-  area,
+  city,
+  district,
+  ward,
   postcode,
 }) => {
   const eachLine = {
@@ -17,7 +19,7 @@ const AddressLabel = ({
       <p style={eachLine.styleLineHeight}>{name}</p>
       <p style={eachLine.styleLineHeight}>{phone}</p>
       <p style={eachLine.styleLineHeight}>
-        {address}, {area}
+        {address}, {ward}, {district}, {city},
       </p>
       <p style={eachLine.styleLineHeight}>{postcode}</p>
     </div>

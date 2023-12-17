@@ -24,7 +24,9 @@ const ShippingLabel = ({ consignorData, consigneeData }) => {
           name={consignorData.name}
           phone={consignorData.phone}
           address={consignorData.address}
-          area={consignorData.area}
+          city={consignorData.city}
+          district={consignorData.district}
+          ward={consignorData.ward}
           postcode={consignorData.postcode}
           setLineHeight=".5rem"
         />
@@ -33,7 +35,9 @@ const ShippingLabel = ({ consignorData, consigneeData }) => {
           name={consigneeData.name}
           phone={consigneeData.phone}
           address={consigneeData.address}
-          area={consigneeData.area}
+          city={consigneeData.city}
+          district={consigneeData.district}
+          ward={consigneeData.ward}
           postcode={consigneeData.postcode}
           style={shippingAddressStyles.receipientStyle}
           setLineHeight="1rem"

@@ -12,7 +12,9 @@ const OrderCreate = () => {
     name: "",
     phone: "",
     address: "",
-    area: "",
+    city: "",
+    district: "",
+    ward: "",
     postcode: "",
     email: "",
   });
@@ -20,7 +22,9 @@ const OrderCreate = () => {
     name: "",
     phone: "",
     address: "",
-    area: "",
+    city: "",
+    district: "",
+    ward: "",
     postcode: "",
     email: "",
   });
@@ -36,20 +40,31 @@ const OrderCreate = () => {
     date: "",
     note: "",
   });
+  const [path, setPath] = useState({
+    start_trans_point: "",
+    start_hub: "",
+    end_trans_point: "",
+    end_hub: "",
+  });
+  const [status, setStatus] = useState(['1', '0', '0', '0']);
   const [submittedData, setSubmittedData] = useState(null);
   const [isValidData, setIsValidData] = useState(false);
   const [base64Value, setBase64Value] = useState("");
+  const [orderId, setOrderId] = useState("")
 
   const handleSubmit = () => {
     setIsValidData(true);
     convertUUIDtoBase64();
-    addOrderToFirestore(consignorInput, consigneeInput, productInput, shippingDetailInput, "order");
+    const id = addOrderToFirestore(consignorInput, consigneeInput, productInput, shippingDetailInput, path, status, "order");
+    setOrderId(id);
     setSubmittedData({
       consignor: {
         name: consignorInput.name,
         phone: consignorInput.phone,
         address: consignorInput.address,
-        area: consignorInput.area,
+        city: consignorInput.city,
+        district: consignorInput.district,
+        ward: consignorInput.ward,
         postcode: consignorInput.postcode,
         email: consignorInput.email
       },
@@ -57,14 +72,16 @@ const OrderCreate = () => {
         name: consigneeInput.name,
         phone: consigneeInput.phone,
         address: consigneeInput.address,
-        area: consigneeInput.area,
+        city: consigneeInput.city,
+        district: consigneeInput.district,
+        ward: consigneeInput.ward,
         postcode: consigneeInput.postcode,
         email: consigneeInput
       },
     });
   };
 
-  const convertUUIDtoBase64 = () => {
+  const convertUUIDtoBase64 = (i ) => {
     const base64 = require("uuid-base64");
     const id = base64.encode(uuidv4());
     setBase64Value(id);

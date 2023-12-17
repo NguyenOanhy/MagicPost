@@ -107,17 +107,20 @@ const addUserToFirestore = async (m_name, m_phone, m_position, m_birth, m_email,
 };
 
 //them user vao firebase
-const addOrderToFirestore = async (m_consignor, m_consignee, m_product, m_shipping_detail, dbName) => {
+const addOrderToFirestore = async (m_consignor, m_consignee, m_product, m_shipping_detail, m_path, m_status, dbName) => {
   try {
     const collectionRef = collection(db, dbName);
     //const currentTimeStamp = new Date().getTime();
-    const userRef = await addDoc(collectionRef, {
+    const orderRef = await addDoc(collectionRef, {
       consignor: m_consignor,
       consignee: m_consignee,
       product: m_product,
-      shipping_detail: m_shipping_detail
+      shipping_detail: m_shipping_detail,
+      path: m_path,
+      status: m_status
     });
-    console.log("Order ID: ", userRef.id);
+    console.log("Order ID: ", orderRef.id);
+    return orderRef.id;
   } catch (error) {
     console.error("Error adding document: ", error);
   }
