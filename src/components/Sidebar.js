@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import icons from '../utils/icons';
+import { auth, getCurrentUserEmail } from '../firebase';
+import path from '../utils/path';
 
-const { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle, TbLayoutSidebarRightExpand, TbLayoutSidebarLeftExpand, GoHomeFill } = icons;
+const { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle, TbLayoutSidebarRightExpand, TbLayoutSidebarLeftExpand, GoHomeFill, FaRegUser } = icons;
 
 const Sidebar = () => {
   const location = useLocation();
   const [expanded, setExpanded] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0); // Default to the "Trang chủ" menu item
+  const [userEmail, setUserEmail] = useState('');
+  const navigate = useNavigate();
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -15,6 +19,16 @@ const Sidebar = () => {
 
   const handleItemClick = (index) => {
     setActiveIndex(index);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      console.log('User logged out successfully.');
+      navigate(path.PUBLIC);
+    } catch (error) {
+      console.log("Error signing out", error.message);
+    }
   };
 
   const pages = [
@@ -51,16 +65,32 @@ const Sidebar = () => {
     }
   }, [location]);
 
+  useEffect(() => {
+    const fetchUserEmail = async () => {
+      const email = await getCurrentUserEmail();
+      setUserEmail(email);
+      sessionStorage.setItem('userEmail', email); // Store the user email in sessionStorage
+    };
+
+    const storedUserEmail = sessionStorage.getItem('userEmail'); // Retrieve the user email from sessionStorage
+
+    if (storedUserEmail) {
+      setUserEmail(storedUserEmail);
+    } else {
+      fetchUserEmail();
+    }
+  }, []);
+
   return (
-    <div className={`bg-gray-200 ${expanded ? 'w-48' : 'w-16'}`}>
-      <div
-        className="flex px-4 py-2 text-gray-800 hover:bg-gray-300"
-        onClick={toggleExpand}
-        role="button"
-      >
-        {expanded ? <TbLayoutSidebarLeftExpand size={30} /> : <TbLayoutSidebarRightExpand size={30} />}
-      </div>
+    <div className={`bg-gray-200 ${expanded ? 'w-48' : 'w-16'} flex flex-col justify-between`}>
       <ul className="space-y-2">
+        <div
+          className="flex px-4 py-2 text-gray-800 hover:bg-gray-300"
+          onClick={toggleExpand}
+          role="button"
+        >
+          {expanded ? <TbLayoutSidebarLeftExpand size={30} /> : <TbLayoutSidebarRightExpand size={30} />}
+        </div>
         {pages.map((page, index) => (
           <li key={index}>
             <NavLink
@@ -76,6 +106,12 @@ const Sidebar = () => {
             </NavLink>
           </li>
         ))}
+      </ul>
+      <ul className="flex px-4 py-4 space-x-2">
+        <NavLink to={`/private/profile`} className="flex items-center">
+          <FaRegUser size={30} />
+          <p className='text-base px-2 py-2'>{userEmail}</p>
+        </NavLink>
       </ul>
     </div>
   );

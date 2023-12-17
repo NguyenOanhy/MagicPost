@@ -1,5 +1,5 @@
 import { CiSearch } from "react-icons/ci";
-import { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle } from "react-icons/fa";
+import { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle, FaRegUser } from "react-icons/fa";
 import { TbLayoutSidebarLeftExpand, TbLayoutSidebarRightExpand } from "react-icons/tb"
 import { GoHomeFill } from "react-icons/go";
 
@@ -11,6 +11,7 @@ const icons = {
    FaInfoCircle,
    TbLayoutSidebarLeftExpand,
    TbLayoutSidebarRightExpand,
-   GoHomeFill
+   GoHomeFill,
+   FaRegUser
 }
 export default icons

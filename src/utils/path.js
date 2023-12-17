@@ -8,6 +8,7 @@ const path = {
     ORDERS: 'orders',
     REPORTS: 'reports',
     MANAGEMENT: 'management',
+    PROFILE: 'profile',
     
 }
 

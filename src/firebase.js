@@ -3,7 +3,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from  "firebase/auth";
 import { getStorage} from 'firebase/storage';
-import { getFirestore, doc, getDoc, addDoc, collection} from "firebase/firestore";
+import { getFirestore, doc, getDoc, getDocs, addDoc, collection, query, where} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCVN0qideIoZHsfEgppqT5gUHzAv_yEdfI",
@@ -20,6 +20,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage();
+const firestore = getFirestore(app);
 
 
 const getDocumentById = async (documentId, dbName) => {
@@ -43,6 +44,7 @@ const getDocumentById = async (documentId, dbName) => {
 };
 
 
+
 const getCurrentUser = () => {
   try {
     return auth.currentUser;
@@ -61,6 +63,7 @@ const getCurrentUserEmail = () => {
     return null;
   }
 };
+
 
 //them data vao firebase
 const addDataToFirestore = async (m_name, m_content, m_image, dbName) => {

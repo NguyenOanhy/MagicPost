@@ -1,7 +1,7 @@
 import React from "react";
 import { Login, Signup, Forgotpassword } from "./components";
 import { Public } from "./containers/public";
-import { Private, PriceShipping, Management, Reports, Order } from "./containers/private";
+import { Private, PriceShipping, Management, Reports, Order, Profile } from "./containers/private";
 import { Routes, Route } from "react-router-dom";
 import path from "./utils/path";
 
@@ -19,6 +19,7 @@ export default function App() {
           <Route path={path.PRICESHIPPING} element={<PriceShipping/>} />
           <Route path={path.MANAGEMENT} element={<Management/>} />
           <Route path={path.REPORTS} element={<Reports/>} />
+          <Route path={path.PROFILE} element={<Profile/>} />
         </Route>
     </Routes>
     </>
