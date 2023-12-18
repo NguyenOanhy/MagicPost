@@ -26,12 +26,12 @@ const Order = () => {
             <Tab onClick={handleOrderCreateClick}>Tạo đơn hàng</Tab>
           </TabList>
           <TabPanel>
-            <div className='mx-36 mt-10'>
+            <div className='mx-36 mt-4'>
             {showPendingOrder && <PendingOrder />}
             </div>
           </TabPanel> 
           <TabPanel>
-          <div className='mx-36 mt-10'>
+          <div className='mx-36 mt-4'>
             {showOrderCreate && <OrderCreate />}
             </div>
           </TabPanel>

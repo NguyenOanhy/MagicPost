@@ -12,6 +12,6 @@ const icons = {
    TbLayoutSidebarLeftExpand,
    TbLayoutSidebarRightExpand,
    GoHomeFill,
-   FaRegUser
+   FaRegUser,
 }
 export default icons

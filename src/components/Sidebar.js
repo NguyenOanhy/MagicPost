@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import icons from '../utils/icons';
-import { auth, getCurrentUserEmail } from '../firebase';
-import path from '../utils/path';
+import {getCurrentUserEmail } from '../firebase';
 
 const { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle, TbLayoutSidebarRightExpand, TbLayoutSidebarLeftExpand, GoHomeFill, FaRegUser } = icons;
 
@@ -11,7 +10,6 @@ const Sidebar = () => {
   const [expanded, setExpanded] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0); // Default to the "Trang chủ" menu item
   const [userEmail, setUserEmail] = useState('');
-  const navigate = useNavigate();
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -19,16 +17,6 @@ const Sidebar = () => {
 
   const handleItemClick = (index) => {
     setActiveIndex(index);
-  };
-
-  const handleLogout = async () => {
-    try {
-      await auth.signOut();
-      console.log('User logged out successfully.');
-      navigate(path.PUBLIC);
-    } catch (error) {
-      console.log("Error signing out", error.message);
-    }
   };
 
   const pages = [
@@ -81,6 +69,10 @@ const Sidebar = () => {
     }
   }, []);
 
+  const handleProfileClick = () => {
+    setActiveIndex(-1);
+  };
+
   return (
     <div className={`bg-main-300  text-white ${expanded ? 'w-48' : 'w-16'} flex flex-col justify-between`}>
       <ul className="space-y-2">
@@ -89,7 +81,7 @@ const Sidebar = () => {
           onClick={toggleExpand}
           role="button"
         >
-          {expanded ? <TbLayoutSidebarLeftExpand size={30} /> : <TbLayoutSidebarRightExpand size={30} />}
+          {expanded ? <TbLayoutSidebarRightExpand size={30} /> : <TbLayoutSidebarLeftExpand size={30} />}
         </div>
         {pages.map((page, index) => (
           <li key={index}>
@@ -108,9 +100,11 @@ const Sidebar = () => {
         ))}
       </ul>
       <ul className="flex px-4 py-4 space-x-2">
-        <NavLink to={`/private/profile`} className="flex items-center">
+        <NavLink to={`/private/profile`} 
+          className="flex items-center" 
+          onClick={handleProfileClick}  >
           <FaRegUser size={30} />
-          <p className='text-base px-2 py-2'>{userEmail}</p>
+          {expanded && <p className='text-base px-2 py-2'>{userEmail}</p>}
         </NavLink>
       </ul>
     </div>
