@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getOrdersFromFirestore } from "../../firebase";
+import { getOrdersFromFirestore, updateStatusAtIndex } from "../../firebase";
 
 const PendingOrder = () => {
   const [orders, setOrders] = useState([]);
@@ -14,10 +14,15 @@ const PendingOrder = () => {
     fetchOrders();
   }, []);
 
-  const handleStatusChange = (orderId, newStatus) => {
-    const updatedOrders = orders.map((order) =>
-      order.id === orderId ? { ...order, status: newStatus } : order
-    );
+  const handleStatusChange = async (orderId, index) => {
+    await updateStatusAtIndex(orderId, index);
+    const updatedOrders = orders.map((order) => {
+      if (order.id === orderId) {
+        const updatedStatus = [...order.status]; // Tạo một bản sao mới của mảng status
+        updatedStatus[index] = "1"; // Sửa giá trị tại vị trí index
+        console.log("Success!")
+      }
+    });
 
     setOrders(updatedOrders);
     setEditingOrderId(null); // Reset editingOrderId after changing the status
@@ -31,13 +36,19 @@ const PendingOrder = () => {
     setEditingOrderId(null);
   };
 
-  const officeTest = (office, orderPath) => {
+  const countDashesBeforeOffice = (office, orderPath) => {
     if (orderPath) {
-      return orderPath.includes(office);
+      const index = orderPath.indexOf(office);
+      if (index !== -1) {
+        const substringBeforeOffice = orderPath.substring(0, index);
+        console.log(substringBeforeOffice.split("-").length - 1)
+        return substringBeforeOffice.split("-").length - 1;
+      } 
     }
     console.log("orderPath is undefined or null.");
-    return false;
+    return -1;
   };
+
 
   return (
     <div className="app-container flex flex-col gap-10 text-base">
@@ -56,7 +67,9 @@ const PendingOrder = () => {
         </thead>
         <tbody>
           {orders.map((order) => {
-            if (officeTest("Quảng Ninh", order?.path) && order.id !== "total") {
+            const index = countDashesBeforeOffice("Hà Nội Hub", order?.path);
+            //if (order.status[index] !== 0) {console.log(order.status[index]);}
+            if ( index !== -1 && order.status[index] !== "1" && order.id !== "total") {
               return (
                 <tr key={order.id}>
                   <td className="border p-2">{order.id}</td>
@@ -74,10 +87,10 @@ const PendingOrder = () => {
                       <select
                         className="w-full"
                         value={order.status}
-                        onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                        onChange={(e) => handleStatusChange(order.id, index)}
                       >
-                        <option value="accept">Accept</option>
-                        <option value="not accept">Not Accept</option>
+                        <option value="Accept">Accept</option>
+                        <option value="Not Accept">Not Accept</option>
                       </select>
                     ) : (
                       order.status // Display the current status when not in edit mode

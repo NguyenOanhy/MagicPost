@@ -177,4 +177,22 @@ const getOrdersFromFirestore = async () => {
   }
 };
 
-export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore};
+const updateStatusAtIndex = async (orderId, index) => {
+  try {
+    const orderRef = doc(db, "order", orderId);
+
+    // Get the current document
+    const orderSnapshot = await getDoc(orderRef);
+    const updatedData = orderSnapshot.data().status;
+
+    // Modify the status array
+    updatedData[index] = "1";
+    await updateDoc(orderRef, { status: updatedData });
+    console.log("Successfully updated")
+  } catch (error) {
+    console.error("Error updating document: ", error);
+  }
+};
+
+
+export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore, updateStatusAtIndex};
