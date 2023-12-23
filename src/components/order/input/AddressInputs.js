@@ -38,7 +38,7 @@ export const AddressInputs = ({ name, userInput, setInput }) => {
   
     try {
       const data = await getDocumentById(cleanedCityName, 'trans_point');
-      setInput({ ...userInput, city: cityName, postcode: data.postcode });
+      setInput({ ...userInput, city: cityName, postcode: data.postcode, hub: data.hub});
       console.log(data);
   
       if (cityCode !== '') {

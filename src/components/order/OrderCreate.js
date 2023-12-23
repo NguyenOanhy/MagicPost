@@ -21,6 +21,7 @@ const OrderCreate = () => {
     district: "",
     ward: "",
     postcode: "",
+    hub: "",
   });
   const [consigneeInput, setConsigneeInput] = useState({
     name: "",
@@ -30,6 +31,7 @@ const OrderCreate = () => {
     district: "",
     ward: "",
     postcode: "",
+    hub: "",
   });
   const [productInput, setProductInput] = useState({
     name: "",
@@ -43,12 +45,7 @@ const OrderCreate = () => {
     date: "",
     note: "",
   });
-  const [path, setPath] = useState({
-    start_trans_point: "",
-    start_hub: "",
-    end_trans_point: "",
-    end_hub: "",
-  })
+  const [path, setPath] = useState("");
   const [log, setLog] = useState([
     {
       createdTime: formattedDateTime,
@@ -79,8 +76,14 @@ const OrderCreate = () => {
   const handleSubmit = () => {
     setIsValidData(true);
     convertUUIDtoBase64();
+    const cleanedCityName1 = consignorInput.city.replace('Tỉnh ', '').replace('Thành phố ', '');
+    const cleanedCityName2 = consigneeInput.city.replace('Tỉnh ', '').replace('Thành phố ', '');
+    const pathString = `${cleanedCityName1} - ${consignorInput.hub} - ${consigneeInput.hub} - ${cleanedCityName2}`;
+    // Set giá trị pathString
+    console.log(pathString);
+    //setPath(pathString);
     //orderCount();
-    addOrderToFirestore(orderId, consignorInput, consigneeInput, productInput, shippingDetailInput, path, status, log, "order");
+    addOrderToFirestore(orderId, consignorInput, consigneeInput, productInput, shippingDetailInput, pathString, status, log, "order");
     //setOrderId(id);
     updateOrderCount(parseInt(orderId));
     setSubmittedData({

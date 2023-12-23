@@ -15,12 +15,9 @@ const PendingOrder = () => {
   }, []);
 
   const handleStatusChange = (orderId, newStatus) => {
-    const updatedOrders = orders.map((order) => {
-      if (order.id === orderId) {
-        return { ...order, status: newStatus };
-      }
-      return order;
-    });
+    const updatedOrders = orders.map((order) =>
+      order.id === orderId ? { ...order, status: newStatus } : order
+    );
 
     setOrders(updatedOrders);
     setEditingOrderId(null); // Reset editingOrderId after changing the status
@@ -32,6 +29,14 @@ const PendingOrder = () => {
 
   const handleDoneClick = () => {
     setEditingOrderId(null);
+  };
+
+  const officeTest = (office, orderPath) => {
+    if (orderPath) {
+      return orderPath.includes(office);
+    }
+    console.log("orderPath is undefined or null.");
+    return false;
   };
 
   return (
@@ -50,45 +55,48 @@ const PendingOrder = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
-            order.id !== "total" && (
-              <tr key={order.id}>
-                <td className="border p-2">{order.id}</td>
-                <td className="border p-2">
-                  {order.consignor?.name} - {order.consignor?.phone}
-                </td>
-                <td className="border p-2">
-                  {order.consignee?.name} - {order.consignee?.phone}
-                </td>
-                <td className="border p-2">{order.consignor?.postcode}</td>
-                <td className="border p-2">{order.consignee?.postcode}</td>
-                <td className="border p-2">{order.shipping_detail?.date}</td>
-                <td className="border p-2">
-                  {editingOrderId === order.id ? (
-                    <select
-                      className="w-full"
-                      value={order.status}
-                      onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                    >
-                      <option value="accept">Accept</option>
-                      <option value="not accept">Not Accept</option>
-                    </select>
-                  ) : (
-                    order.status // Display the current status when not in edit mode
-                  )}
-                </td>
-                <td className="border p-2">
-                  {editingOrderId === order.id ? (
-                    <button onClick={handleDoneClick}>Done</button>
-                  ) : (
-                    <button onClick={() => handleEditClick(order.id)}>
-                      Edit
-                    </button>
-                  )}
-                </td>
-              </tr>
-            )
-          ))}
+          {orders.map((order) => {
+            if (officeTest("Quảng Ninh", order?.path) && order.id !== "total") {
+              return (
+                <tr key={order.id}>
+                  <td className="border p-2">{order.id}</td>
+                  <td className="border p-2">
+                    {order.consignor?.name} - {order.consignor?.phone}
+                  </td>
+                  <td className="border p-2">
+                    {order.consignee?.name} - {order.consignee?.phone}
+                  </td>
+                  <td className="border p-2">{order.consignor?.postcode}</td>
+                  <td className="border p-2">{order.consignee?.postcode}</td>
+                  <td className="border p-2">{order.shipping_detail?.date}</td>
+                  <td className="border p-2">
+                    {editingOrderId === order.id ? (
+                      <select
+                        className="w-full"
+                        value={order.status}
+                        onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                      >
+                        <option value="accept">Accept</option>
+                        <option value="not accept">Not Accept</option>
+                      </select>
+                    ) : (
+                      order.status // Display the current status when not in edit mode
+                    )}
+                  </td>
+                  <td className="border p-2">
+                    {editingOrderId === order.id ? (
+                      <button onClick={handleDoneClick}>Done</button>
+                    ) : (
+                      <button onClick={() => handleEditClick(order.id)}>
+                        Edit
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              );
+            }
+            return null;
+          })}
         </tbody>
       </table>
     </div>
