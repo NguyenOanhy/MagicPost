@@ -31,32 +31,7 @@ export const AddressInputs = ({ name, userInput, setInput }) => {
     const api = `${host}d/${districtCode}?depth=2`;
     callAPI(api, (data) => setWards(data.wards || []));
   };
-  // const handleCityChange = cal (e) => {
-  //   const [cityCode, cityName] = e.target.value.split('|');
-  //   const cleanedCityName = cityName.replace('Tỉnh ', '').replace('Thành phố ', '');
-  //   const data = await getDocumentById(cleanedCityName, 'trans_point');
-  //   setInput({ ...userInput, city: cityName, postcode: data.postcode });
-  //   if (cityCode !== '') {
-  //     callApiDistrict(cityCode);
-  //   }
-  //   console.log(data);
-  // };
-
-  // useEffect to run handleCityChange only when e.target.value changes
-  // useEffect(() => {
-  //   handleCityChange();
-  // }, [userInput]);
-  // const handleCityChange = (value) => {
-  //   const [cityCode, cityName] = value.split('|');
-  //   const cleanedCityName = cityName.replace('Tỉnh ', '').replace('Thành phố ', '');
-  //   const data = getDocumentById(cleanedCityName, 'trans_point');
-  //   setInput({ ...userInput, city: cityName, postcode: data.postcode });
-  //   console.log(data);
-  //   //setInput({ ...userInput, city: cityName });
-  //   if (cityCode !== '') {
-  //     callApiDistrict(cityCode);
-  //   }
-  // };
+  
   const handleCityChange = async (value) => {
     const [cityCode, cityName] = value.split('|');
     const cleanedCityName = cityName.replace('Tỉnh ', '').replace('Thành phố ', '');

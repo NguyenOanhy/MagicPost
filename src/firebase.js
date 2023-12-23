@@ -3,7 +3,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from  "firebase/auth";
 import { getStorage} from 'firebase/storage';
-import { getFirestore, doc, getDoc, getDocs, addDoc, collection, query, where} from "firebase/firestore";
+import { getFirestore, doc, getDoc, getDocs, addDoc, collection, query, where, setDoc, updateDoc} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCVN0qideIoZHsfEgppqT5gUHzAv_yEdfI",
@@ -109,24 +109,58 @@ const addUserToFirestore = async (m_name, m_phone, m_position, m_birth, m_email,
   }
 };
 
-//them user vao firebase
-const addOrderToFirestore = async (m_consignor, m_consignee, m_product, m_shipping_detail, m_path, m_status, dbName) => {
+// //them order vao firebase
+// const addOrderToFirestore = async (m_consignor, m_consignee, m_product, m_shipping_detail, m_path, m_status, m_log, dbName) => {
+//   try {
+//     const collectionRef = collection(db, dbName);
+//     //const currentTimeStamp = new Date().getTime();
+//     const orderRef = await addDoc(collectionRef, {
+//       consignor: m_consignor,
+//       consignee: m_consignee,
+//       product: m_product,
+//       shipping_detail: m_shipping_detail,
+//       path: m_path,
+//       status: m_status,
+//       log: m_log,
+//     });
+//     console.log("Order ID: ", orderRef.id);
+//     return orderRef.id;
+//   } catch (error) {
+//     console.error("Error adding document: ", error);
+//   }
+// };
+const addOrderToFirestore = async (orderId, m_consignor, m_consignee, m_product, m_shipping_detail, m_path, m_status, m_log, dbName) => {
   try {
     const collectionRef = collection(db, dbName);
-    //const currentTimeStamp = new Date().getTime();
-    const orderRef = await addDoc(collectionRef, {
+    const orderDocRef = doc(collectionRef, orderId); // Sử dụng orderId làm ID của document
+
+    // Đặt dữ liệu vào document với ID được chỉ định
+    await setDoc(orderDocRef, {
       consignor: m_consignor,
       consignee: m_consignee,
       product: m_product,
       shipping_detail: m_shipping_detail,
       path: m_path,
-      status: m_status
+      status: m_status,
+      log: m_log,
     });
-    console.log("Order ID: ", orderRef.id);
-    return orderRef.id;
+
+    console.log("Order ID: ", orderId);
+    return orderId;
   } catch (error) {
     console.error("Error adding document: ", error);
   }
 };
-
-export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore};
+const updateOrderCount = async (orderCount) => {
+  try {
+    const orderRef = doc(db, "order", "total");
+    const updatedData = {
+      count: orderCount+ 1, // Thay đổi trạng thái đơn hàng
+      // Các trường khác bạn muốn cập nhật
+    };
+    await updateDoc(orderRef, updatedData);
+  } catch (error) {
+    console.error("Error updating document: ", error);
+  }
+};
+export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount};

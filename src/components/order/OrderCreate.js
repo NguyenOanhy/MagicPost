@@ -4,7 +4,7 @@ import { ShippingInputs } from "./input/ShippingInputs";
 import ShippingLabel from "./input/ShippingLabel";
 import { v4 as uuidv4 } from "uuid";
 import QRCode from "react-qr-code";
-import {addOrderToFirestore} from "../../firebase"
+import {addOrderToFirestore, getDocumentById, updateOrderCount} from "../../firebase"
 import {ProductInputs} from "./input/ProductInputs";
 
 const OrderCreate = () => {
@@ -45,18 +45,43 @@ const OrderCreate = () => {
     start_hub: "",
     end_trans_point: "",
     end_hub: "",
-  });
+  })
+  const [log, setLog] = useState([
+    {
+      createdDate: "11/05/2023",
+      createHour: "04:12:11",
+      statusCode: 1,
+      statusName: "Tạo đơn"
+    }
+  ]
+  );
   const [status, setStatus] = useState(['1', '0', '0', '0']);
   const [submittedData, setSubmittedData] = useState(null);
   const [isValidData, setIsValidData] = useState(false);
   const [base64Value, setBase64Value] = useState("");
   const [orderId, setOrderId] = useState("")
-
+  const orderCount = async() => {
+    try {
+      const data = await getDocumentById("total", "order");
+      const orderCount = data.count;
+      setOrderId(orderCount.toString());
+      console.log(orderCount);
+      return orderCount;
+    } catch (error) {
+      console.error('Error fetching orderId:', error);
+      // Handle error as needed
+    }
+  }
+  useEffect(() => {
+    orderCount();
+  },[])
   const handleSubmit = () => {
     setIsValidData(true);
     convertUUIDtoBase64();
-    const id = addOrderToFirestore(consignorInput, consigneeInput, productInput, shippingDetailInput, path, status, "order");
-    setOrderId(id);
+    //orderCount();
+    addOrderToFirestore(orderId, consignorInput, consigneeInput, productInput, shippingDetailInput, path, status, log, "order");
+    //setOrderId(id);
+    updateOrderCount(parseInt(orderId));
     setSubmittedData({
       consignor: {
         name: consignorInput.name,
