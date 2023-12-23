@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import icons from '../utils/icons';
-import {getCurrentUserEmail } from '../firebase';
+import { getCurrentUserEmail, getUserByEmail } from '../firebase';
 
 const { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle, TbLayoutSidebarRightExpand, TbLayoutSidebarLeftExpand, GoHomeFill, FaRegUser } = icons;
 
@@ -10,6 +10,7 @@ const Sidebar = () => {
   const [expanded, setExpanded] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0); // Default to the "Trang chủ" menu item
   const [userEmail, setUserEmail] = useState('');
+  const [userPosition, setUserPosition] = useState('');
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -54,19 +55,16 @@ const Sidebar = () => {
   }, [location]);
 
   useEffect(() => {
-    const fetchUserEmail = async () => {
+    const fetchUserData = async () => {
       const email = await getCurrentUserEmail();
-      setUserEmail(email);
-      sessionStorage.setItem('userEmail', email); // Store the user email in sessionStorage
+      const user = await getUserByEmail(email, "user");
+      if (user) {
+        setUserEmail(email);
+        setUserPosition(user.position);
+      }
     };
 
-    const storedUserEmail = sessionStorage.getItem('userEmail'); // Retrieve the user email from sessionStorage
-
-    if (storedUserEmail) {
-      setUserEmail(storedUserEmail);
-    } else {
-      fetchUserEmail();
-    }
+    fetchUserData();
   }, []);
 
   const handleProfileClick = () => {
@@ -104,7 +102,12 @@ const Sidebar = () => {
           className="flex items-center" 
           onClick={handleProfileClick}  >
           <FaRegUser size={30} />
-          {expanded && <p className='text-base px-2 py-2'>{userEmail}</p>}
+          {expanded && (
+            <div className="text-base">
+              <p>{userEmail}</p>
+              <p className='text-sm'>{userPosition}</p>
+            </div>
+          )}
         </NavLink>
       </ul>
     </div>

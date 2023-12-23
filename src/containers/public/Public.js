@@ -34,11 +34,6 @@ const Public = () => {
               <i className="fas fa-sign-in-alt"></i> ĐĂNG NHẬP
             </div>
           </Link>
-          <Link to="/signup" className="btn small register">
-            <div>
-              <i className="fas fa-user-edit"></i> ĐĂNG KÝ
-            </div>
-          </Link>
         </div>
       </div>
       <div className="">

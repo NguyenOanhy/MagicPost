@@ -3,7 +3,7 @@ const path = {
     PUBLIC: '/',
     LOGIN: '/login',
     FORGOTPW: '/forgot-password',
-    SIGNUP: '/signup',
+    SIGNUP: 'create-account',
     PRICESHIPPING: 'priceshipping',
     ORDERS: 'orders',
     REPORTS: 'reports',
