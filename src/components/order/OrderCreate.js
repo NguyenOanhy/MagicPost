@@ -8,6 +8,11 @@ import {addOrderToFirestore, getDocumentById, updateOrderCount} from "../../fire
 import {ProductInputs} from "./input/ProductInputs";
 
 const OrderCreate = () => {
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString(); // Lấy ngày hiện tại (định dạng tùy chọn)
+  const formattedTime = currentDate.toLocaleTimeString(); // Lấy thời gian hiện tại (định dạng tùy chọn)
+
+  const formattedDateTime = `${formattedDate} ${formattedTime}`;
   const [consignorInput, setConsignorInput] = useState({
     name: "",
     phone: "",
@@ -16,7 +21,6 @@ const OrderCreate = () => {
     district: "",
     ward: "",
     postcode: "",
-    email: "",
   });
   const [consigneeInput, setConsigneeInput] = useState({
     name: "",
@@ -26,7 +30,6 @@ const OrderCreate = () => {
     district: "",
     ward: "",
     postcode: "",
-    email: "",
   });
   const [productInput, setProductInput] = useState({
     name: "",
@@ -48,9 +51,7 @@ const OrderCreate = () => {
   })
   const [log, setLog] = useState([
     {
-      createdDate: "11/05/2023",
-      createHour: "04:12:11",
-      statusCode: 1,
+      createdTime: formattedDateTime,
       statusName: "Tạo đơn"
     }
   ]
@@ -91,7 +92,6 @@ const OrderCreate = () => {
         district: consignorInput.district,
         ward: consignorInput.ward,
         postcode: consignorInput.postcode,
-        email: consignorInput.email
       },
       consignee: {
         name: consigneeInput.name,
@@ -101,7 +101,6 @@ const OrderCreate = () => {
         district: consigneeInput.district,
         ward: consigneeInput.ward,
         postcode: consigneeInput.postcode,
-        email: consigneeInput
       },
     });
   };

@@ -1,10 +1,13 @@
 import React from "react";
 import { Input } from "./Input";
 
-export const ShippingInputs = ({ name, userInput, setInput }) => {
+export const ShippingInputs = ({ name, userInput, setInput}) => {
   const eachInputBox = {
     //style the div that contains all the six stacks of inputs
     marginLeft: '1.5rem'
+  };
+  const handleTimeChange = (e) => {
+    setInput({ ...userInput, date: e.target.value });
   };
   return (
     <div style={eachInputBox}>
@@ -26,11 +29,11 @@ export const ShippingInputs = ({ name, userInput, setInput }) => {
         value={userInput.payment_method}
       />
       <input
-        type="date"
+        type="datetime-local"
         className="w-96 h-12 border border-solid border-gray-300 p-2 mt-2 mb-0.5 mr-4 rounded-lg"
         style={{borderColor: '#4991FC'}}
         placeholder="Ngày nhận đơn"
-        onChange={(e) => setInput({ ...userInput, date: e.target.value })}
+        onChange={(e) => handleTimeChange(e)}
         value={userInput.date}
       />
       <Input
