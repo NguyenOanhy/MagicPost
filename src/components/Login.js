@@ -53,9 +53,6 @@ function Login() {
             Đăng nhập
           </button>
           <div className="flex mt-2 md:mt-0 space-x-2 justify-between">
-            <p className="text-main-100 cursor-pointer" onClick={() => navigate(path.SIGNUP)}>
-              Đăng ký
-            </p>
             <p className="text-main-100 cursor-pointer" onClick={() => navigate(path.FORGOTPW)}>
               Quên mật khẩu
             </p>

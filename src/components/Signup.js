@@ -4,7 +4,7 @@ import path from '../utils/path'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, addUserToFirestore } from '../firebase';
 
-function Signup() {
+function Signup({ onComplete }) {
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -23,19 +23,16 @@ function Signup() {
         window.alert('Passwords do not match.');
         return;
       }
-
-      addUserToFirestore(name, phone, positon, birth, email, authority, "user");
   
       // Create the user with email and password
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
-          navigate(path.LOGIN);
+          onComplete();
+          addUserToFirestore(name, phone, positon, birth, email, authority, "user");
         })
         .catch((error) => {
           window.alert('An error occurred during sign up: ' + error.message);
         });
-      
-      
     }
   
 
@@ -52,7 +49,7 @@ function Signup() {
             <input
               type="text"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter employee's name"
+              placeholder="Nhập tên nhân viên"
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -63,7 +60,7 @@ function Signup() {
             <input
               type="date"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter employee's position"
+              placeholder=""
               onChange={(e) => setBirth(e.target.value)}
             />
           </div>
@@ -74,7 +71,7 @@ function Signup() {
             <input
               type="text"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter employee's phone number"
+              placeholder="Nhập số điện thoại nhân viên"
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
@@ -84,7 +81,6 @@ function Signup() {
             </label>
             <select
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter employee's position"
               onChange={(e) => setPosition(e.target.value)}
             >
               <option value="">Chọn chức vụ</option>
@@ -102,7 +98,7 @@ function Signup() {
             <input
               type="text"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter employee's position"
+              placeholder="Nhập quyền hạn nhân viên"
               onChange={(e) => setAuthority(e.target.value)}
             />
           </div>
@@ -113,7 +109,7 @@ function Signup() {
             <input
               type="email"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter email"
+              placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -124,7 +120,7 @@ function Signup() {
             <input
               type="password"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter password"
+              placeholder="Mật khẩu"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -135,7 +131,7 @@ function Signup() {
             <input
               type="password"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Confirm password"
+              placeholder=" Nhập lại mật khẩu"
               onChange={(e) => setPasswordConfirm(e.target.value)}
             />
           </div>
@@ -144,7 +140,7 @@ function Signup() {
               type="submit"
               className="bg-main-100 hover:bg-main-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Đăng ký
+              Thêm tài khoản
             </button>
           </div>
         </div>

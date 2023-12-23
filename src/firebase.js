@@ -129,6 +129,8 @@ const addUserToFirestore = async (m_name, m_phone, m_position, m_birth, m_email,
 //     console.error("Error adding document: ", error);
 //   }
 // };
+
+
 const addOrderToFirestore = async (orderId, m_consignor, m_consignee, m_product, m_shipping_detail, m_path, m_status, m_log, dbName) => {
   try {
     const collectionRef = collection(db, dbName);
@@ -174,6 +176,25 @@ const getOrdersFromFirestore = async () => {
   } catch (error) {
     console.error("Error getting orders: ", error);
     return [];
+  }
+};
+
+const getUserByEmail = async (email, dbName) => {
+  try {
+    const collectionRef = collection(db, dbName);
+    const querySnapshot = await getDocs(query(collectionRef, where("email", "==", email)));
+
+    if (!querySnapshot.empty) {
+      const user = querySnapshot.docs[0].data();
+      console.log("User found:", user);
+      return user;
+    } else {
+      console.log("User not found");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error getting user by email:", error);
+    return null;
   }
 };
 
