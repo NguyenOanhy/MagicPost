@@ -1,47 +1,96 @@
-import React, { useState, Fragment } from "react";
-import { nanoid } from "nanoid";
-import data from "./input/mock-data.json";
-import ReadOnlyRow from "./input/ReadOnlyRow";
+import React, { useEffect, useState } from "react";
+import { getOrdersFromFirestore } from "../../firebase";
 
 const PendingOrder = () => {
-  const [contacts, setContacts] = useState(data);
+  const [orders, setOrders] = useState([]);
+  const [editingOrderId, setEditingOrderId] = useState(null);
 
-  const handleConfirmClick = (id) => {
-    // Update the confirmed status of the contact with the given id
-    const updatedContacts = contacts.map((contact) => {
-      if (contact.id === id) {
-        return { ...contact, confirmed: true };
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const ordersData = await getOrdersFromFirestore();
+      setOrders(ordersData);
+    };
+
+    fetchOrders();
+  }, []);
+
+  const handleStatusChange = (orderId, newStatus) => {
+    const updatedOrders = orders.map((order) => {
+      if (order.id === orderId) {
+        return { ...order, status: newStatus };
       }
-      return contact;
+      return order;
     });
-    setContacts(updatedContacts);
+
+    setOrders(updatedOrders);
+    setEditingOrderId(null); // Reset editingOrderId after changing the status
+  };
+
+  const handleEditClick = (orderId) => {
+    setEditingOrderId(orderId);
+  };
+
+  const handleDoneClick = () => {
+    setEditingOrderId(null);
   };
 
   return (
     <div className="app-container flex flex-col gap-10 text-base">
-      <form onSubmit={handleConfirmClick}>
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="rounded-lg shadow-lg">
-              <th className="border bg-main-300">Name</th>
-              <th className="border bg-main-300">Address</th>
-              <th className="border bg-main-300">Phone Number</th>
-              <th className="border bg-main-300">Email</th>
-              <th className="border bg-main-300">Status</th>  
-              <th className="border bg-main-300">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contacts.map((contact) => (
-              <ReadOnlyRow
-                key={contact.id}
-                contact={contact}
-                handleConfirmClick={handleConfirmClick}
-              />
-            ))}
-          </tbody>
-        </table>
-      </form>
+      <table className="w-full border-collapse">
+        <thead>
+          <tr className="rounded-lg shadow-lg">
+            <th className="border bg-main-300 p-2">Mã đơn</th>
+            <th className="border bg-main-300 p-2">Thông tin người gửi</th>
+            <th className="border bg-main-300 p-2">Thông tin người nhận</th>
+            <th className="border bg-main-300 p-2">Mã điểm GD bên gửi</th>
+            <th className="border bg-main-300 p-2">Mã điểm GD bên nhận</th>
+            <th className="border bg-main-300 p-2">Ngày giờ gửi</th>
+            <th className="border bg-main-300 p-2">Trạng thái</th>
+            <th className="border bg-main-300 p-2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            order.id !== "total" && (
+              <tr key={order.id}>
+                <td className="border p-2">{order.id}</td>
+                <td className="border p-2">
+                  {order.consignor?.name} - {order.consignor?.phone}
+                </td>
+                <td className="border p-2">
+                  {order.consignee?.name} - {order.consignee?.phone}
+                </td>
+                <td className="border p-2">{order.consignor?.postcode}</td>
+                <td className="border p-2">{order.consignee?.postcode}</td>
+                <td className="border p-2">{order.shipping_detail?.date}</td>
+                <td className="border p-2">
+                  {editingOrderId === order.id ? (
+                    <select
+                      className="w-full"
+                      value={order.status}
+                      onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                    >
+                      <option value="accept">Accept</option>
+                      <option value="not accept">Not Accept</option>
+                    </select>
+                  ) : (
+                    order.status // Display the current status when not in edit mode
+                  )}
+                </td>
+                <td className="border p-2">
+                  {editingOrderId === order.id ? (
+                    <button onClick={handleDoneClick}>Done</button>
+                  ) : (
+                    <button onClick={() => handleEditClick(order.id)}>
+                      Edit
+                    </button>
+                  )}
+                </td>
+              </tr>
+            )
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
