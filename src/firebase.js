@@ -145,6 +145,7 @@ const addOrderToFirestore = async (orderId, m_consignor, m_consignee, m_product,
       path: m_path,
       status: m_status,
       log: m_log,
+      order_status: "Đang vận chuyển"
     });
 
     console.log("Order ID: ", orderId);
@@ -198,22 +199,60 @@ const getUserByEmail = async (email, dbName) => {
   }
 };
 
-const updateStatusAtIndex = async (orderId, index) => {
+const updateStatusAtIndex = async (orderId, index, office, value) => {
   try {
     const orderRef = doc(db, "order", orderId);
 
     // Get the current document
     const orderSnapshot = await getDoc(orderRef);
-    const updatedData = orderSnapshot.data().status;
+    const orderData = orderSnapshot.data();
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString(); // Lấy ngày hiện tại (định dạng tùy chọn)
+    const formattedTime = currentDate.toLocaleTimeString(); // Lấy thời gian hiện tại (định dạng tùy chọn)
+    const formattedDateTime = `${formattedDate} ${formattedTime}`;
+    var officeType = "";
+    if (office.includes("Hub")) {
+      officeType = "điểm tập kết";
+      console.log("điểm tập kết");
+    } else {
+      officeType = "điểm giao dịch";
+      console.log("điểm giao dịch");
+    }
 
-    // Modify the status array
-    updatedData[index] = "1";
-    await updateDoc(orderRef, { status: updatedData });
-    console.log("Successfully updated")
+    if (orderData && Array.isArray(orderData.status)) {
+      // Modify the status array
+      orderData.status[index] = value;
+      if (index === 3 && value === 1) {
+        orderData.status[4] = 0;
+        console.log("...4");
+      }
+      var logEntry = {
+        createdTime: formattedDateTime,
+        statusName: "",
+      };
+      if (value === 0) {
+        logEntry.statusName = `Đơn hàng đã đến ${officeType} ${office}.`;
+      } else if (value === 1) {
+        if (index === 3) {
+          logEntry.statusName = "Đơn hàng đang được vận chuyển đến bạn."
+        }
+        logEntry.statusName = `Đơn hàng đã rời ${officeType}.`;
+      }
+      // Add a new log entry to the log array
+      orderData.log = orderData.log || []; // Ensure that log array exists
+      orderData.log.push(logEntry);
+
+      // Update the entire document with the modified status array and new log entry
+      await updateDoc(orderRef, { status: orderData.status, log: orderData.log });
+      console.log("Successfully updated");
+    } else {
+      console.log("Document or status field not found");
+    }
   } catch (error) {
     console.error("Error updating document: ", error);
   }
 };
 
 
-export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore, updateStatusAtIndex};
+
+export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore, getUserByEmail, updateStatusAtIndex};

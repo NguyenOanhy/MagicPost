@@ -49,11 +49,11 @@ const OrderCreate = () => {
   const [log, setLog] = useState([
     {
       createdTime: formattedDateTime,
-      statusName: "Tạo đơn"
+      statusName: "Đơn hàng được tạo thành công."
     }
   ]
   );
-  const [status, setStatus] = useState(['1', '0', '0', '0']);
+  const [status, setStatus] = useState([0, -1, -1, -1, -1]);
   const [submittedData, setSubmittedData] = useState(null);
   const [isValidData, setIsValidData] = useState(false);
   const [base64Value, setBase64Value] = useState("");

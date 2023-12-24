@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getOrdersFromFirestore, updateStatusAtIndex } from "../../firebase";
 
 const PendingOrder = () => {
+  const office = "Tuyên Quang";
   const [orders, setOrders] = useState([]);
   const [editingOrderId, setEditingOrderId] = useState(null);
 
@@ -14,12 +15,12 @@ const PendingOrder = () => {
     fetchOrders();
   }, []);
 
-  const handleStatusChange = async (orderId, index) => {
-    await updateStatusAtIndex(orderId, index);
+  const handleStatusChange = async (orderId, index, office) => {
+    await updateStatusAtIndex(orderId, index, office, 0);
     const updatedOrders = orders.map((order) => {
       if (order.id === orderId) {
         const updatedStatus = [...order.status]; // Tạo một bản sao mới của mảng status
-        updatedStatus[index] = "1"; // Sửa giá trị tại vị trí index
+        updatedStatus[index] = 0; // Sửa giá trị tại vị trí index
         console.log("Success!")
       }
     });
@@ -67,9 +68,8 @@ const PendingOrder = () => {
         </thead>
         <tbody>
           {orders.map((order) => {
-            const index = countDashesBeforeOffice("Hà Nội Hub", order?.path);
-            //if (order.status[index] !== 0) {console.log(order.status[index]);}
-            if ( index !== -1 && order.status[index] !== "1" && order.id !== "total") {
+            const index = countDashesBeforeOffice(office, order?.path);
+            if ( index !== -1 && order.status[index] === -1 && order.id !== "total") {
               return (
                 <tr key={order.id}>
                   <td className="border p-2">{order.id}</td>
@@ -87,7 +87,7 @@ const PendingOrder = () => {
                       <select
                         className="w-full"
                         value={order.status}
-                        onChange={(e) => handleStatusChange(order.id, index)}
+                        onChange={(e) => handleStatusChange(order.id, index, office)}
                       >
                         <option value="Accept">Accept</option>
                         <option value="Not Accept">Not Accept</option>
