@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getOrdersFromFirestore, updateStatusAtIndex } from "../../firebase";
 
 const PendingOrder = () => {
-  const office = "Tuyên Quang";
+  const office = "Hà Nội Hub";
   const [orders, setOrders] = useState([]);
-  const [editingOrderId, setEditingOrderId] = useState(null);
-
   useEffect(() => {
     const fetchOrders = async () => {
       const ordersData = await getOrdersFromFirestore();
@@ -16,7 +14,6 @@ const PendingOrder = () => {
   }, []);
 
   const handleStatusChange = async (orderId, index, office) => {
-    await updateStatusAtIndex(orderId, index, office, 0);
     const updatedOrders = orders.map((order) => {
       if (order.id === orderId) {
         const updatedStatus = [...order.status]; // Tạo một bản sao mới của mảng status
@@ -26,13 +23,13 @@ const PendingOrder = () => {
       }
       return order; // Return the order object as-is if it doesn't match the specified orderId
     });
-
     setOrders(updatedOrders);
-    setEditingOrderId(null); // Reset editingOrderId after changing the status
+    await updateStatusAtIndex(orderId, index, office, 0);
+    //setEditingOrderId(null); // Reset editingOrderId after changing the status
   };
 
-  const handleEditClick = (orderId) => {
-    setEditingOrderId(orderId);
+  const handleEditClick = (orderId, index) => {
+    handleStatusChange(orderId, index, office);
   };
 
   const countDashesBeforeOffice = (office, orderPath) => {
@@ -61,7 +58,7 @@ const PendingOrder = () => {
             <th className="border bg-main-300 p-2">Mã điểm GD bên nhận</th>
             <th className="border bg-main-300 p-2">Ngày giờ gửi</th>
             <th className="border bg-main-300 p-2">Trạng thái</th>
-            <th className="border bg-main-300 p-2"></th>
+            <th className="border bg-main-300 p-2">Xác nhận</th>
           </tr>
         </thead>
         <tbody>
@@ -81,19 +78,11 @@ const PendingOrder = () => {
                   <td className="border p-2">{order.consignee?.postcode}</td>
                   <td className="border p-2">{order.shipping_detail?.date}</td>
                   <td className="border p-2">
-                    {editingOrderId === order.id ? (
-                      "Đã xác nhận"
-                    ) : (
-                      "Chưa xác nhận"
-                    )}
+                    Chưa xác nhận
                   </td>
                   <td className="border p-2">
-                    {editingOrderId === order.id ? (
-                      <button onClick={() => handleEditClick(order.id)}>
-                        Xong
-                      </button>
-                    ) : (
-                      <button onClick={() => handleEditClick(order.id)}>
+                    {order.status[index - 1] === 1 && (
+                      <button onClick={() => handleEditClick(order.id, index)}>
                         Xác nhận
                       </button>
                     )}

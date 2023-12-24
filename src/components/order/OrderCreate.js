@@ -42,7 +42,7 @@ const OrderCreate = () => {
   const [shippingDetailInput, setShippingDetailInput] = useState({
     shipping_price: "",
     payment_method: "",
-    date: "",
+    date: formattedDateTime,
     note: "",
   });
   const [path, setPath] = useState("");

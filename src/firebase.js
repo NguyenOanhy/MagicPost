@@ -225,19 +225,30 @@ const updateStatusAtIndex = async (orderId, index, office, value) => {
       if (index === 3 && value === 1) {
         orderData.status[4] = 0;
         console.log("...4");
-      }
+      } 
       var logEntry = {
         createdTime: formattedDateTime,
         statusName: "",
       };
-      if (value === 0) {
-        logEntry.statusName = `Đơn hàng đã đến ${officeType} ${office}.`;
+      if (index !== 4) {
+        if (value === 0) {
+          logEntry.statusName = `Đơn hàng đã đến ${officeType} ${office}.`;
+        } else if (value === 1) {
+          if (index === 3) {
+            logEntry.statusName = "Đơn hàng đang được vận chuyển đến bạn."
+          }
+          logEntry.statusName = `Đơn hàng đã rời ${officeType}.`;
+        } 
       } else if (value === 1) {
-        if (index === 3) {
-          logEntry.statusName = "Đơn hàng đang được vận chuyển đến bạn."
-        }
-        logEntry.statusName = `Đơn hàng đã rời ${officeType}.`;
+        logEntry.statusName = "Hoãn giao hàng lần 1.";
+      } else if (value === 2) {
+        logEntry.statusName = "Hoãn giao hàng lần 2.";
+      } else if (value ===3) {
+        logEntry.statusName = "Đơn hàng đã được giao thành công.";
+      } else if (value === 4) {
+        logEntry.statusName = "Đơn hàng đã bị hủy.";
       }
+      
       // Add a new log entry to the log array
       orderData.log = orderData.log || []; // Ensure that log array exists
       orderData.log.push(logEntry);
