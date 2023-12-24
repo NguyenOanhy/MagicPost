@@ -6,7 +6,7 @@ import {MdLogout} from "react-icons/md";
 import { auth } from '../../firebase';
 import path from '../../utils/path';
 
-const Private = () => {
+const Private = ({user}) => {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
@@ -20,7 +20,7 @@ const Private = () => {
   return (
     <div className='flex h-screen'>
       <div className='flex'>
-        <Sidebar />
+        <Sidebar user={user}/>
       </div>
       <div className='flex-auto mt-3'>
         <Scrollbars autoHide style={{ width: '100%',height: '100%'}}>

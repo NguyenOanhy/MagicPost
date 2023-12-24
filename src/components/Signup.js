@@ -9,6 +9,7 @@ function Signup({ onComplete }) {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [positon, setPosition] = useState('');
+    const [office, setOffice] = useState('');
     const [birth, setBirth] = useState('');
     const [authority, setAuthority] = useState('');
     const [email, setEmail] = useState('');
@@ -28,7 +29,7 @@ function Signup({ onComplete }) {
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
           onComplete();
-          addUserToFirestore(name, phone, positon, birth, email, authority, "user");
+          addUserToFirestore(name, phone, positon, birth, email, authority, office, "user");
         })
         .catch((error) => {
           window.alert('An error occurred during sign up: ' + error.message);
@@ -100,6 +101,17 @@ function Signup({ onComplete }) {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Nhập quyền hạn nhân viên"
               onChange={(e) => setAuthority(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="office">
+              Bưu cục
+            </label>
+            <input
+              type="text"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Nhập tên bưu cục"
+              onChange={(e) => setOffice(e.target.value)}
             />
           </div>
           <div className="mb-4">

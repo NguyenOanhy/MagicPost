@@ -90,7 +90,7 @@ const addDataToFirestore = async (m_name, m_content, m_image, dbName) => {
 };
 
 //them user vao firebase
-const addUserToFirestore = async (m_name, m_phone, m_position, m_birth, m_email, m_auth, dbName) => {
+const addUserToFirestore = async (m_name, m_phone, m_position, m_birth, m_email, m_auth, m_office, dbName) => {
   try {
     const collectionRef = collection(db, dbName);
     const currentTimeStamp = new Date().getTime();
@@ -101,7 +101,8 @@ const addUserToFirestore = async (m_name, m_phone, m_position, m_birth, m_email,
       birth: m_birth,
       email: m_email,
       date: currentTimeStamp,
-      authority: m_auth
+      authority: m_auth,
+      office: m_office,
     });
     console.log("User ID: ", userRef.id);
   } catch (error) {

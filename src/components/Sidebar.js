@@ -5,12 +5,10 @@ import { getCurrentUserEmail, getUserByEmail } from '../firebase';
 
 const { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle, TbLayoutSidebarRightExpand, TbLayoutSidebarLeftExpand, GoHomeFill, FaRegUser } = icons;
 
-const Sidebar = () => {
+const Sidebar = ({ user}) => {
   const location = useLocation();
   const [expanded, setExpanded] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0); // Default to the "Trang chủ" menu item
-  const [userEmail, setUserEmail] = useState('');
-  const [userPosition, setUserPosition] = useState('');
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -54,19 +52,6 @@ const Sidebar = () => {
     }
   }, [location]);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const email = await getCurrentUserEmail();
-      const user = await getUserByEmail(email, "user");
-      if (user) {
-        setUserEmail(email);
-        setUserPosition(user.position);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
   const handleProfileClick = () => {
     setActiveIndex(-1);
   };
@@ -103,9 +88,10 @@ const Sidebar = () => {
           onClick={handleProfileClick}  >
           <FaRegUser size={30} />
           {expanded && (
-            <div className="text-base">
-              <p>{userEmail}</p>
-              <p className='text-sm'>{userPosition}</p>
+            <div className="text-base px-2">
+              <p>{user.email}</p>
+              <p className='text-[11px]'>{user.position}</p>
+              <p className='text-[11px]'>{`Bưu cục ` + user.office}</p>
             </div>
           )}
         </NavLink>
