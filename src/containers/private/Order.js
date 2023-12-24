@@ -3,28 +3,45 @@ import PendingOrder from '../../components/order/PendingOrder';
 import OrderCreate from '../../components/order/OrderCreate';
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import ViewOrder from '../../components/order/ViewOrder';
 
 const Order = () => {
-  const [showPendingOrder, setShowPendingOrder] = useState(true);
+  const [showViewOrder, setShowViewOrder] = useState(true);
+  const [showPendingOrder, setShowPendingOrder] = useState(false);
   const [showOrderCreate, setShowOrderCreate] = useState(false);
 
   const handlePendingOrderClick = () => {
     setShowPendingOrder(true);
     setShowOrderCreate(false);
+    setShowViewOrder(false);
   };
 
   const handleOrderCreateClick = () => {
     setShowPendingOrder(false);
     setShowOrderCreate(true);
+    setShowViewOrder(false);
+  };
+
+  const handleViewOrderClick = () => {
+    setShowPendingOrder(false);
+    setShowOrderCreate(false);
+    setShowViewOrder(true)
   };
 
   return (
     <div className="w-full flex flex-col">
          <Tabs defaultIndex={0}>
           <TabList>
+            <Tab onClick={handleViewOrderClick}>Tổng quan đơn hàng</Tab>
             <Tab onClick={handlePendingOrderClick}>Đơn Hàng Đang chờ</Tab>
             <Tab onClick={handleOrderCreateClick}>Tạo đơn hàng</Tab>
+            
           </TabList>
+          <TabPanel>
+            <div className='mx-16 mt-4'>
+            {showViewOrder && <ViewOrder />}
+            </div>
+          </TabPanel> 
           <TabPanel>
             <div className='mx-16 mt-4'>
             {showPendingOrder && <PendingOrder />}
@@ -35,6 +52,7 @@ const Order = () => {
             {showOrderCreate && <OrderCreate />}
             </div>
           </TabPanel>
+          
         </Tabs> 
     {/* <div className="flex flex-col items-center">
       <div className="mb-4">

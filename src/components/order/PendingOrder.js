@@ -22,7 +22,9 @@ const PendingOrder = () => {
         const updatedStatus = [...order.status]; // Tạo một bản sao mới của mảng status
         updatedStatus[index] = 0; // Sửa giá trị tại vị trí index
         console.log("Success!")
+        return { ...order, status: updatedStatus }; // Return the updated order object
       }
+      return order; // Return the order object as-is if it doesn't match the specified orderId
     });
 
     setOrders(updatedOrders);
@@ -31,10 +33,6 @@ const PendingOrder = () => {
 
   const handleEditClick = (orderId) => {
     setEditingOrderId(orderId);
-  };
-
-  const handleDoneClick = () => {
-    setEditingOrderId(null);
   };
 
   const countDashesBeforeOffice = (office, orderPath) => {
@@ -84,24 +82,19 @@ const PendingOrder = () => {
                   <td className="border p-2">{order.shipping_detail?.date}</td>
                   <td className="border p-2">
                     {editingOrderId === order.id ? (
-                      <select
-                        className="w-full"
-                        value={order.status}
-                        onChange={(e) => handleStatusChange(order.id, index, office)}
-                      >
-                        <option value="Accept">Accept</option>
-                        <option value="Not Accept">Not Accept</option>
-                      </select>
+                      "Đã xác nhận"
                     ) : (
-                      order.status // Display the current status when not in edit mode
+                      "Chưa xác nhận"
                     )}
                   </td>
                   <td className="border p-2">
                     {editingOrderId === order.id ? (
-                      <button onClick={handleDoneClick}>Done</button>
+                      <button onClick={() => handleEditClick(order.id)}>
+                        Xong
+                      </button>
                     ) : (
                       <button onClick={() => handleEditClick(order.id)}>
-                        Edit
+                        Xác nhận
                       </button>
                     )}
                   </td>
