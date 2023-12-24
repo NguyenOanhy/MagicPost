@@ -88,7 +88,7 @@ const Sidebar = ({ user}) => {
           onClick={handleProfileClick}  >
           <FaRegUser size={30} />
           {expanded && (
-            <div className="text-base px-2">
+            <div className="text-sm pl-2">
               <p>{user.email}</p>
               <p className='text-[11px]'>{user.position}</p>
               <p className='text-[11px]'>{`Bưu cục ` + user.office}</p>

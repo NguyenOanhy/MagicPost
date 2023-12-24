@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Login, Signup, Forgotpassword } from "./components";
 import { Public } from "./containers/public";
 import { Private, PriceShipping, Management, Reports, Order, Profile } from "./containers/private";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation  } from "react-router-dom";
 import path from "./utils/path";
 import { getCurrentUserEmail, getUserByEmail } from "./firebase";
 
 export default function App() {
   const [user, setUser] = useState('');
+  const location = useLocation();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -19,7 +20,7 @@ export default function App() {
     };
 
     fetchUserData();
-  }, []);
+  }, [location]);
 
   return (
     <>
