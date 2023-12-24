@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getOrdersFromFirestore, updateStatusAtIndex } from "../../firebase";
 
-const PendingOrder = () => {
-  const office = "Hà Nội Hub";
+const PendingOrder = ({user}) => {
+  const office = user.office;
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     const fetchOrders = async () => {

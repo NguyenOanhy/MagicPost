@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const Profile = ({ user }) => {
-
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
       {user ? (
@@ -9,34 +8,38 @@ const Profile = ({ user }) => {
           <div className="mb-4">
             <h2 className="text-xl font-bold">Thông tin người dùng</h2>
           </div>
-          <div className="mb-4">
-            <p className="font-semibold">Chức vụ:</p>
-            <p>{user.position}</p>
-          </div>
-          <div className="mb-4">
-            <p className="font-semibold">Quyền hạn:</p>
-            <p>{user.authority}</p>
-          </div>
-          <div className="mb-4">
-            <p className="font-semibold">Ngày sinh:</p>
-            <p>{user.birth}</p>
-          </div>
-          <div className="mb-4">
-            <p className="font-semibold">Email:</p>
-            <p>{user.email}</p>
-          </div>
-          <div className="mb-4">
-            <p className="font-semibold">Tên:</p>
-            <p>{user.name}</p>
-          </div>
-          <div className="mb-4">
-            <p className="font-semibold">Bưu cục:</p>
-            <p>{user.office}</p>
-          </div>
-          <div className="mb-4">
-            <p className="font-semibold">Số điện thoại:</p>
-            <p>{user.phone}</p>
-          </div>
+          <table className="table-auto">
+            <tbody>
+              <tr>
+                <td className="font-semibold">Chức vụ:</td>
+                <td>{user.position}</td>
+              </tr>
+              <tr>
+                <td className="font-semibold">Quyền hạn:</td>
+                <td>{user.authority}</td>
+              </tr>
+              <tr>
+                <td className="font-semibold">Ngày sinh:</td>
+                <td>{user.birth}</td>
+              </tr>
+              <tr>
+                <td className="font-semibold">Email:</td>
+                <td>{user.email}</td>
+              </tr>
+              <tr>
+                <td className="font-semibold">Tên:</td>
+                <td>{user.name}</td>
+              </tr>
+              <tr>
+                <td className="font-semibold">Bưu cục:</td>
+                <td>{user.office}</td>
+              </tr>
+              <tr>
+                <td className="font-semibold">Số điện thoại:</td>
+                <td>{user.phone}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       ) : (
         <div>Loading...</div>

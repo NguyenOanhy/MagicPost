@@ -5,7 +5,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import ViewOrder from '../../components/order/ViewOrder';
 
-const Order = () => {
+const Order = ({user}) => {
   const [showViewOrder, setShowViewOrder] = useState(true);
   const [showPendingOrder, setShowPendingOrder] = useState(false);
   const [showOrderCreate, setShowOrderCreate] = useState(false);
@@ -42,17 +42,17 @@ const Order = () => {
           </TabList>
           <TabPanel>
             <div className='mx-16 mt-4'>
-            {showViewOrder && <ViewOrder />}
+            {showViewOrder && <ViewOrder user = {user}/>}
             </div>
           </TabPanel> 
           <TabPanel>
             <div className='mx-16 mt-4'>
-            {showPendingOrder && <PendingOrder />}
+            {showPendingOrder && <PendingOrder user = {user}/>}
             </div>
           </TabPanel> 
           <TabPanel>
           <div className='mt-4'>
-            {showOrderCreate && <OrderCreate />}
+            {showOrderCreate && <OrderCreate user = {user}/>}
             </div>
           </TabPanel>
           

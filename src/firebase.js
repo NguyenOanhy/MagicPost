@@ -265,6 +265,41 @@ const updateStatusAtIndex = async (orderId, index, office, value) => {
   }
 };
 
+const getUsersByOffice = async (currentUser) => {
+  try {
+    const usersRef = collection(db, "user");
+
+    // Xác định vị trí của người dùng hiện tại
+    const currentUserPosition = currentUser.position;
+    const currentUserOffice = currentUser.office;
+
+    // Xác định vị trí và điểm tập kết cần tìm kiếm dựa trên vị trí và điểm tập kết của người dùng hiện tại
+    let searchPosition = "";
+    let searchOffice = "";
+    if (currentUserPosition === "Trưởng điểm tập kết") {
+      searchPosition = "Nhân viên tại điểm tập kết";
+      searchOffice = currentUserOffice;
+    } else if (currentUserPosition === "Trưởng điểm giao dịch") {
+      searchPosition = "Nhân viên tại điểm giao dịch";
+      searchOffice = currentUserOffice;
+    }
+
+    // Tạo truy vấn để lấy danh sách người dùng có vị trí và điểm tập kết trùng khớp
+    const q = query(
+      usersRef,
+      where("position", "==", searchPosition),
+      where("office", "==", searchOffice)
+    );
+
+    // Thực hiện truy vấn và lấy danh sách người dùng
+    const querySnapshot = await getDocs(q);
+    const users = querySnapshot.docs.map((doc) => doc.data());
+    return users;
+  } catch (error) {
+    console.error("Error getting users by office: ", error);
+    return [];
+  }
+};
 
 
-export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore, updateStatusAtIndex, getUserByEmail};
+export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore, updateStatusAtIndex, getUserByEmail, getUsersByOffice};

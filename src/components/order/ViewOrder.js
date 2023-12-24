@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getOrdersFromFirestore, updateStatusAtIndex } from "../../firebase";
 
-const ViewOrder = () => {
-  const office = "Tuyên Quang";
+const ViewOrder = ({user}) => {
+  const office = user.office;
   const [orders, setOrders] = useState([]);
   const [editingOrderId, setEditingOrderId] = useState(null);
 

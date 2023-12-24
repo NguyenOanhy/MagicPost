@@ -29,11 +29,11 @@ export default function App() {
         <Route path={path.LOGIN} element={<Login />} />
         <Route path={path.FORGOTPW} element={<Forgotpassword />} />
         <Route path={path.PRIVATE} element={<Private user={user} />}>
-          <Route path={path.ORDERS} element={<Order />} />
+          <Route path={path.ORDERS} element={<Order user = {user}/>} />
           <Route path={path.SIGNUP} element={<Signup />} />
           <Route path={path.PRICESHIPPING} element={<PriceShipping />} />
-          <Route path={path.MANAGEMENT} element={<Management />} />
-          <Route path={path.REPORTS} element={<Reports />} />
+          <Route path={path.MANAGEMENT} element={<Management user={user}/>} />
+          <Route path={path.REPORTS} element={<Reports user={user}/>} />
           <Route path={path.PROFILE} element={<Profile user={user} />} />
         </Route>
       </Routes>
