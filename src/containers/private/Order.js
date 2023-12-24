@@ -30,11 +30,14 @@ const Order = () => {
 
   return (
     <div className="w-full flex flex-col">
+          <h1 className="text-3xl text-main-300 font-bold mb-6 mx-auto text-center justify-center">Quản lý đơn hàng</h1>
          <Tabs defaultIndex={0}>
           <TabList>
-            <Tab onClick={handleViewOrderClick}>Tổng quan đơn hàng</Tab>
-            <Tab onClick={handlePendingOrderClick}>Đơn Hàng Đang chờ</Tab>
-            <Tab onClick={handleOrderCreateClick}>Tạo đơn hàng</Tab>
+            <div className='grid grid-cols-4 text-center font-bold text-md text-main-300 mt-6'>
+              <Tab onClick={handleViewOrderClick}>Tổng quan đơn hàng</Tab>
+              <Tab onClick={handlePendingOrderClick}>Đơn Hàng Đang chờ</Tab>
+              <Tab onClick={handleOrderCreateClick}>Tạo đơn hàng</Tab>
+            </div>
             
           </TabList>
           <TabPanel>

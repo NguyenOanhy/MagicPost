@@ -39,17 +39,17 @@ function Signup({ onComplete }) {
 
   return (
    /* JSX */
-    <div className="min-h-screen flex items-center justify-center bg-white">
-      <form className="bg-white shadow-xl rounded-lg px-8 py-6 space-y-6 max-w-md w-full" onSubmit={handleSubmit}>
-        <div className="Auth-form-content">
-          <h3 className="text-center font-bold text-3xl mb-6">Thêm tài khoản nhân viên</h3>
+    <div className="w-3/4 mx-auto rounded-lg shadow-lg items-center justify-center bg-white">
+      <form className="bg-white px-8 py-6 space-y-6" onSubmit={handleSubmit}>
+        <div className="Auth-form-content grid grid-cols-2 gap-5">
+          {/* <h3 className="text-center font-bold text-3xl mb-6">Thêm tài khoản nhân viên</h3> */}
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
               Họ và tên
             </label>
             <input
               type="text"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Nhập tên nhân viên"
               onChange={(e) => setName(e.target.value)}
             />
@@ -60,7 +60,7 @@ function Signup({ onComplete }) {
             </label>
             <input
               type="date"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder=""
               onChange={(e) => setBirth(e.target.value)}
             />
@@ -71,7 +71,7 @@ function Signup({ onComplete }) {
             </label>
             <input
               type="text"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Nhập số điện thoại nhân viên"
               onChange={(e) => setPhone(e.target.value)}
             />
@@ -81,7 +81,7 @@ function Signup({ onComplete }) {
               Chức vụ
             </label>
             <select
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={(e) => setPosition(e.target.value)}
             >
               <option value="">Chọn chức vụ</option>
@@ -98,7 +98,7 @@ function Signup({ onComplete }) {
             </label>
             <input
               type="text"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Nhập quyền hạn nhân viên"
               onChange={(e) => setAuthority(e.target.value)}
             />
@@ -120,7 +120,7 @@ function Signup({ onComplete }) {
             </label>
             <input
               type="email"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -131,7 +131,7 @@ function Signup({ onComplete }) {
             </label>
             <input
               type="password"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Mật khẩu"
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -142,12 +142,14 @@ function Signup({ onComplete }) {
             </label>
             <input
               type="password"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder=" Nhập lại mật khẩu"
               onChange={(e) => setPasswordConfirm(e.target.value)}
             />
           </div>
-          <div className="flex items-center justify-center">
+          
+        </div>
+        <div className="flex mx-auto items-center justify-center">
             <button
               type="submit"
               className="bg-main-100 hover:bg-main-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -155,7 +157,6 @@ function Signup({ onComplete }) {
               Thêm tài khoản
             </button>
           </div>
-        </div>
       </form>
     </div>
   )
