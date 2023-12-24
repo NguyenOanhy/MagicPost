@@ -30,7 +30,7 @@ const Public = () => {
         </div>
         <div className="flex flex-row px-3 py-2 space-x-2 mr-15 rounded-md bg-blue-300">
           <Link to="/login" className="btn small">
-            <div class="px-2 border-r-4 border-blue-600">
+            <div class="px-2 ">
               <i className="fas fa-sign-in-alt"></i> ĐĂNG NHẬP
             </div>
           </Link>

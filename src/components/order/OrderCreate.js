@@ -117,8 +117,8 @@ const OrderCreate = () => {
   return (
     <div>
       <div className="flex justify-center mt-5 ml-1">
-      <div className="w-5/6 border border-gray-300 p-4 rounded-lg" >
-          <h2 className="mt-5 text-center text-xl font-bold mb-3 text-main-300" style={{fontSize: '30px'}}>TẠO ĐƠN HÀNG MỚI</h2>
+      <div className="w-5/6 flex flex-col gap-6 border border-gray-300 p-4 rounded-lg" >
+          {/* <h2 className="mt-5 text-center text-xl font-bold mb-3 text-main-300" style={{fontSize: '30px'}}>TẠO ĐƠN HÀNG MỚI</h2> */}
             <div className="flex justify-center p-4">
               <AddressInputs
                 name="Người Gửi"

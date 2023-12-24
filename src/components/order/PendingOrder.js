@@ -48,7 +48,7 @@ const PendingOrder = () => {
 
   return (
     <div className="app-container flex flex-col gap-10 text-base">
-      <table className="w-full border-collapse">
+      <table className="w-full border-collapse mt-7">
         <thead>
           <tr className="rounded-lg shadow-lg">
             <th className="border bg-main-300 p-2">Mã đơn</th>
