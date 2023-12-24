@@ -255,4 +255,4 @@ const updateStatusAtIndex = async (orderId, index, office, value) => {
 
 
 
-export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore, getUserByEmail, updateStatusAtIndex};
+export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore, updateStatusAtIndex, getUserByEmail};
