@@ -18,7 +18,7 @@ const Management = ({user}) => {
         <Tabs defaultIndex={0}>
           <TabList>
             <div className='grid grid-cols-4 text-center font-bold text-md text-main-300 mt-6'>
-            <Tab>Danh sách nhân viên</Tab>
+            {user.position === "Lãnh đạo công ty" ? (<Tab>Danh sách trưởng điểm</Tab>) : (<Tab>Danh sách nhân viên</Tab>)}
             <Tab onClick={handleSignupClick}>Thêm tài khoản nhân viên</Tab>
             </div>
           </TabList>

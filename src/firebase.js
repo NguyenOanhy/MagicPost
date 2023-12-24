@@ -267,28 +267,30 @@ const updateStatusAtIndex = async (orderId, index, office, value) => {
 
 const getUsersByOffice = async (currentUser) => {
   try {
-    const usersRef = collection(db, "user");
+    const usersRef = collection(db, 'user');
 
-    // Xác định vị trí của người dùng hiện tại
+    // Xác định vị trí và điểm tập kết cần tìm kiếm dựa trên vị trí và điểm tập kết của người dùng hiện tại
+    let searchPositions = [];
+    let searchOffice = '';
+
     const currentUserPosition = currentUser.position;
     const currentUserOffice = currentUser.office;
 
-    // Xác định vị trí và điểm tập kết cần tìm kiếm dựa trên vị trí và điểm tập kết của người dùng hiện tại
-    let searchPosition = "";
-    let searchOffice = "";
-    if (currentUserPosition === "Trưởng điểm tập kết") {
-      searchPosition = "Nhân viên tại điểm tập kết";
-      searchOffice = currentUserOffice;
-    } else if (currentUserPosition === "Trưởng điểm giao dịch") {
-      searchPosition = "Nhân viên tại điểm giao dịch";
-      searchOffice = currentUserOffice;
+    if (currentUserPosition === 'Lãnh đạo công ty') {
+      searchPositions = ['Trưởng điểm giao dịch', 'Trưởng điểm tập kết'];
+    } else if (currentUserPosition === 'Trưởng điểm tập kết') {
+      searchPositions = ['Nhân viên tại điểm tập kết'];
+    } else if (currentUserPosition === 'Trưởng điểm giao dịch') {
+      searchPositions = ['Nhân viên tại điểm giao dịch'];
     }
+
+    searchOffice = currentUserOffice;
 
     // Tạo truy vấn để lấy danh sách người dùng có vị trí và điểm tập kết trùng khớp
     const q = query(
       usersRef,
-      where("position", "==", searchPosition),
-      where("office", "==", searchOffice)
+      where('position', 'in', searchPositions),
+      where('office', '==', searchOffice)
     );
 
     // Thực hiện truy vấn và lấy danh sách người dùng
@@ -296,7 +298,7 @@ const getUsersByOffice = async (currentUser) => {
     const users = querySnapshot.docs.map((doc) => doc.data());
     return users;
   } catch (error) {
-    console.error("Error getting users by office: ", error);
+    console.error('Error getting users by office: ', error);
     return [];
   }
 };

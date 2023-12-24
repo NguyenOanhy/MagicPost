@@ -91,7 +91,7 @@ const Sidebar = ({ user}) => {
             <div className="text-sm pl-2">
               <p>{user.email}</p>
               <p className='text-[11px]'>{user.position}</p>
-              <p className='text-[11px]'>{`Bưu cục ` + user.office}</p>
+              {user.position !== "Lãnh đạo công ty" && <p className='text-[11px]'>{`Bưu cục ` + user.office}</p>}
             </div>
           )}
         </NavLink>
