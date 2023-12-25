@@ -57,8 +57,22 @@ const Sidebar = ({ user}) => {
   };
 
   return (
-    <div className={`bg-main-300  text-white ${expanded ? 'w-48' : 'w-16'} flex flex-col justify-between`}>
-      <ul className="space-y-2">
+    <div className={`bg-main-300 text-white ${expanded ? 'w-48' : 'w-16'} flex flex-col justify-between`}>
+      <ul className="space-y-3">
+      <ul className="flex h-24 px-4 py-4 space-x-2 mb-20 rounded-sm shadow-lg">
+        <NavLink to={`/private/profile`} 
+          className="flex items-center" 
+          onClick={handleProfileClick}  >
+          <FaRegUser size={30} />
+          {expanded && (
+            <div className="text-sm pl-2">
+              <p>{user.email}</p>
+              <p className='text-[11px]'>{user.position}</p>
+              {user.position !== "Lãnh đạo công ty" && <p className='text-[11px]'>{`Bưu cục ` + user.office}</p>}
+            </div>
+          )}
+        </NavLink>
+      </ul>
         <div
           className="flex px-4 py-2 text-white hover:bg-white hover:text-main-300"
           onClick={toggleExpand}
@@ -82,20 +96,7 @@ const Sidebar = ({ user}) => {
           </li>
         ))}
       </ul>
-      <ul className="flex px-4 py-4 space-x-2">
-        <NavLink to={`/private/profile`} 
-          className="flex items-center" 
-          onClick={handleProfileClick}  >
-          <FaRegUser size={30} />
-          {expanded && (
-            <div className="text-sm pl-2">
-              <p>{user.email}</p>
-              <p className='text-[11px]'>{user.position}</p>
-              {user.position !== "Lãnh đạo công ty" && <p className='text-[11px]'>{`Bưu cục ` + user.office}</p>}
-            </div>
-          )}
-        </NavLink>
-      </ul>
+      
     </div>
   );
 };

@@ -30,28 +30,28 @@ const Order = ({user}) => {
 
   return (
     <div className="w-full flex flex-col">
-          <h1 className="text-3xl text-main-300 font-bold mb-6 mx-auto text-center justify-center">Quản lý đơn hàng</h1>
-         <Tabs defaultIndex={0}>
-          <TabList>
-            <div className='grid grid-cols-4 text-center font-bold text-md text-main-300 mt-6'>
-              <Tab onClick={handleViewOrderClick}>Tổng quan đơn hàng</Tab>
-              <Tab onClick={handlePendingOrderClick}>Đơn Hàng Đang chờ</Tab>
-              <Tab onClick={handleOrderCreateClick}>Tạo đơn hàng</Tab>
+          <h1 className="text-3xl text-main-300 font-bold mb-12 mx-auto text-center justify-center">Quản lý đơn hàng</h1>
+         <Tabs defaultIndex={0} className={"py-0 h-screen"}>
+          <TabList className={"mb-0 bg-main-300 sticky top-0 "}>
+            <div className='grid grid-cols-4 text-center font-bold text-md text-white'>
+              <Tab onClick={handleViewOrderClick} className={"shadow-lg py-4 justify-center rounded-none"}>Tổng quan đơn hàng</Tab>
+              <Tab onClick={handlePendingOrderClick} className={"shadow-lg py-4 justify-center rounded-none"}>Đơn Hàng Đang chờ</Tab>
+              <Tab onClick={handleOrderCreateClick} className={"shadow-lg py-4 justify-center rounded-none"}>Tạo đơn hàng</Tab>
             </div>
             
           </TabList>
-          <TabPanel>
-            <div className='mx-16 mt-4'>
+          <TabPanel  className={"bg-white overflow-y-auto"}>
+            <div className='mx-16 mt-0 min-h-[450px]'>
             {showViewOrder && <ViewOrder user = {user}/>}
             </div>
           </TabPanel> 
-          <TabPanel>
-            <div className='mx-16 mt-4'>
+          <TabPanel className={"bg-white"}>
+            <div className='mx-16 min-h-[450px]'>
             {showPendingOrder && <PendingOrder user = {user}/>}
             </div>
           </TabPanel> 
-          <TabPanel>
-          <div className='mt-4'>
+          <TabPanel className={"bg-white overflow-y-auto"}>
+          <div className='pt-10'>
             {showOrderCreate && <OrderCreate user = {user}/>}
             </div>
           </TabPanel>

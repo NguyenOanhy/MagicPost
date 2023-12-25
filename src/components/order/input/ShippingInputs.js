@@ -30,7 +30,7 @@ export const ShippingInputs = ({ name, userInput, setInput}) => {
       />
       <input
         type="datetime-local"
-        className="w-96 h-12 border border-solid border-gray-300 p-2 mt-2 mb-0.5 mr-4 rounded-lg"
+        className="w-80 h-10 border border-solid border-gray-300 p-2 mt-2 mb-0.5 mr-4 rounded-lg"
         style={{borderColor: '#4991FC'}}
         placeholder="Ngày nhận đơn"
         onChange={(e) => handleTimeChange(e)}

@@ -95,7 +95,7 @@ export const AddressInputs = ({ name, userInput, setInput }) => {
       />
       
       <select
-      className="w-96 h-12 border border-solid p-2 mt-2 mb-0.5 mr-4 rounded-lg"
+      className="w-80 h-10 border border-solid p-2 mt-2 mb-0.5 mr-4 rounded-lg"
       style={{borderColor: '#4991FC'}}
       placeholder="Tỉnh/thành phố"
       onChange={(e) => handleCityChange(e.target.value)}
@@ -107,7 +107,7 @@ export const AddressInputs = ({ name, userInput, setInput }) => {
         ))} 
       </select>
       <select
-      className="w-96 h-12 border border-solid p-2 mt-2 mb-0.5 mr-4 rounded-lg"
+      className="w-80 h-10 border border-solid p-2 mt-2 mb-0.5 mr-4 rounded-lg"
       style={{borderColor: '#4991FC'}}
       placeholder="Quận/huyện"
       onChange={(e) => handleDistrictChange(e.target.value)}
@@ -119,7 +119,7 @@ export const AddressInputs = ({ name, userInput, setInput }) => {
         ))}
       </select>
       <select
-      className="w-96 h-12 border border-solid p-2 mt-2 mb-0.5 mr-4 rounded-lg"
+      className="w-80 h-10 border border-solid p-2 mt-2 mb-0.5 mr-4 rounded-lg"
       style={{borderColor: '#4991FC'}}
       placeholder="Phường/xã"
       onChange={handleWardChange}

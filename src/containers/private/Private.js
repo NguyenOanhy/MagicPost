@@ -18,7 +18,7 @@ const Private = ({user}) => {
     }
   };
   return (
-    <div className='flex h-screen'>
+    <div className='flex h-screen bg-[#F0F2F5]'>
       <div className='flex'>
         <Sidebar user={user}/>
       </div>

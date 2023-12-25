@@ -2,8 +2,8 @@ import React from "react";
 
 export const Input = ({ type, placeholder, onChange, value }) => {
   const eachInput = {
-    width: "24rem",
-    height: "3rem",
+    width: "20rem",
+    height: "2.5rem",
     border: "1px solid",
     borderColor: '#3780ED',
     padding: "0.8rem",

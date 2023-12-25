@@ -13,20 +13,22 @@ const Management = ({user}) => {
   return (
     user.position == "Trưởng điểm tập kết" || user.position == "Trưởng điểm giao dịch" || user.position == "Lãnh đạo công ty" ? (
     <div className="w-full flex flex-col">
-      <h1 className="text-3xl text-main-300 font-bold mb-6 mx-auto text-center justify-center">Quản lý nhân viên</h1>
+      <h1 className="text-3xl text-main-300 font-bold mb-10 mx-auto text-center justify-center">Quản lý nhân viên</h1>
       <div className="content">
-        <Tabs defaultIndex={0}>
-          <TabList>
-            <div className='grid grid-cols-4 text-center font-bold text-md text-main-300 mt-6'>
-            {user.position === "Lãnh đạo công ty" ? (<Tab>Danh sách trưởng điểm</Tab>) : (<Tab>Danh sách nhân viên</Tab>)}
-            <Tab onClick={handleSignupClick}>Thêm tài khoản nhân viên</Tab>
+        <Tabs defaultIndex={0} className={"py-0 h-screen"}>
+          <TabList className={"mb-0 sticky top-0"}>
+            <div className='grid grid-cols-4 text-center font-bold text-md text-white bg-main-300 mt-0'>
+            {user.position === "Lãnh đạo công ty" ? (<Tab className={"shadow-lg py-4 justify-center rounded-none"}>Danh sách trưởng điểm</Tab>) : (<Tab className={"shadow-lg py-4 justify-center rounded-none"}>Danh sách nhân viên</Tab>)}
+            <Tab onClick={handleSignupClick} className={"shadow-lg py-4 justify-center rounded-none"}>Thêm tài khoản nhân viên</Tab>
             </div>
           </TabList>
-          <TabPanel>
+          <TabPanel className={"bg-white"}>
+          <div className='min-h-[450px]'>
             <ListStaff user={user}/>
+          </div>
           </TabPanel>
-          <TabPanel>
-            <div className='mt-16'>
+          <TabPanel className={"bg-white"}>
+          <div className='min-h-[450px]'>
             {showSignup && <Signup />}
           </div>
           </TabPanel>

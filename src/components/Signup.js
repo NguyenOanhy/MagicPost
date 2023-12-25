@@ -39,10 +39,10 @@ function Signup({ onComplete }) {
 
   return (
    /* JSX */
-    <div className="w-3/4 mx-auto rounded-lg shadow-lg items-center justify-center bg-white">
-      <form className="bg-white px-8 py-6 space-y-6" onSubmit={handleSubmit}>
-        <div className="Auth-form-content grid grid-cols-2 gap-5">
-          {/* <h3 className="text-center font-bold text-3xl mb-6">Thêm tài khoản nhân viên</h3> */}
+    <div className="w-2/3 mx-auto rounded-lg shadow-lg items-center justify-center bg-white">
+      <form className="bg-white pt-10 px-8 py-6 space-y-6" onSubmit={handleSubmit}>
+        <div className="Auth-form-content grid grid-cols-2 gap-3 gap-x-7">
+          {/* <h3 className="text-center font-bolspace-y-6d text-3xl mb-6">Thêm tài khoản nhân viên</h3> */}
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
               Họ và tên

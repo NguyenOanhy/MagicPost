@@ -36,16 +36,18 @@ const Public = () => {
           </Link>
         </div>
       </div>
-      <div className="">
+      <div className="w-full flex flex-col">
         <Tabs defaultIndex={0}>
-          <TabList>
-            <Tab>Tra cứu đơn hàng</Tab>
-            <Tab>Tra cứu cước phí</Tab>
+          <TabList className={"mb-0 bg-main-300 sticky top-0 "}>
+            <div className='grid grid-cols-4 text-center font-bold text-md text-white'>
+              <Tab className={"shadow-lg py-4 justify-center rounded-none"}>Tra cứu đơn hàng</Tab>
+              <Tab className={"shadow-lg py-4 justify-center rounded-none"}>Tra cứu cước phí</Tab>
+            </div>
           </TabList>
 
           <TabPanel>
             <div className="flex flex-row items-center">
-              <div className="flex-col w-full mt-36 flex items-start justify-center ml-24">
+              <div className="flex-col w-full mt-24 flex items-start justify-center ml-36">
                 {/* Search bar */}
                 <p className="font-bold text-xl ml-5 mb-5">
                   Nhập mã vận đơn của bạn
@@ -499,7 +501,7 @@ const Public = () => {
                       for="trongluong"
                       class="peer-focus:font-medium absolute text-l text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                     >
-                      Khối lượng hàng hóa
+                      Khối lượng hàng hóa (KG)
                     </label>
                   </div>
                   <div class="relative z-0 w-full mb-7 group">
@@ -514,7 +516,7 @@ const Public = () => {
                       for="tienthuho"
                       class="peer-focus:font-medium absolute text-l text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                     >
-                      Tiền thu hộ
+                      Tiền thu hộ (VND)
                     </label>
                   </div>
                   <button
