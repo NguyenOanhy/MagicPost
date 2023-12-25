@@ -269,7 +269,6 @@ const getUsersByOffice = async (currentUser) => {
   try {
     const usersRef = collection(db, 'user');
 
-    // Xác định vị trí và điểm tập kết cần tìm kiếm dựa trên vị trí và điểm tập kết của người dùng hiện tại
     let searchPositions = [];
     let searchOffice = '';
 
@@ -280,20 +279,18 @@ const getUsersByOffice = async (currentUser) => {
       searchPositions = ['Trưởng điểm giao dịch', 'Trưởng điểm tập kết'];
     } else if (currentUserPosition === 'Trưởng điểm tập kết') {
       searchPositions = ['Nhân viên tại điểm tập kết'];
+      searchOffice = currentUserOffice;
     } else if (currentUserPosition === 'Trưởng điểm giao dịch') {
       searchPositions = ['Nhân viên tại điểm giao dịch'];
+      searchOffice = currentUserOffice;
     }
 
-    searchOffice = currentUserOffice;
-
-    // Tạo truy vấn để lấy danh sách người dùng có vị trí và điểm tập kết trùng khớp
     const q = query(
       usersRef,
       where('position', 'in', searchPositions),
-      where('office', '==', searchOffice)
+      ...(searchOffice ? [where('office', '==', searchOffice)] : []) // Thêm điều kiện truy vấn office nếu searchOffice tồn tại
     );
 
-    // Thực hiện truy vấn và lấy danh sách người dùng
     const querySnapshot = await getDocs(q);
     const users = querySnapshot.docs.map((doc) => doc.data());
     return users;
@@ -302,6 +299,55 @@ const getUsersByOffice = async (currentUser) => {
     return [];
   }
 };
+const countOrdersByStatus = async (user) => {
+  try {
+    const userOffice = user.office;
+    const ordersRef = collection(db, 'order');
+
+    // Thực hiện truy vấn để lấy danh sách đơn hàng
+    const querySnapshot = await getDocs(ordersRef);
+    const orders = querySnapshot.docs.map((doc) => doc.data());
+    console.log(orders)
+    let deliveringCount = 0;
+    let deliveredCount = 0;
+    let cancelledCount = 0;
+
+    // Đếm số lượng đơn hàng theo trạng thái
+    for (const order of orders) {
+      if (user.position === "Lãnh đạo công ty") {
+        if (order.order_status === 'Đang vận chuyển') {
+          deliveringCount++;
+        } else if (order.order_status === 'Đã vận chuyển') {
+          deliveredCount++;
+        } else if (order.order_status === 'Đã bị huỷ') {
+          cancelledCount++;
+        }
+      }
+      else if (order.path && order.path.includes(userOffice) && user.position != "Lãnh đạo công ty") { // Kiểm tra order.path tồn tại và userOffice là chuỗi con của order.path
+        if (order.order_status === 'Đang vận chuyển') {
+          deliveringCount++;
+        } else if (order.order_status === 'Đã vận chuyển') {
+          deliveredCount++;
+        } else if (order.order_status === 'Đã bị huỷ') {
+          cancelledCount++;
+        }
+      }
+    }
+
+    return {
+      deliveringCount,
+      deliveredCount,
+      cancelledCount,
+    };
+  } catch (error) {
+    console.error('Error counting orders by status: ', error);
+    return {
+      deliveringCount: 0,
+      deliveredCount: 0,
+      cancelledCount: 0,
+    };
+  } 
+};
 
 
-export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore, updateStatusAtIndex, getUserByEmail, getUsersByOffice};
+export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore, updateStatusAtIndex, getUserByEmail, getUsersByOffice, countOrdersByStatus};
