@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import icons from '../utils/icons';
-import { getCurrentUserEmail, getUserByEmail } from '../firebase';
+import {MdLogout} from "react-icons/md";
+import { auth } from '../firebase';
+import path from '../utils/path';
 
 const { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle, TbLayoutSidebarRightExpand, TbLayoutSidebarLeftExpand, GoHomeFill, FaRegUser } = icons;
 
 const Sidebar = ({ user}) => {
+  const navigate = useNavigate();
   const location = useLocation();
   const [expanded, setExpanded] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0); // Default to the "Trang chủ" menu item
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      console.log('User logged out successfully.');
+      navigate(path.PUBLIC);
+    } catch (error) {
+      console.log("Error signing out", error.message);
+    }
+  };
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -59,9 +71,9 @@ const Sidebar = ({ user}) => {
   return (
     <div className={`bg-main-300 text-white ${expanded ? 'w-48' : 'w-16'} flex flex-col justify-between`}>
       <ul className="space-y-3">
-      <ul className="flex h-24 px-4 py-4 space-x-2 mb-20 rounded-sm shadow-lg">
+      <ul className="flex flex-col h-32 justify-center px-2 py-8 space-x-2 mb-20 rounded-sm shadow-lg">
         <NavLink to={`/private/profile`} 
-          className="flex items-center" 
+          className="flex px-2 pb-4" 
           onClick={handleProfileClick}  >
           <FaRegUser size={30} />
           {expanded && (
@@ -72,14 +84,11 @@ const Sidebar = ({ user}) => {
             </div>
           )}
         </NavLink>
-      </ul>
-        <div
-          className="flex px-4 py-2 text-white hover:bg-white hover:text-main-300"
-          onClick={toggleExpand}
-          role="button"
-        >
-          {expanded ? <TbLayoutSidebarRightExpand size={30} /> : <TbLayoutSidebarLeftExpand size={30} />}
+        <div className='flex cursor-pointer'>
+              <MdLogout size={30}
+               onClick={handleLogout}/>
         </div>
+      </ul>
         {pages.map((page, index) => (
           <li key={index}>
             <NavLink
@@ -95,6 +104,13 @@ const Sidebar = ({ user}) => {
             </NavLink>
           </li>
         ))}
+        <div
+          className="flex px-4 py-2 text-white hover:bg-white hover:text-main-300"
+          onClick={toggleExpand}
+          role="button"
+        >
+          {expanded ? <TbLayoutSidebarRightExpand size={30} /> : <TbLayoutSidebarLeftExpand size={30} />}
+        </div>
       </ul>
       
     </div>

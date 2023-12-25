@@ -27,6 +27,7 @@ const ListStaff = ({ user }) => {
             <th className="border bg-main-300 p-2">Ngày sinh</th>
             <th className="border bg-main-300 p-2">Email</th>
             <th className="border bg-main-300 p-2">Chức vụ</th>
+            <th className="border bg-main-300 p-2">Bưu cục</th>
             <th className="border bg-main-300 p-2">Số điện thoại</th>
           </tr>
         </thead>
@@ -38,6 +39,7 @@ const ListStaff = ({ user }) => {
               <td className="border p-2">{staff.birth}</td>
               <td className="border p-2">{staff.email}</td>
               <td className="border p-2">{staff.position}</td>
+              <td className="border p-2">{staff.office}</td>
               <td className="border p-2">{staff.phone}</td>
             </tr>
           ))}

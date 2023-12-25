@@ -12,7 +12,7 @@ const Management = ({user}) => {
 
   return (
     user.position == "Trưởng điểm tập kết" || user.position == "Trưởng điểm giao dịch" || user.position == "Lãnh đạo công ty" ? (
-    <div className="w-full flex flex-col">
+    <div className="w-full h-screen flex flex-col">
       <h1 className="text-3xl text-main-300 font-bold mb-10 mx-auto text-center justify-center">Quản lý nhân viên</h1>
       <div className="content">
         <Tabs defaultIndex={0} className={"py-0 h-screen"}>
