@@ -30,7 +30,7 @@ const Order = ({user}) => {
 
   return (
     <div className="w-full flex flex-col">
-          <h1 className="text-3xl text-main-300 font-bold mb-12 mx-auto text-center justify-center">Quản lý đơn hàng</h1>
+          <h1 className="text-3xl text-main-300 font-bold mt-8 mb-8 mx-auto text-center justify-center">Quản lý đơn hàng</h1>
          <Tabs defaultIndex={0} className={"py-0 h-screen"}>
           <TabList className={"mb-0 bg-main-300 sticky top-0 "}>
             <div className='grid grid-cols-4 text-center font-bold text-md text-white'>
