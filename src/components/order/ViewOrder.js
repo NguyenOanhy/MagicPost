@@ -161,7 +161,7 @@ const ViewOrder = ({user}) => {
                                 <option value="0">Đang giao hàng</option>
                                 <option value="1">Hoãn giao lần 1</option>
                                 <option value="2">Hoãn giao lần 2</option>
-                                <option value="3">Vận chuyển thành công</option>
+                                <option value="3">Giao hàng thành công</option>
                                 <option value="4">Đơn hàng bị hủy</option>
                               </>
                             )}

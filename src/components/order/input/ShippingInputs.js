@@ -12,30 +12,32 @@ export const ShippingInputs = ({ name, userInput, setInput}) => {
   return (
     <div style={eachInputBox}>
       <h2 className="font-bold border-t-0 border-r-0 border-b border-l-0 border-solid pb-2 mb-2" style={{fontSize:'19px', color: '#4991FC', borderColor: '#3780ED'}}>{name}</h2>
-      <Input
-        //shipping_price
-        type="text"
-        placeholder="Cước phí vận chuyển"
-        onChangeOne={(e) => setInput({ ...userInput, shipping_price: e.target.value })}
-        value={userInput.shipping_price}
-      />
-      <Input
-        //payment_method
-        type="text"
-        placeholder="Hình thức thanh toán"
-        onChange={(e) =>
-          setInput({ ...userInput, payment_method: e.target.value })
-        }
-        value={userInput.payment_method}
-      />
-      <input
-        type="datetime-local"
-        className="w-80 h-10 border border-solid border-gray-300 p-2 mt-2 mb-0.5 mr-4 rounded-lg"
-        style={{borderColor: '#4991FC'}}
-        placeholder="Ngày nhận đơn"
-        onChange={(e) => handleTimeChange(e)}
-        value={userInput.date}
-      />
+      <select
+      className="w-80 h-10 border border-solid p-2 mt-2 mb-0.5 mr-4 rounded-lg"
+      style={{borderColor: '#4991FC'}}
+      placeholder="Dịch vụ chuyển phát"
+      onChange={(e) =>
+        setInput({ ...userInput, type: e.target.value })
+      }
+      value={userInput.type}
+      >
+        <option value="">Chọn dịch vụ chuyển phát</option>
+        <option value="Chuyển phát nhanh">Chuyển phát nhanh</option>
+        <option value="Chuyển phát thường">Chuyển phát thường</option>
+      </select>
+      <select
+      className="w-80 h-10 border border-solid p-2 mt-2 mb-0.5 mr-4 rounded-lg"
+      style={{borderColor: '#4991FC'}}
+      placeholder="Hình thức thanh toán"
+      onChange={(e) =>
+        setInput({ ...userInput, payment_method: e.target.value })
+      }
+      value={userInput.payment_method}
+      >
+        <option value="">Chọn hình thức thanh toán</option>
+        <option value="Trả bởi người người gửi">Trả bởi người người gửi</option>
+        <option value="Trả bởi người nhận">Trả bởi người nhận</option>
+      </select>
       <Input
         //note
         type="text"

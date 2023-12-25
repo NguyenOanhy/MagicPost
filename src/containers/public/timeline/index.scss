@@ -1,0 +1,74 @@
+.subitem{
+    display: flex;
+    justify-content: flex-start;
+    padding-right: 0;
+    padding-left: 30px;
+    margin: 15px 3px;
+}
+  
+  .subitem-content{
+    display: flex;
+    //padding: 15px;
+    text-align: left;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  //circulos da timeline com bordinha
+  .subitem-content .circle{
+    background-color: #fff;
+    border: 2px solid #4991FC;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    left: -40px;
+    z-index: 1;
+  }
+
+  .subitem-content .circle2{
+    background-color: #4991FC;
+    border: 2px solid #4991FC;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+    margin-top: 1px;
+    margin-left: 1.5px;
+    align-items: center;
+  }
+  
+  @media only screen and (max-width: 767px){
+    .subitem-content, 
+    .subitem:nth-child(odd) .subitem-content{
+      padding: 15px 10px;
+      text-align: center;
+      align-items: center;
+    }
+  
+    .subitem-content a{
+      text-decoration: underline;
+    }
+  
+    .subitem-content a::after{
+      display: none;
+    }
+  }
+.timeline-container{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 40px 0;
+}
+
+//add middle line from timeline
+.timeline-container::after{
+  background-color: #4991FC;
+  content: '';
+  //left: calc(50% - 2px);
+  position: absolute;
+  width: 2px;
+  height: 100%;
+}

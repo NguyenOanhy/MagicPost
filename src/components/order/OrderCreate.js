@@ -4,14 +4,14 @@ import { ShippingInputs } from "./input/ShippingInputs";
 import ShippingLabel from "./input/ShippingLabel";
 import { v4 as uuidv4 } from "uuid";
 import QRCode from "react-qr-code";
-import {addOrderToFirestore, getDocumentById, updateOrderCount} from "../../firebase"
+import {addOrderToFirestore, getDocumentById, updateOrderCount, getShippingFee} from "../../firebase"
 import {ProductInputs} from "./input/ProductInputs";
 
 const OrderCreate = () => {
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString(); // Lấy ngày hiện tại (định dạng tùy chọn)
   const formattedTime = currentDate.toLocaleTimeString(); // Lấy thời gian hiện tại (định dạng tùy chọn)
-
+  const estimatedDate = new Date(currentDate);
   const formattedDateTime = `${formattedDate} ${formattedTime}`;
   const [consignorInput, setConsignorInput] = useState({
     name: "",
@@ -41,11 +41,15 @@ const OrderCreate = () => {
   });
   const [shippingDetailInput, setShippingDetailInput] = useState({
     shipping_price: "",
+    additional_fee: "",
+    total_fee: "",
     payment_method: "",
     date: formattedDateTime,
     note: "",
+    type: "",
+    shipping_date: "",
+    estimated_date: "",
   });
-  const [path, setPath] = useState("");
   const [log, setLog] = useState([
     {
       createdTime: formattedDateTime,
@@ -73,17 +77,22 @@ const OrderCreate = () => {
   useEffect(() => {
     orderCount();
   },[])
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     setIsValidData(true);
     convertUUIDtoBase64();
     const cleanedCityName1 = consignorInput.city.replace('Tỉnh ', '').replace('Thành phố ', '');
     const cleanedCityName2 = consigneeInput.city.replace('Tỉnh ', '').replace('Thành phố ', '');
     const pathString = `${cleanedCityName1} - ${consignorInput.hub} - ${consigneeInput.hub} - ${cleanedCityName2}`;
-    // Set giá trị pathString
-    console.log(pathString);
-    //setPath(pathString);
-    //orderCount();
-    addOrderToFirestore(orderId, consignorInput, consigneeInput, productInput, shippingDetailInput, pathString, status, log, "order");
+    const fee = await getShippingFee(cleanedCityName1, cleanedCityName2, productInput.weight, productInput.type, shippingDetailInput.type, productInput.price);
+    console.log(fee);
+    var shipping_detail = shippingDetailInput;
+    shipping_detail.shipping_price = fee[0];
+    shipping_detail.additional_fee = fee[1];
+    shipping_detail.total_fee = fee[2];
+    shipping_detail.estimated_date =  currentDate.getDate() + fee[3];
+  
+    //setShippingDetailInput({shipping_price: fee[0], additional_fee: fee[1], total_fee: fee[2], estimated_date: estimatedDate.getDate() + fee[3]});
+    await addOrderToFirestore(orderId, consignorInput, consigneeInput, productInput, shipping_detail, pathString, status, log, "order");
     //setOrderId(id);
     updateOrderCount(parseInt(orderId));
     setSubmittedData({

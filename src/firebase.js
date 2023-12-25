@@ -246,8 +246,10 @@ const updateStatusAtIndex = async (orderId, index, office, value) => {
         logEntry.statusName = "Hoãn giao hàng lần 2.";
       } else if (value ===3) {
         logEntry.statusName = "Đơn hàng đã được giao thành công.";
+        orderData.order_status = "Đã vận chuyển";
       } else if (value === 4) {
         logEntry.statusName = "Đơn hàng đã bị hủy.";
+        orderData.order_status = "Đã bị hủy";
       }
       
       // Add a new log entry to the log array
@@ -255,7 +257,7 @@ const updateStatusAtIndex = async (orderId, index, office, value) => {
       orderData.log.push(logEntry);
 
       // Update the entire document with the modified status array and new log entry
-      await updateDoc(orderRef, { status: orderData.status, log: orderData.log });
+      await updateDoc(orderRef, { status: orderData.status, log: orderData.log, order_status: orderData.order_status});
       console.log("Successfully updated");
     } else {
       console.log("Document or status field not found");
@@ -303,5 +305,146 @@ const getUsersByOffice = async (currentUser) => {
   }
 };
 
+const getShippingFee = async(start_point, end_point, weight, product_type, shipping_type, product_price) => {
+  try {
+    const data_1 = await getDocumentById(start_point, "trans_point");
+    const data_2 = await getDocumentById(end_point, "trans_point");
+    //let fee = 0;
+    let shipping_fee = 0;
+    let additional_fee = 0;
+    let estimated_date = 0;
+    const hub_1 = parseInt(data_1.hubId);
+    const hub_2 = parseInt(data_2.hubId);
+    const type_1 = new Set([1001, 1002, 1003]);
+    const type_2 = new Set([1004, 1005, 1006]);
+    const type_3 = new Set([1007, 1008]);
+    if ((type_1.has(hub_1) && type_1.has(hub_2)) || (type_3.has(hub_1) && type_3.has(hub_2))) {
+      shipping_fee += 15000;
+      estimated_date = 3;
+      console.log("th1");
+    } else if ((type_2.has(hub_1) && type_2.has(hub_2))) {
+      if (Math.abs(hub_1 - hub_2) <= 1) {
+        shipping_fee += 15000;
+        estimated_date = 3;
+        console.log("th2");
+      } else {
+        shipping_fee += 20000;
+        estimated_date = 4;
+        console.log("th3");
+      }
+    } else {
+      if ((type_1.has(hub_1) && type_2.has(hub_2)) || (type_2.has(hub_1) && type_1.has(hub_2)) || (type_2.has(hub_1) && type_3.has(hub_2)) || (type_3.has(hub_1) && type_2.has(hub_2))) {
+        shipping_fee += 20000;
+        estimated_date = 4;
+        console.log("th4");
+      } else if ((type_1.has(hub_1) && type_3.has(hub_2)) || (type_3.has(hub_1) && type_1.has(hub_2))) {
+        shipping_fee += 30000;
+        estimated_date = 5;
+        console.log("th5");
+      }
+    }
+    if (product_type === "Tài liệu") {
+      if (weight >= 500) {
+        additional_fee += 5000;
+        console.log("th6");
+      } else if (weight >= 1000) {
+        additional_fee += 10000;
+        console.log("th7");
+      } else {
+        additional_fee += 15000;
+        console.log("th8");
+      }
+    } else {
+      let x = Math.floor(weight / 1000);
+      additional_fee += x * 400;
+      console.log("th9");
+    }
+    if (shipping_type === "Chuyển phát nhanh") {
+      if (estimated_date === 3) {
+        estimated_date = 1;
+        console.log("th10");
+      } else {
+        estimated_date = 2;
+        console.log("th11");
+      }
+      if (additional_fee === 0) {
+        additional_fee += 10000;
+        console.log("th12");
+      } else {
+        additional_fee *= 1.5;
+        console.log("th13");
+      }
+    }
+    console.log([shipping_fee, additional_fee, shipping_fee + additional_fee, estimated_date]);
+    return [shipping_fee, additional_fee, shipping_fee + additional_fee + parseInt(product_price), estimated_date];
+  } catch (error) {
+    console.error('Error getting users by office: ', error);
+    return [];
+  }
+  
+}
 
-export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore, updateStatusAtIndex, getUserByEmail, getUsersByOffice};
+const getShippingFeeByCustomer = async(start_point, end_point, weight, product_type) => {
+  try {
+    const data_1 = await getDocumentById(start_point, "trans_point");
+    const data_2 = await getDocumentById(end_point, "trans_point");
+    let shipping_fee = 0;
+    let additional_fee_1 = 0;
+    let additional_fee_2 = 0;
+    const hub_1 = parseInt(data_1.hubId);
+    const hub_2 = parseInt(data_2.hubId);
+    const type_1 = new Set([1001, 1002, 1003]);
+    const type_2 = new Set([1004, 1005, 1006]);
+    const type_3 = new Set([1007, 1008]);
+    if ((type_1.has(hub_1) && type_1.has(hub_2)) || (type_3.has(hub_1) && type_3.has(hub_2))) {
+      shipping_fee += 15000;
+    } else if ((type_2.has(hub_1) && type_2.has(hub_2))) {
+      if (Math.abs(hub_1 - hub_2) <= 1) {
+        shipping_fee += 15000;
+      } else {
+        shipping_fee += 20000;
+      }
+    } else {
+      if ((type_1.has(hub_1) && type_2.has(hub_2)) || (type_2.has(hub_1) && type_1.has(hub_2)) || (type_2.has(hub_1) && type_3.has(hub_2)) || (type_3.has(hub_1) && type_2.has(hub_2))) {
+        shipping_fee += 20000;
+      } else if ((type_1.has(hub_1) && type_3.has(hub_2)) || (type_3.has(hub_1) && type_1.has(hub_2))) {
+        shipping_fee += 30000;
+      }
+    }
+    if (product_type === "Tài liệu") {
+      if (weight >= 500) {
+        additional_fee_1 += 5000;
+      } else if (weight >= 1000) {
+        additional_fee_1 += 10000;
+      } else {
+        additional_fee_1 += 15000;
+      }
+    } else {
+      let x = Math.floor(weight / 1000);
+      additional_fee_1 += x * 400;
+    }
+    if (additional_fee_1 === 0) {
+      additional_fee_2 = additional_fee_1 + 10000;
+    } else {
+      additional_fee_2 = additional_fee_1 * 1.5;
+    }
+    let fee = [{
+      type: "Chuyển phát thường",
+      shipping_fee: shipping_fee,
+      additional_fee: additional_fee_1,
+    },
+    {
+      type: "Chuyển phát nhanh",
+      shipping_fee: shipping_fee,
+      additional_fee: additional_fee_2,
+    }];
+    return fee;
+  } catch (error) {
+    console.error('Error getting users by office: ', error);
+    return [];
+  }
+  
+}
+
+
+export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore, updateStatusAtIndex, getUserByEmail, getUsersByOffice, getShippingFee, getShippingFeeByCustomer};

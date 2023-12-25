@@ -25,19 +25,24 @@ export const ProductInputs = ({ name, userInput, setInput }) => {
         }
         value={userInput.price}
       />
-      <Input
-        //Product's type
-        type="text"
-        placeholder="Loại hàng gửi"
-        onChange={(e) =>
-          setInput({ ...userInput, type: e.target.value })
-        }
-        value={userInput.type}
-      />
+      <select
+      className="w-80 h-10 border border-solid p-2 mt-2 mb-0.5 mr-4 rounded-lg"
+      style={{borderColor: '#4991FC'}}
+      placeholder="Loại hàng gửi"
+      onChange={(e) =>
+        setInput({ ...userInput, type: e.target.value })
+      }
+      //value={userInput.ward_code}
+      >
+        <option value="">Chọn loại hàng gửi</option>
+        <option value="Tài liệu">Tài liệu</option>
+        <option value="Hàng hóa">Hàng hóa</option>
+      </select>
+
       <Input
         //Product's weight
         type="text"
-        placeholder="Khối lượng hàng gửi"
+        placeholder="Khối lượng hàng gửi (gram)"
         onChange={(e) => setInput({ ...userInput, weight: e.target.value })}
         value={userInput.weight}
       />
