@@ -85,8 +85,8 @@ const Public = () => {
         <Tabs defaultIndex={0}>
           <TabList className={"mb-0 bg-main-300 sticky top-0 "}>
             <div className='grid grid-cols-4 text-center font-bold text-md text-white'>
-              <Tab className={"shadow-lg py-4 justify-center rounded-none"}>Tra cứu đơn hàng</Tab>
-              <Tab className={"shadow-lg py-4 justify-center rounded-none"}>Tra cứu cước phí</Tab>
+              <Tab className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Tra cứu đơn hàng</Tab>
+              <Tab className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Tra cứu cước phí</Tab>
             </div>
           </TabList>
 

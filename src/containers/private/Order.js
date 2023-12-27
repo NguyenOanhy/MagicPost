@@ -34,9 +34,9 @@ const Order = ({user}) => {
          <Tabs defaultIndex={0} className={"py-0 h-screen"}>
           <TabList className={"mb-0 bg-main-300 sticky top-0 "}>
             <div className='grid grid-cols-4 text-center font-bold text-md text-white'>
-              <Tab onClick={handleViewOrderClick} className={"shadow-lg py-4 justify-center rounded-none"}>Tổng quan đơn hàng</Tab>
-              <Tab onClick={handlePendingOrderClick} className={"shadow-lg py-4 justify-center rounded-none"}>Đơn Hàng Đang chờ</Tab>
-              <Tab onClick={handleOrderCreateClick} className={"shadow-lg py-4 justify-center rounded-none"}>Tạo đơn hàng</Tab>
+              <Tab onClick={handleViewOrderClick} className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Tổng quan đơn hàng</Tab>
+              <Tab onClick={handlePendingOrderClick} className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Đơn Hàng Đang chờ</Tab>
+              <Tab onClick={handleOrderCreateClick} className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Tạo đơn hàng</Tab>
             </div>
             
           </TabList>

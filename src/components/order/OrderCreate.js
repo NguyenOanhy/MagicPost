@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { AddressInputs } from "./input/AddressInputs";
+import { useNavigate } from "react-router-dom";
 import { ShippingInputs } from "./input/ShippingInputs";
-import ShippingLabel from "./input/ShippingLabel";
-import { v4 as uuidv4 } from "uuid";
-import QRCode from "react-qr-code";
 import {addOrderToFirestore, getDocumentById, updateOrderCount, getShippingFee} from "../../firebase"
 import {ProductInputs} from "./input/ProductInputs";
 
 const OrderCreate = () => {
+  const navigate = useNavigate();
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString(); // Lấy ngày hiện tại (định dạng tùy chọn)
   const formattedTime = currentDate.toLocaleTimeString(); // Lấy thời gian hiện tại (định dạng tùy chọn)
@@ -60,7 +59,6 @@ const OrderCreate = () => {
   const [status, setStatus] = useState([0, -1, -1, -1, -1]);
   const [submittedData, setSubmittedData] = useState(null);
   const [isValidData, setIsValidData] = useState(false);
-  const [base64Value, setBase64Value] = useState("");
   const [orderId, setOrderId] = useState("")
   const orderCount = async() => {
     try {
@@ -79,7 +77,6 @@ const OrderCreate = () => {
   },[])
   const handleSubmit = async() => {
     setIsValidData(true);
-    convertUUIDtoBase64();
     const cleanedCityName1 = consignorInput.city.replace('Tỉnh ', '').replace('Thành phố ', '');
     const cleanedCityName2 = consigneeInput.city.replace('Tỉnh ', '').replace('Thành phố ', '');
     const pathString = `${cleanedCityName1} - ${consignorInput.hub} - ${consigneeInput.hub} - ${cleanedCityName2}`;
@@ -117,11 +114,15 @@ const OrderCreate = () => {
     });
   };
 
-  const convertUUIDtoBase64 = (i ) => {
-    const base64 = require("uuid-base64");
-    const id = base64.encode(uuidv4());
-    setBase64Value(id);
+  const handleOnClick = () => {
+    navigate(`/private/orders/${orderId}`, {
+      state: {
+        orderId: orderId,
+        orderData: submittedData,
+      },
+    });
   };
+  
 
   return (
     <div>
@@ -168,17 +169,8 @@ const OrderCreate = () => {
             </button>
           </div>
           {isValidData && (
-            <div className="flex justify-center mt-8">
-              <div className="p-4 border border-black w-2/3">
-                <ShippingLabel
-                  consignorData={submittedData && submittedData.consignor}
-                  consigneeData={submittedData && submittedData.consignee}
-                />
-                <div>{base64Value}</div>
-                <div>
-                  <QRCode value={base64Value} size={156} />
-                </div>
-              </div>
+            <div className="flex justify-center mt-4">
+              <div onClick={handleOnClick}>Xem thông tin chi tiết tại đây</div>
             </div>
           )}
         </div>

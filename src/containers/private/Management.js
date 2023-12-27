@@ -18,8 +18,8 @@ const Management = ({user}) => {
         <Tabs defaultIndex={0} className={"py-0 h-screen"}>
           <TabList className={"mb-0 sticky top-0"}>
             <div className='grid grid-cols-4 text-center font-bold text-md text-white bg-main-300 mt-0'>
-            {user.position === "Lãnh đạo công ty" ? (<Tab className={"shadow-lg py-4 justify-center rounded-none"}>Danh sách trưởng điểm</Tab>) : (<Tab className={"shadow-lg py-4 justify-center rounded-none"}>Danh sách nhân viên</Tab>)}
-            <Tab onClick={handleSignupClick} className={"shadow-lg py-4 justify-center rounded-none"}>Thêm tài khoản nhân viên</Tab>
+            {user.position === "Lãnh đạo công ty" ? (<Tab className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Danh sách trưởng điểm</Tab>) : (<Tab className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Danh sách nhân viên</Tab>)}
+            <Tab onClick={handleSignupClick} className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Thêm tài khoản nhân viên</Tab>
             </div>
           </TabList>
           <TabPanel className={"bg-white"}>

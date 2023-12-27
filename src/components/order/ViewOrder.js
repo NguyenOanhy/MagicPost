@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getOrdersFromFirestore, updateStatusAtIndex } from "../../firebase";
 
 const ViewOrder = ({user}) => {
+  const navigate = useNavigate();
   const office = user.office;
   const [orders, setOrders] = useState([]);
   const [editingOrderId, setEditingOrderId] = useState(null);
@@ -104,7 +106,14 @@ const ViewOrder = ({user}) => {
     return -1;
   };
 
-
+  const handleOnClick = (order) => {
+    navigate(`/private/orders/${order.id}`, {
+      state: {
+        orderId: order.id,
+        orderData: order,
+      },
+    });
+  };
   return (
     <div className="app-container flex flex-col gap-10 text-base">
       <table className="w-full border-collapse mt-7">
@@ -117,6 +126,7 @@ const ViewOrder = ({user}) => {
             <th className="border bg-main-300 p-2">Mã điểm GD bên nhận</th>
             <th className="border bg-main-300 p-2">Ngày giờ gửi</th>
             <th className="border bg-main-300 p-2">Trạng thái</th>
+            <th className="border bg-main-300 p-2">Phiếu vận chuyển</th>
             <th className="border bg-main-300 p-2">Chỉnh sửa</th>
           </tr>
         </thead>
@@ -172,7 +182,11 @@ const ViewOrder = ({user}) => {
                       viewStatus(order, index) // Display the current status when not in edit mode
                     )}
                   </td>
-
+                  <td className="border p-2 cursor-pointer">
+                    <div onClick={() => handleOnClick(order)}>
+                      Xem chi tiết
+                    </div>
+                  </td>
 
                   <td className="border p-2">
                     {editTest(order, index) && (
