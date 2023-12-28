@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { getOrdersFromFirestore, updateStatusAtIndex } from "../../firebase";
+import { getDataFromFirestore, updateStatusAtIndex } from "../../firebase";
 
 const PendingOrder = ({ user }) => {
   const office = user.office;
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     const fetchOrders = async () => {
-      const ordersData = await getOrdersFromFirestore();
+      const ordersData = await getDataFromFirestore("order");
       setOrders(ordersData);
     };
 
