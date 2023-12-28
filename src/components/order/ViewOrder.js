@@ -5,6 +5,7 @@ import { getOrdersFromFirestore, updateStatusAtIndex } from "../../firebase";
 const ViewOrder = ({user}) => {
   const navigate = useNavigate();
   const office = user.office;
+  const position = user.position;
   const [orders, setOrders] = useState([]);
   const [editingOrderId, setEditingOrderId] = useState(null);
 
@@ -127,13 +128,16 @@ const ViewOrder = ({user}) => {
             <th className="border bg-main-300 p-2">Ngày giờ gửi</th>
             <th className="border bg-main-300 p-2">Trạng thái</th>
             <th className="border bg-main-300 p-2">Phiếu vận chuyển</th>
-            <th className="border bg-main-300 p-2">Chỉnh sửa</th>
+            {position !== "Lãnh đạo công ty" && (
+              <th className="border bg-main-300 p-2">Chỉnh sửa</th>
+            )}
+            
           </tr>
         </thead>
         <tbody>
           {orders.map((order) => {
             const index = countDashesBeforeOffice(office, order?.path);
-            if ( index !== -1 && order.status[index] !== -1 && order.id !== "total") {
+            if ( (index !== -1 && order.status[index] !== -1 && order.id !== "total") || (position === "Lãnh đạo công ty" && order.id !== "total")) {
               return (
                 <tr key={order.id}>
                   <td className="border p-2">{order.id}</td>
@@ -187,8 +191,8 @@ const ViewOrder = ({user}) => {
                       Xem chi tiết
                     </div>
                   </td>
-
-                  <td className="border p-2">
+                  {position !== "Lãnh đạo công ty" && (
+                    <td className="border p-2">
                     {editTest(order, index) && (
                       editingOrderId === order.id ? (
                         <button onClick={handleDoneClick}>Done</button>
@@ -199,6 +203,7 @@ const ViewOrder = ({user}) => {
                       )
                     )}
                   </td>
+                  )}
                 </tr>
               );
             }
