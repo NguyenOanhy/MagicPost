@@ -167,16 +167,16 @@ const updateOrderCount = async (orderCount) => {
     console.error("Error updating document: ", error);
   }
 };
-const getOrdersFromFirestore = async () => {
+const getDataFromFirestore = async (dbName) => {
   try {
-    const querySnapshot = await getDocs(collection(db, "order"));
-    const orders = querySnapshot.docs.map((doc) => ({
+    const querySnapshot = await getDocs(collection(db, dbName));
+    const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-    return orders;
+    return data;
   } catch (error) {
-    console.error("Error getting orders: ", error);
+    console.error("Error getting data: ", error);
     return [];
   }
 };
@@ -493,4 +493,4 @@ const getShippingFeeByCustomer = async(start_point, end_point, weight, product_t
 }
 
 
-export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getOrdersFromFirestore, updateStatusAtIndex, getUserByEmail, getUsersByOffice, countOrdersByStatus, getShippingFee, getShippingFeeByCustomer};
+export { storage, auth, db, getDocumentById, getCurrentUserEmail, getCurrentUser, addDataToFirestore, addUserToFirestore, addOrderToFirestore, updateOrderCount, getDataFromFirestore, updateStatusAtIndex, getUserByEmail, getUsersByOffice, countOrdersByStatus, getShippingFee, getShippingFeeByCustomer};

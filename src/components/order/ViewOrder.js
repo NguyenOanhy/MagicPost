@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getOrdersFromFirestore, updateStatusAtIndex } from "../../firebase";
+import { getDataFromFirestore, updateStatusAtIndex } from "../../firebase";
 
 const ViewOrder = ({ user }) => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const ViewOrder = ({ user }) => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const ordersData = await getOrdersFromFirestore();
+      const ordersData = await getDataFromFirestore("order");
       setOrders(ordersData);
     };
 
