@@ -95,7 +95,7 @@ const Sidebar = ({ user }) => {
               <img class="h-auto w-16 mx-auto py-2" src={require('../image/shipping_box.png')} alt="image description"></img>}
             {expanded && (
               <div className="text-sm pl-2 mx-auto">
-                <p>{user.email}</p>
+                {/* <p>{user.email}</p> */}
                 <p className="text-[11px]">{user.position}</p>
                 {user.position !== "Lãnh đạo công ty" && (
                   <p className="text-[11px]">{`Bưu cục ` + user.office}</p>

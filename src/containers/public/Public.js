@@ -94,8 +94,8 @@ const Public = () => {
         </div>
       </div>
       <div className="w-3/4 flex flex-col shadow-lg items-center mx-auto">
-        <Tabs defaultIndex={0}>
-          <TabList className={"w-full bg-[#F0F2F5] shadow-lg items-center mx-auto"}>
+        <Tabs className={"w-full"} defaultIndex={0}>
+          <TabList className={"w-full bg-[#F0F2F5] shadow-lg items-center"}>
             <div className='grid grid-cols-2 text-center font-bold text-md text-gray-900'>
               <Tab className={"py-4 justify-center rounded-none cursor-pointer"}>Tra cứu đơn hàng</Tab>
               <Tab className={"py-4 justify-center rounded-none cursor-pointer"}>Tra cứu cước phí</Tab>
@@ -127,7 +127,7 @@ const Public = () => {
                 {/* Display tracking info if available */}
                 {trackingInfo && (
                   <div className="w-5/6">
-                    <div className="mt-5 ml-[-20px] bg-gray-200 rounded-lg p-4 shadow-md mb-5">
+                    <div className="mt-5  bg-gray-200 rounded-lg p-4 shadow-md mb-5">
                       <h2 className="font-bold text-lg text-[22px]">THÔNG TIN VẬN ĐƠN</h2>
                       <div className="flex flex-row space-x-4 mt-5">
                         <div className="w-1/3 border-t-0 border-r border-b-0 border-l-0 border-black border-solid">
@@ -183,7 +183,7 @@ const Public = () => {
                       </div>
                       {/* ... other tracking info properties */}
                     </div>
-                    <div className="mt-5 ml-[-20px] bg-gray-200 rounded-lg p-4 shadow-md mb-5">
+                    <div className="mt-5 bg-gray-200 rounded-lg p-4 shadow-md mb-5">
                       <h2 className="font-bold text-lg text-[22px]">LỊCH SỬ VẬN ĐƠN</h2>
                         <Timeline 
                           data={trackingInfo.log}
