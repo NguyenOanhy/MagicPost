@@ -47,23 +47,19 @@ const Order = ({ user }) => {
         </TabList>
         <TabPanel className={"bg-white overflow-y-auto"}>
           <div className='mx-16 mt-0 min-h-[450px]'>
-            {showViewOrder && <ViewOrder user={user} />}
+            {showViewOrder && !showPendingOrder && !showOrderCreate && <ViewOrder user={user} />}
           </div>
         </TabPanel>
-        {!showPendingOrder && (
-          <TabPanel className={"bg-white"}>
-            <div className='mx-16 min-h-[450px]'>
-              {showPendingOrder && <PendingOrder user={user} />}
-            </div>
-          </TabPanel>
-        )}
-        {!showOrderCreate && (
-          <TabPanel className={"bg-white overflow-y-auto"}>
-            <div className='pt-10'>
-              {showOrderCreate && <OrderCreate user={user} />}
-            </div>
-          </TabPanel>
-        )}
+        <TabPanel className={"bg-white"}>
+          <div className='mx-16 min-h-[450px]'>
+            {showPendingOrder && !showViewOrder && !showOrderCreate && <PendingOrder user={user} />}
+          </div>
+        </TabPanel>
+        <TabPanel className={"bg-white overflow-y-auto"}>
+          <div className='pt-10'>
+            {showOrderCreate && !showViewOrder && !showPendingOrder && <OrderCreate user={user} />}
+          </div>
+        </TabPanel>
       </Tabs>
     </div>
   );
