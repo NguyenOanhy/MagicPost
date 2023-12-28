@@ -18,7 +18,7 @@ const ListStaff = ({ user }) => {
   }, [user]);
 
   return (
-    <div className="app-container flex flex-col gap-10 text-base mx-16" >
+    <div className="app-container flex flex-col gap-10 text-base mx-10" >
       <table className='w-full border-collapse mt-7'>
         <thead>
           <tr className="rounded-lg shadow-lg">
@@ -34,9 +34,9 @@ const ListStaff = ({ user }) => {
         <tbody>
           {staffList.map((staff, index) => (
             <tr key={staff.id}>
-              <td className="border p-2">{index + 1}</td>
+              <td className="border p-2 text-center">{index + 1}</td>
               <td className="border p-2">{staff.name}</td>
-              <td className="border p-2">{staff.birth}</td>
+              <td className="border p-2 text-center">{staff.birth}</td>
               <td className="border p-2">{staff.email}</td>
               <td className="border p-2">{staff.position}</td>
               <td className="border p-2">{staff.office}</td>

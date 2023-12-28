@@ -1,13 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import icons from '../utils/icons';
-import {MdLogout} from "react-icons/md";
-import { auth } from '../firebase';
-import path from '../utils/path';
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import icons from "../utils/icons";
+import { MdLogout } from "react-icons/md";
+import { auth } from "../firebase";
+import path from "../utils/path";
 
-const { FaBoxOpen, FaClipboardList, FaUsers, FaInfoCircle, TbLayoutSidebarRightExpand, TbLayoutSidebarLeftExpand, GoHomeFill, FaRegUser } = icons;
+const {
+  FaBoxOpen,
+  FaClipboardList,
+  FaUsers,
+  FaInfoCircle,
+  TbLayoutSidebarRightExpand,
+  TbLayoutSidebarLeftExpand,
+  GoHomeFill,
+  FaRegUser,
+} = icons;
 
-const Sidebar = ({ user}) => {
+const Sidebar = ({ user }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [expanded, setExpanded] = useState(true);
@@ -15,7 +24,7 @@ const Sidebar = ({ user}) => {
   const handleLogout = async () => {
     try {
       await auth.signOut();
-      console.log('User logged out successfully.');
+      console.log("User logged out successfully.");
       navigate(path.PUBLIC);
     } catch (error) {
       console.log("Error signing out", error.message);
@@ -32,31 +41,31 @@ const Sidebar = ({ user}) => {
 
   const pages = [
     {
-      name: 'Đơn hàng',
-      path: 'Orders',
+      name: "Đơn hàng",
+      path: "Orders",
       iconClass: <FaBoxOpen size={30} />,
     },
     {
-      name: 'Thống kê',
-      path: 'Reports',
+      name: "Thống kê",
+      path: "Reports",
       iconClass: <FaClipboardList size={30} />,
     },
     {
-      name: 'Quản lý',
-      path: 'Management',
+      name: "Quản lý",
+      path: "Management",
       iconClass: <FaUsers size={30} />,
     },
     {
-      name: 'Cước phí',
-      path: 'PriceShipping',
+      name: "Cước phí",
+      path: "PriceShipping",
       iconClass: <FaInfoCircle size={30} />,
     },
   ];
 
   useEffect(() => {
     // Find the index of the current path in the pages array
-    const currentIndex = pages.findIndex(
-      (page) => location.pathname.includes(`/private/${page.path.toLowerCase()}`)
+    const currentIndex = pages.findIndex((page) =>
+      location.pathname.includes(`/private/${page.path.toLowerCase()}`)
     );
 
     if (currentIndex !== -1) {
@@ -69,32 +78,39 @@ const Sidebar = ({ user}) => {
   };
 
   return (
-    <div className={`bg-main-300 text-white ${expanded ? 'w-48' : 'w-16'} flex flex-col justify-between`}>
+    <div
+      className={`bg-main-300 text-white ${
+        expanded ? "w-48" : "w-20"
+      } flex flex-col justify-between border-r-4`}
+    >
       <ul className="space-y-3">
-      <ul className="flex flex-col h-32 justify-center px-2 py-8 space-x-2 mb-20 rounded-sm shadow-lg">
-        <NavLink to={`/private/profile`} 
-          className="flex px-2 pb-4" 
-          onClick={handleProfileClick}  >
-          <FaRegUser size={30} />
-          {expanded && (
-            <div className="text-sm pl-2">
-              <p>{user.email}</p>
-              <p className='text-[11px]'>{user.position}</p>
-              {user.position !== "Lãnh đạo công ty" && <p className='text-[11px]'>{`Bưu cục ` + user.office}</p>}
-            </div>
-          )}
-        </NavLink>
-        <div className='flex cursor-pointer'>
-              <MdLogout size={30}
-               onClick={handleLogout}/>
-        </div>
-      </ul>
+        <ul className="flex flex-col h-32 justify-center px-2 py-8 space-x-2 mb-20 rounded-sm shadow-lg">
+          <NavLink
+            to={`/private/profile`}
+            className="flex px-2 pb-4"
+            onClick={handleProfileClick}
+          >
+            <FaRegUser size={30} />
+            {expanded && (
+              <div className="text-sm pl-2">
+                <p>{user.email}</p>
+                <p className="text-[11px]">{user.position}</p>
+                {user.position !== "Lãnh đạo công ty" && (
+                  <p className="text-[11px]">{`Bưu cục ` + user.office}</p>
+                )}
+              </div>
+            )}
+          </NavLink>
+          <div className="flex cursor-pointer">
+            <MdLogout size={30} onClick={handleLogout} />
+          </div>
+        </ul>
         {pages.map((page, index) => (
           <li key={index}>
             <NavLink
               to={`/private/${page.path.toLowerCase()}`}
-              className={`flex items-center space-x-2 px-4 py-2 hover:bg-white hover:text-main-300 ${
-                activeIndex === index ? 'bg-white text-main-300' : ''
+              className={`flex items-center space-x-2 px-2 py-2 ml-3 rounded-l-2xl hover:bg-white hover:text-main-300 ${
+                activeIndex === index ? "bg-white text-main-300" : ""
               }`}
               activeClassName="bg-gray-300 text-gray-800"
               onClick={() => handleItemClick(index)}
@@ -105,14 +121,17 @@ const Sidebar = ({ user}) => {
           </li>
         ))}
         <div
-          className="flex px-4 py-2 text-white hover:bg-white hover:text-main-300"
+          className="flex px-2 py-2 text-white hover:bg-white hover:text-main-300 hover:rounded-s-2xl ml-3"
           onClick={toggleExpand}
           role="button"
         >
-          {expanded ? <TbLayoutSidebarRightExpand size={30} /> : <TbLayoutSidebarLeftExpand size={30} />}
+          {expanded ? (
+            <TbLayoutSidebarRightExpand size={30} />
+          ) : (
+            <TbLayoutSidebarLeftExpand size={30} />
+          )}
         </div>
       </ul>
-      
     </div>
   );
 };
