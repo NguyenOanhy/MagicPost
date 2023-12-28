@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import { AddressInputs } from "./input/AddressInputs";
 import { useNavigate } from "react-router-dom";
 import { ShippingInputs } from "./input/ShippingInputs";
-import {addOrderToFirestore, getDocumentById, updateOrderCount, getShippingFee} from "../../firebase"
-import {ProductInputs} from "./input/ProductInputs";
+import {
+  addOrderToFirestore,
+  getDocumentById,
+  updateOrderCount,
+  getShippingFee,
+} from "../../firebase";
+import { ProductInputs } from "./input/ProductInputs";
 
 const OrderCreate = () => {
   const navigate = useNavigate();
@@ -36,7 +41,7 @@ const OrderCreate = () => {
     name: "",
     price: "",
     type: "",
-    weight: ""
+    weight: "",
   });
   const [shippingDetailInput, setShippingDetailInput] = useState({
     shipping_price: "",
@@ -82,8 +87,8 @@ const OrderCreate = () => {
   const [status, setStatus] = useState([0, -1, -1, -1, -1]);
   const [submittedData, setSubmittedData] = useState(null);
   const [isValidData, setIsValidData] = useState(false);
-  const [orderId, setOrderId] = useState("")
-  const orderCount = async() => {
+  const [orderId, setOrderId] = useState("");
+  const orderCount = async () => {
     try {
       const data = await getDocumentById("total", "order");
       const orderCount = data.count;
@@ -91,19 +96,30 @@ const OrderCreate = () => {
       console.log(orderCount);
       return orderCount;
     } catch (error) {
-      console.error('Error fetching orderId:', error);
+      console.error("Error fetching orderId:", error);
       // Handle error as needed
     }
-  }
+  };
   useEffect(() => {
     orderCount();
-  },[])
-  const handleSubmit = async() => {
+  }, []);
+  const handleSubmit = async () => {
     setIsValidData(true);
-    const cleanedCityName1 = consignorInput.city.replace('Tỉnh ', '').replace('Thành phố ', '');
-    const cleanedCityName2 = consigneeInput.city.replace('Tỉnh ', '').replace('Thành phố ', '');
+    const cleanedCityName1 = consignorInput.city
+      .replace("Tỉnh ", "")
+      .replace("Thành phố ", "");
+    const cleanedCityName2 = consigneeInput.city
+      .replace("Tỉnh ", "")
+      .replace("Thành phố ", "");
     const pathString = `${cleanedCityName1} - ${consignorInput.hub} - ${consigneeInput.hub} - ${cleanedCityName2}`;
-    const fee = await getShippingFee(cleanedCityName1, cleanedCityName2, productInput.weight, productInput.type, shippingDetailInput.type, productInput.price);
+    const fee = await getShippingFee(
+      cleanedCityName1,
+      cleanedCityName2,
+      productInput.weight,
+      productInput.type,
+      shippingDetailInput.type,
+      productInput.price
+    );
     console.log(fee);
     var shipping_detail = shippingDetailInput;
     shipping_detail.shipping_price = fee[0];
@@ -112,7 +128,17 @@ const OrderCreate = () => {
     shipping_detail.estimated_date =  addDays(formattedDate, fee[3]);
   
     //setShippingDetailInput({shipping_price: fee[0], additional_fee: fee[1], total_fee: fee[2], estimated_date: estimatedDate.getDate() + fee[3]});
-    await addOrderToFirestore(orderId, consignorInput, consigneeInput, productInput, shipping_detail, pathString, status, log, "order");
+    await addOrderToFirestore(
+      orderId,
+      consignorInput,
+      consigneeInput,
+      productInput,
+      shipping_detail,
+      pathString,
+      status,
+      log,
+      "order"
+    );
     //setOrderId(id);
     updateOrderCount(parseInt(orderId));
     setSubmittedData({
@@ -145,43 +171,42 @@ const OrderCreate = () => {
       },
     });
   };
-  
 
   return (
     <div>
       <div className="flex justify-center">
-      <div className="w-5/6 flex flex-col gap-6 border border-gray-300 p-4 rounded-lg" >
+        <div className="w-[765px] mt-6 flex flex-col gap-5 border border-gray-300 p-4 rounded-lg">
           {/* <h2 className="mt-5 text-center text-xl font-bold mb-3 text-main-300" style={{fontSize: '30px'}}>TẠO ĐƠN HÀNG MỚI</h2> */}
-            <div className="flex justify-center p-4">
-              <AddressInputs
-                name="Người Gửi"
-                userInput={consignorInput}
-                setInput={setConsignorInput}
-              />
-            </div>
-            <div className="flex justify-center p-4">
-              <AddressInputs
-                name="Người Nhận"
-                userInput={consigneeInput}
-                setInput={setConsigneeInput}
-              />
-            </div>
-          
+          <div className="flex justify-center p-4">
+            <AddressInputs
+              name="Người Gửi"
+              userInput={consignorInput}
+              setInput={setConsignorInput}
+            />
+          </div>
+          <div className="flex justify-center p-4">
+            <AddressInputs
+              name="Người Nhận"
+              userInput={consigneeInput}
+              setInput={setConsigneeInput}
+            />
+          </div>
+
           {/* <div className="flex justify-center"> */}
-            <div className="flex justify-center p-4">
-              <ProductInputs
-                name="Thông Tin Bưu Kiện"
-                userInput={productInput}
-                setInput={setProductInput}
-              />
-            </div>
-            <div className="flex justify-center p-4">
-              <ShippingInputs
-                name="Thông Tin Vận Chuyển:"
-                userInput={shippingDetailInput}
-                setInput={setShippingDetailInput}
-              />
-            </div>
+          <div className="flex justify-center p-4">
+            <ProductInputs
+              name="Thông Tin Bưu Kiện"
+              userInput={productInput}
+              setInput={setProductInput}
+            />
+          </div>
+          <div className="flex justify-center p-4">
+            <ShippingInputs
+              name="Thông Tin Vận Chuyển:"
+              userInput={shippingDetailInput}
+              setInput={setShippingDetailInput}
+            />
+          </div>
           {/* </div> */}
           <div className="flex justify-center mt-8">
             <button
@@ -200,6 +225,6 @@ const OrderCreate = () => {
       </div>
     </div>
   );
-}
+};
 
-export default OrderCreate
+export default OrderCreate;

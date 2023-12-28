@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getOrdersFromFirestore, updateStatusAtIndex } from "../../firebase";
 
-const PendingOrder = ({user}) => {
+const PendingOrder = ({ user }) => {
   const office = user.office;
   const [orders, setOrders] = useState([]);
   useEffect(() => {
@@ -18,7 +18,7 @@ const PendingOrder = ({user}) => {
       if (order.id === orderId) {
         const updatedStatus = [...order.status]; // Tạo một bản sao mới của mảng status
         updatedStatus[index] = 0; // Sửa giá trị tại vị trí index
-        console.log("Success!")
+        console.log("Success!");
         return { ...order, status: updatedStatus }; // Return the updated order object
       }
       return order; // Return the order object as-is if it doesn't match the specified orderId
@@ -37,50 +37,73 @@ const PendingOrder = ({user}) => {
       const index = orderPath.indexOf(office);
       if (index !== -1) {
         const substringBeforeOffice = orderPath.substring(0, index);
-        console.log(substringBeforeOffice.split("-").length - 1)
+        console.log(substringBeforeOffice.split("-").length - 1);
         return substringBeforeOffice.split("-").length - 1;
-      } 
+      }
     }
     console.log("orderPath is undefined or null.");
     return -1;
   };
 
-
   return (
-    <div className="app-container flex flex-col gap-10 text-base">
+    <div className="app-container flex flex-col gap-10 text-base mx-10">
       <table className="w-full border-collapse mt-7">
         <thead>
           <tr className="rounded-lg shadow-lg">
-            <th className="border bg-main-300 p-2">Mã đơn</th>
-            <th className="border bg-main-300 p-2">Thông tin người gửi</th>
-            <th className="border bg-main-300 p-2">Thông tin người nhận</th>
-            <th className="border bg-main-300 p-2">Mã điểm GD bên gửi</th>
-            <th className="border bg-main-300 p-2">Mã điểm GD bên nhận</th>
-            <th className="border bg-main-300 p-2">Ngày giờ gửi</th>
-            <th className="border bg-main-300 p-2">Trạng thái</th>
-            <th className="border bg-main-300 p-2">Xác nhận</th>
+            <th className="border bg-main-300 p-2" style={{ width: "7%" }}>
+              Mã đơn
+            </th>
+            <th className="border bg-main-300 p-2" style={{ width: "15%" }}>
+              Thông tin người gửi
+            </th>
+            <th className="border bg-main-300 p-2" style={{ width: "15%" }}>
+              Thông tin người nhận
+            </th>
+            <th className="border bg-main-300 p-2" style={{ width: "15%" }}>
+              Mã điểm GD bên gửi
+            </th>
+            <th className="border bg-main-300 p-2" style={{ width: "17%" }}>
+              Mã điểm GD bên nhận
+            </th>
+            <th className="border bg-main-300 p-2" style={{ width: "12%" }}>
+              Ngày giờ gửi
+            </th>
+            <th className="border bg-main-300 p-2" style={{ width: "8%" }}>
+              Trạng thái
+            </th>
+            <th className="border bg-main-300 p-2" style={{ width: "11%" }}>
+              Xác nhận
+            </th>
           </tr>
         </thead>
         <tbody>
           {orders.map((order) => {
             const index = countDashesBeforeOffice(office, order?.path);
-            if ( index !== -1 && order.status[index] === -1 && order.id !== "total") {
+            if (
+              index !== -1 &&
+              order.status[index] === -1 &&
+              order.id !== "total"
+            ) {
               return (
                 <tr key={order.id}>
-                  <td className="border p-2">{order.id}</td>
-                  <td className="border p-2">
+                  <td className="border p-2 text-center">{order.id}</td>
+                  <td className="border p-2 mx-auto">
                     {order.consignor?.name} - {order.consignor?.phone}
                   </td>
-                  <td className="border p-2">
+                  <td className="border p-2 mx-auto">
                     {order.consignee?.name} - {order.consignee?.phone}
                   </td>
-                  <td className="border p-2">{order.consignor?.postcode}</td>
-                  <td className="border p-2">{order.consignee?.postcode}</td>
-                  <td className="border p-2">{order.shipping_detail?.date}</td>
-                  <td className="border p-2">
-                    Chưa xác nhận
+                  <td className="border p-2 text-center">
+                    {order.consignor?.postcode}
                   </td>
-                  <td className="border p-2">
+                  <td className="border p-2 text-center">
+                    {order.consignee?.postcode}
+                  </td>
+                  <td className="border p-2 text-center">
+                    {order.shipping_detail?.date}
+                  </td>
+                  <td className="border p-2 text-center">Chưa xác nhận</td>
+                  <td className="border p-2 text-center">
                     {order.status[index - 1] === 1 && (
                       <button onClick={() => handleEditClick(order.id, index)}>
                         Xác nhận

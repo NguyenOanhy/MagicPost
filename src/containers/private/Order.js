@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import PendingOrder from '../../components/order/PendingOrder';
-import OrderCreate from '../../components/order/OrderCreate';
+import React, { useState } from "react";
+import PendingOrder from "../../components/order/PendingOrder";
+import OrderCreate from "../../components/order/OrderCreate";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import ViewOrder from '../../components/order/ViewOrder';
+import ViewOrder from "../../components/order/ViewOrder";
 
 const Order = ({ user }) => {
   const [showViewOrder, setShowViewOrder] = useState(true);
@@ -28,43 +28,92 @@ const Order = ({ user }) => {
     setShowViewOrder(true);
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [buttonText, setButtonText] = useState("Tổng quan đơn hàng");
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleOptionClick = (option) => {
+    setButtonText(option.label);
+    setIsOpen(false); // Close the dropdown after selecting an option
+  };
+
   return (
     <div className="w-full flex flex-col">
-      <h1 className="text-3xl text-main-300 font-bold mt-8 mb-8 mx-auto text-center justify-center">
-        Quản lý đơn hàng
+      <h1 className="text-3xl text-main-300 font-bold mt-8 mb-10 mx-auto text-center justify-center">
+        QUẢN LÝ ĐƠN HÀNG
       </h1>
-      <Tabs defaultIndex={0} className={"py-0 h-screen"}>
-        <TabList className={"mb-0 bg-main-300 sticky top-0 "}>
-          <div className='grid grid-cols-4 text-center font-bold text-md text-white'>
-            <Tab onClick={handleViewOrderClick} className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Tổng quan đơn hàng</Tab>
-            {user.position !== "Lãnh đạo công ty" && (
-              <>
-                <Tab onClick={handlePendingOrderClick} className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Đơn Hàng Đang chờ</Tab>
-                <Tab onClick={handleOrderCreateClick} className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Tạo đơn hàng</Tab>
-              </>
+      <div className="sticky top-0 w-full bg-[#F0F2F5] inline-block text-left pb-6">
+        <button
+          type="button"
+          onClick={toggleDropdown}
+          className="inline-flex justify-center w-56 px-4 py-2 font-medium text-base text-white bg-gray-700 border border-transparent rounded-md hover:bg-gray-600 focus:outline-none focus:ring focus:border-blue-300 active:bg-gray-800"
+        >
+          {buttonText}
+        </button>
+
+        {isOpen && (
+          <div className="absolute w-56 mt-2 space-y-2 bg-white border border-gray-300 rounded shadow-md">
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              onClick={() => {
+                handleViewOrderClick();
+                handleOptionClick({
+                  label: "Tổng quan đơn hàng",
+                  value: "option1",
+                });
+              }}
+            >
+              Tổng quan đơn hàng
+            </a>
+            {!showPendingOrder && user.position !== "Lãnh đạo công ty" && (
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={() => {
+                  handlePendingOrderClick();
+                  handleOptionClick({
+                    label: "Đơn hàng đang chờ",
+                    value: "option2",
+                  });
+                }}
+              >
+                Đơn hàng đang chờ
+              </a>
+            )}
+            {!showOrderCreate && user.position !== "Lãnh đạo công ty" && (
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={() => {
+                  handleOrderCreateClick();
+                  handleOptionClick({
+                    label: "Tạo đơn hàng",
+                    value: "option3",
+                  });
+                }}
+              >
+                Tạo đơn hàng
+              </a>
             )}
           </div>
-        </TabList>
-        <TabPanel className={"bg-white overflow-y-auto"}>
-          <div className='mx-16 mt-0 min-h-[450px]'>
-            {showViewOrder && <ViewOrder user={user} />}
-          </div>
-        </TabPanel>
-        {!showPendingOrder && (
-          <TabPanel className={"bg-white"}>
-            <div className='mx-16 min-h-[450px]'>
-              {showPendingOrder && <PendingOrder user={user} />}
-            </div>
-          </TabPanel>
         )}
-        {!showOrderCreate && (
-          <TabPanel className={"bg-white overflow-y-auto"}>
-            <div className='pt-10'>
-              {showOrderCreate && <OrderCreate user={user} />}
-            </div>
-          </TabPanel>
-        )}
-      </Tabs>
+      </div>
+      <div className="content bg-white min-h-[500px] flex flex-grow">
+        <div className="mx-auto">
+          {showViewOrder && !showPendingOrder && !showOrderCreate && (
+            <ViewOrder user={user} />
+          )}
+          {!showViewOrder && showPendingOrder && !showOrderCreate && (
+            <PendingOrder user={user} />
+          )}
+          {!showViewOrder && !showPendingOrder && showOrderCreate && (
+            <OrderCreate user={user} />
+                   )}
+        </div>
+      </div>
     </div>
   );
 };
