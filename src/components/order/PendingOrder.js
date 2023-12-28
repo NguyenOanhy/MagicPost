@@ -86,24 +86,24 @@ const PendingOrder = ({ user }) => {
             ) {
               return (
                 <tr key={order.id}>
-                  <td className="border p-2 text-center">{order.id}</td>
-                  <td className="border p-2 mx-auto">
+                  <td className="border p-2 text-center" style={{ borderRight: "none"}}>{order.id}</td>
+                  <td className="border p-2 mx-auto" style={{ borderRight: "none", borderLeft: "none"}}>
                     {order.consignor?.name} - {order.consignor?.phone}
                   </td>
-                  <td className="border p-2 mx-auto">
+                  <td className="border p-2 mx-auto" style={{ borderRight: "none", borderLeft: "none"}}>
                     {order.consignee?.name} - {order.consignee?.phone}
                   </td>
-                  <td className="border p-2 text-center">
+                  <td className="border p-2 text-center" style={{ borderRight: "none", borderLeft: "none"}}>
                     {order.consignor?.postcode}
                   </td>
-                  <td className="border p-2 text-center">
+                  <td className="border p-2 text-center" style={{ borderRight: "none", borderLeft: "none"}}>
                     {order.consignee?.postcode}
                   </td>
-                  <td className="border p-2 text-center">
+                  <td className="border p-2 text-center" style={{ borderRight: "none", borderLeft: "none"}}>
                     {order.shipping_detail?.date}
                   </td>
-                  <td className="border p-2 text-center">Chưa xác nhận</td>
-                  <td className="border p-2 text-center">
+                  <td className="border p-2 text-center" style={{ borderRight: "none", borderLeft: "none"}}>Chưa xác nhận</td>
+                  <td className="border p-2 text-center" style={{ borderLeft: "none"}}>
                     {order.status[index - 1] === 1 && (
                       <button onClick={() => handleEditClick(order.id, index)}>
                         Xác nhận

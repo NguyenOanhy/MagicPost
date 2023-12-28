@@ -104,12 +104,12 @@ const Public = () => {
 
           <TabPanel>
             <div className="flex min-h-[500px] flex-col items-center">
-              <div className="flex-col mt-24 flex items-start justify-center">
+              <div className="flex-col mt-24 flex items-center justify-center">
                 {/* Search bar */}
                 <p className="font-bold text-xl ml-5 mb-5">
                   Nhập mã vận đơn của bạn
                 </p>
-                <form onSubmit={search} className="flex w-1/2 items-center space-x-2">
+                <form onSubmit={search} className="items-center space-x-2">
                   <input
                     className="border border-blue-400 rounded-3xl py-2 px-4 focus:outline-none focus:border-blue-500"
                     type="text"
@@ -127,8 +127,8 @@ const Public = () => {
                 {/* Display tracking info if available */}
                 {trackingInfo && (
                   <div className="w-5/6">
-                    <div className="mt-5  bg-gray-200 rounded-lg p-4 shadow-md mb-5">
-                      <h2 className="font-bold text-lg text-[22px]">THÔNG TIN VẬN ĐƠN</h2>
+                    <div className="mt-5 bg-[#F0F2F5] rounded-lg p-4 shadow-md mb-5">
+                      <h2 className="font-bold text-lg">THÔNG TIN VẬN ĐƠN</h2>
                       <div className="flex flex-row space-x-4 mt-5">
                         <div className="w-1/3 border-t-0 border-r border-b-0 border-l-0 border-black border-solid">
                           <div className="flex mr-3 mb-2">
@@ -183,8 +183,8 @@ const Public = () => {
                       </div>
                       {/* ... other tracking info properties */}
                     </div>
-                    <div className="mt-5 bg-gray-200 rounded-lg p-4 shadow-md mb-5">
-                      <h2 className="font-bold text-lg text-[22px]">LỊCH SỬ VẬN ĐƠN</h2>
+                    <div className="mt-5 bg-[#F0F2F5] rounded-lg p-4 shadow-md mb-5">
+                      <h2 className="font-bold text-lg ">LỊCH SỬ VẬN ĐƠN</h2>
                         <Timeline 
                           data={trackingInfo.log}
                         />
@@ -408,7 +408,16 @@ const Public = () => {
                     Tra cứu
                   </button>
                 </form>
-                {shippingPrice && (
+              </div>
+              <div className="col-start-4 col-span-3">
+                <img
+                  class="w-full px-3 py-5"
+                  src={require("../../image/maps.png")}
+                  alt="image description"
+                ></img>
+              </div>
+              <div className="col-start-2 col-span-4">
+              {shippingPrice && (
                   <div className="ml-16 mb-16">
                     <table className="w-full border-collapse mt-7">
                       <thead>
@@ -424,9 +433,9 @@ const Public = () => {
                           return (
                             <tr>
                               <td className="border p-2">{shipping_price.type}</td>
-                              <td className="border p-2">{shipping_price.shipping_fee}</td>
-                              <td className="border p-2">{shipping_price.additional_fee}</td>
-                              <td className="border p-2">{shipping_price.shipping_fee + shipping_price.additional_fee}</td>
+                              <td className="border p-2 text-center">{shipping_price.shipping_fee}</td>
+                              <td className="border p-2 text-center">{shipping_price.additional_fee}</td>
+                              <td className="border p-2 text-center">{shipping_price.shipping_fee + shipping_price.additional_fee}</td>
                             </tr>
                           );
                         })}
@@ -434,13 +443,6 @@ const Public = () => {
                     </table>
                   </div>
                 )}
-              </div>
-              <div className="col-start-4 col-span-3">
-                <img
-                  class="w-full px-3 py-5"
-                  src={require("../../image/maps.png")}
-                  alt="image description"
-                ></img>
               </div>
             </div>
           </TabPanel>

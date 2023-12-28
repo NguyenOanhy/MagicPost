@@ -49,7 +49,7 @@ function Signup({ onComplete }) {
     /* JSX */
     <div className="w-3/5 mx-auto rounded-lg shadow-lg items-center justify-center bg-white">
       <form
-        className="bg-white pt-10 px-8 py-6 space-y-6"
+        className="bg-white pt-10 px-8 py-6 space-y-6 border rounded-lg"
         onSubmit={handleSubmit}
       >
         <div className="Auth-form-content grid grid-cols-2 gap-3 gap-x-7">

@@ -117,35 +117,35 @@ const ViewOrder = ({ user }) => {
   };
   return (
     <div className="app-container flex flex-col gap-10 text-base mx-10">
-      <table className="w-full border-collapse mt-7">
+      <table className="w-full border-collapse mt-7 rounded-xl overflow-hidden">
         <thead>
           <tr className="rounded-lg">
-            <th className="border bg-white text-gray-400 py-3" style={{ width: "7%", border: "none"}}>
+            <th className="border bg-main-300 text-white p-2" style={{ width: "7%", border: "none"}}>
               Mã đơn
             </th>
-            <th className="border bg-white text-gray-400 " style={{ width: "13%", border:"none"}}>
+            <th className="border bg-main-300 text-white p-2" style={{ width: "13%", border:"none"}}>
               Thông tin người gửi
             </th>
-            <th className="border bg-white text-gray-400" style={{ width: "13%", border:"none"}}>
+            <th className="border bg-main-300 text-white p-2" style={{ width: "13%", border:"none"}}>
               Thông tin người nhận
             </th>
-            <th className="border bg-white text-gray-400" style={{ width: "13%", border:"none"}}>
+            <th className="border bg-main-300 text-white p-2" style={{ width: "13%", border:"none"}}>
               Mã điểm GD bên gửi
             </th>
-            <th className="border bg-white text-gray-400" style={{ width: "13%", border:"none"}}>
+            <th className="border bg-main-300 text-white p-2" style={{ width: "13%", border:"none"}}>
               Mã điểm GD bên nhận
             </th>
-            <th className="border bg-white text-gray-400" style={{ width: "11%", border:"none"}}>
+            <th className="border bg-main-300 text-white p-2" style={{ width: "11%", border:"none"}}>
               Ngày giờ gửi
             </th>
-            <th className="border bg-white text-gray-400" style={{ width: "8%", border:"none"}}>
+            <th className="border bg-main-300 text-white p-2" style={{ width: "8%", border:"none"}}>
               Trạng thái
             </th>
-            <th className="border bg-white text-gray-400" style={{ width: "13%", border:"none"}}>
+            <th className="border bg-main-300 text-white p-2" style={{ width: "13%", border:"none"}}>
               Phiếu vận chuyển
             </th>
             {position !== "Lãnh đạo công ty" && (
-              <th className="border bg-white text-gray-400 p-2" style={{ width: "9%", border:"none"}}>
+              <th className="border bg-main-300 text-white p-2" style={{ width: "9%", border:"none"}}>
                 Chỉnh sửa
               </th>
             )}
@@ -230,7 +230,7 @@ const ViewOrder = ({ user }) => {
                     </td>
                   )}
 
-                  <td className="border p-2 cursor-pointer text-center"style={{ borderLeft: "none", borderRight: "none"}}>
+                  <td className="border p-2 cursor-pointer text-center hover: text-main-100"style={{ borderLeft: "none", borderRight: "none"}}>
                     <div onClick={() => handleOnClick(order)}>Xem chi tiết</div>
                   </td>
                   {position !== "Lãnh đạo công ty" && (

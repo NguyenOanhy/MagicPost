@@ -20,20 +20,20 @@ const ListHub = () => {
 
   return (
     <div className="app-container flex flex-col gap-10 text-base mx-10">
-    <table className="w-full border-collapse mt-7">
+    <table className="w-full border-collapse mt-7 rounded-xl overflow-hidden">
       <thead>
         <tr className="rounded-lg shadow-lg">
-          <th className="border bg-main-300 p-2" style={{ width: "25%" }}>STT</th>
-          <th className="border bg-main-300 p-2" style={{ width: "50%" }}>Tên điểm tập kết</th>
-          <th className="border bg-main-300 p-2" style={{ width: "25%" }}>Mã bưu chính</th>
+          <th className="border bg-main-300 p-3 text-white" style={{ width: "25%" }}>STT</th>
+          <th className="border bg-main-300 p-3 text-white" style={{ width: "50%" }}>Tên điểm tập kết</th>
+          <th className="border bg-main-300 p-3 text-white" style={{ width: "25%" }}>Mã bưu chính</th>
         </tr>
       </thead>
       <tbody>
         {data.map((item, index) => (
           <tr key={item.id}>
-            <td className='text-center'>{index + 1}</td>
-            <td>{item.name}</td>
-            <td className='text-center'>{item.postcode}</td>
+            <td className='border p-2 text-center'style={{ borderRight: "none"}}>{index + 1}</td>
+            <td className='border p-2 pl-20' style={{ borderRight: "none", borderLeft: "none"}}>{item.name}</td>
+            <td className='border p-2 text-center'style={{ borderLeft: "none"}}>{item.postcode}</td>
           </tr>
         ))}
       </tbody>

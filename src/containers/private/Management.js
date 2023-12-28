@@ -63,7 +63,7 @@ const Management = ({ user }) => {
         <button
           type="button"
           onClick={toggleDropdown}
-          className="inline-flex justify-center w-48 ml-10 py-2 font-medium text-base text-white bg-gray-700 border border-transparent rounded-md hover:bg-gray-600 focus:outline-none focus:ring focus:border-blue-300 active:bg-gray-800"
+          className="inline-flex justify-center w-48 ml-10 py-2 font-medium text-base text-slate-700 bg-[#F0F2F5] border border-main-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 active:bg-white"
         >
           {buttonText}
         </button>
@@ -104,11 +104,11 @@ const Management = ({ user }) => {
               onClick={() => {
                 handleListStaffClick();
                 handleOptionClick({
-                  label: "Danh sách nhân viên",
+                  label: "Danh sách trưởng điểm",
                 });
               }}
             >
-              Danh sách nhân viên
+              Danh sách trưởng điểm
             </a>
             <a
               href="#"

@@ -48,7 +48,7 @@ const Order = ({ user }) => {
         <button
           type="button"
           onClick={toggleDropdown}
-          className="inline-flex justify-center w-48 ml-10 py-2 font-medium text-base text-black bg-white border border-main-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 active:bg-white"
+          className="inline-flex justify-center w-48 ml-10 py-2 font-medium text-base text-slate-700 bg-[#F0F2F5] border border-main-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 active:bg-white"
         >
           {buttonText}
         </button>
