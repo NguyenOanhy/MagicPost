@@ -406,6 +406,7 @@ const getShippingFee = async(start_point, end_point, weight, product_type, shipp
         additional_fee += 10000;
       } else {
         additional_fee *= 1.5;
+        shipping_fee += 10000;
       }
     }
     console.log([shipping_fee, additional_fee, shipping_fee + additional_fee, estimated_date]);
@@ -468,7 +469,7 @@ const getShippingFeeByCustomer = async(start_point, end_point, weight, product_t
     },
     {
       type: "Chuyển phát nhanh",
-      shipping_fee: shipping_fee,
+      shipping_fee: shipping_fee + 10000,
       additional_fee: additional_fee_2,
     }];
     return fee;

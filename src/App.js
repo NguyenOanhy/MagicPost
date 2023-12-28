@@ -47,6 +47,7 @@ export default function App() {
           <Route path={path.REPORTS} element={<Reports user={user} />} />
           <Route path={path.PROFILE} element={<Profile user={user} />} />
         </Route>
+        <Route path={`${path.ORDERS}/:orderId`} element={<OrderDetail />} />
       </Routes>
     </>
   );

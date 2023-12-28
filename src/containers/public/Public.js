@@ -5,13 +5,16 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import {getDocumentById, getShippingFeeByCustomer} from "../../firebase"
 import { Timeline } from "./timeline/timeline";
+import { useNavigate } from "react-router-dom";
 
 
 const { CiSearch } = icons;
 const Public = () => {
+  const navigate = useNavigate();
   const [orderId, setOrderId] = useState("");
   const [trackingInfo, setTrackingInfo] = useState(null);
   const [shippingPrice, setShippingPrice] = useState(null);
+  const [id, setId] = useState("");
 
 
   const search = async (e) => {
@@ -54,6 +57,14 @@ const Public = () => {
     // setProductType('');
     // setWeight('');
     // setShippingType('');
+  };
+  const handleOnClick = () => {
+    navigate(`/orders/${orderId.replace("MP", '')}`, {
+      state: {
+        orderId: orderId.replace("MP", ''),
+        orderData: trackingInfo,
+      },
+    });
   };
   
   // ...
@@ -124,9 +135,9 @@ const Public = () => {
                             <p className="font-bold">Mã vận đơn:</p>
                             <p className="ml-auto">{orderId}</p>
                           </div>
-                          <div className="flex mr-3 mb-2">
+                          <div className="flex mr-3 mb-2" onClick={handleOnClick} style={{ cursor: 'pointer' }}>
                             <p className="font-bold">Chi tiết đơn hàng:</p>
-                            <p className="ml-auto">Xem chi tiết</p>
+                            <p className="ml-auto" style={{ color: 'blue', textDecoration: 'underline' }}>Xem chi tiết</p>
                           </div>
                           <div className="flex mb-2">
                             <p className="font-bold">Người gửi:</p>
@@ -232,7 +243,7 @@ const Public = () => {
                       <option value="Hà Tĩnh">Hà Tĩnh</option>
                       <option value="Quảng Bình">Quảng Bình</option>
                       <option value="Quảng Trị">Quảng Trị</option>
-                      <option value="Thừa Thiên - Huế">Thừa Thiên - Huế</option>
+                      <option value="Thừa Thiên Huế">Thừa Thiên - Huế</option>
                       <option value="Quảng Nam">Quảng Nam</option>
                       <option value="Quảng Ngãi">Quảng Ngãi</option>
                       <option value="Bình Ðịnh">Bình Ðịnh</option>
@@ -313,7 +324,7 @@ const Public = () => {
                       <option value="Hà Tĩnh">Hà Tĩnh</option>
                       <option value="Quảng Bình">Quảng Bình</option>
                       <option value="Quảng Trị">Quảng Trị</option>
-                      <option value="Thừa Thiên - Huế">Thừa Thiên - Huế</option>
+                      <option value="Thừa Thiên Huế">Thừa Thiên - Huế</option>
                       <option value="Quảng Nam">Quảng Nam</option>
                       <option value="Quảng Ngãi">Quảng Ngãi</option>
                       <option value="Bình Ðịnh">Bình Ðịnh</option>

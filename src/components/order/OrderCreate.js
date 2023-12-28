@@ -217,8 +217,8 @@ const OrderCreate = () => {
             </button>
           </div>
           {isValidData && (
-            <div className="flex justify-center mt-4">
-              <div onClick={handleOnClick}>Xem thông tin chi tiết tại đây</div>
+            <div className="flex justify-center mt-4" style={{ cursor: 'pointer' }}>
+              <div onClick={handleOnClick} style={{ color: 'blue', textDecoration: 'underline' }}>Xem thông tin chi tiết tại đây</div>
             </div>
           )}
         </div>
