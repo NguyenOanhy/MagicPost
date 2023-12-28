@@ -56,6 +56,29 @@ const OrderCreate = () => {
     }
   ]
   );
+  function addDays(inputDate, numberOfDays) {
+    // Chuyển đổi chuỗi ngày thành đối tượng Date
+    var dateParts = inputDate.split("/");
+    var day = parseInt(dateParts[0], 10);
+    var month = parseInt(dateParts[1], 10) - 1; // Tháng trong JavaScript là từ 0 đến 11
+    var year = parseInt(dateParts[2], 10);
+  
+    var currentDate = new Date(year, month, day);
+  
+    // Thêm n ngày
+    currentDate.setDate(currentDate.getDate() + numberOfDays);
+  
+    // Format ngày mới và trả về
+    var newDay = currentDate.getDate();
+    var newMonth = currentDate.getMonth() + 1; // Phải cộng thêm 1 vì tháng bắt đầu từ 0
+    var newYear = currentDate.getFullYear();
+  
+    // Đảm bảo hiển thị đúng định dạng 2 chữ số cho ngày và tháng
+    newDay = newDay < 10 ? "0" + newDay : newDay;
+    newMonth = newMonth < 10 ? "0" + newMonth : newMonth;
+  
+    return newDay + "/" + newMonth + "/" + newYear;
+  }
   const [status, setStatus] = useState([0, -1, -1, -1, -1]);
   const [submittedData, setSubmittedData] = useState(null);
   const [isValidData, setIsValidData] = useState(false);
@@ -86,7 +109,7 @@ const OrderCreate = () => {
     shipping_detail.shipping_price = fee[0];
     shipping_detail.additional_fee = fee[1];
     shipping_detail.total_fee = fee[2];
-    shipping_detail.estimated_date =  currentDate.getDate() + fee[3];
+    shipping_detail.estimated_date =  addDays(formattedDate, fee[3]);
   
     //setShippingDetailInput({shipping_price: fee[0], additional_fee: fee[1], total_fee: fee[2], estimated_date: estimatedDate.getDate() + fee[3]});
     await addOrderToFirestore(orderId, consignorInput, consigneeInput, productInput, shipping_detail, pathString, status, log, "order");

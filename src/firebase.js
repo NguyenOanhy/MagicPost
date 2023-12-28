@@ -367,58 +367,45 @@ const getShippingFee = async(start_point, end_point, weight, product_type, shipp
     if ((type_1.has(hub_1) && type_1.has(hub_2)) || (type_3.has(hub_1) && type_3.has(hub_2))) {
       shipping_fee += 15000;
       estimated_date = 3;
-      console.log("th1");
     } else if ((type_2.has(hub_1) && type_2.has(hub_2))) {
       if (Math.abs(hub_1 - hub_2) <= 1) {
         shipping_fee += 15000;
         estimated_date = 3;
-        console.log("th2");
       } else {
         shipping_fee += 20000;
         estimated_date = 4;
-        console.log("th3");
       }
     } else {
       if ((type_1.has(hub_1) && type_2.has(hub_2)) || (type_2.has(hub_1) && type_1.has(hub_2)) || (type_2.has(hub_1) && type_3.has(hub_2)) || (type_3.has(hub_1) && type_2.has(hub_2))) {
         shipping_fee += 20000;
         estimated_date = 4;
-        console.log("th4");
       } else if ((type_1.has(hub_1) && type_3.has(hub_2)) || (type_3.has(hub_1) && type_1.has(hub_2))) {
         shipping_fee += 30000;
         estimated_date = 5;
-        console.log("th5");
       }
     }
     if (product_type === "Tài liệu") {
       if (weight >= 500) {
         additional_fee += 5000;
-        console.log("th6");
       } else if (weight >= 1000) {
         additional_fee += 10000;
-        console.log("th7");
       } else {
         additional_fee += 15000;
-        console.log("th8");
       }
     } else {
       let x = Math.floor(weight / 1000);
       additional_fee += x * 400;
-      console.log("th9");
     }
     if (shipping_type === "Chuyển phát nhanh") {
       if (estimated_date === 3) {
         estimated_date = 1;
-        console.log("th10");
       } else {
         estimated_date = 2;
-        console.log("th11");
       }
       if (additional_fee === 0) {
         additional_fee += 10000;
-        console.log("th12");
       } else {
         additional_fee *= 1.5;
-        console.log("th13");
       }
     }
     console.log([shipping_fee, additional_fee, shipping_fee + additional_fee, estimated_date]);
