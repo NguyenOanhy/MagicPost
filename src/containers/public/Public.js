@@ -19,7 +19,8 @@ const Public = () => {
     /* Perform the search for order id and update trackingInfo */
     // Example: You can fetch data from an API here
     // For now, setting a dummy tracking info
-    const orderData = await getDocumentById(orderId, 'order');
+    const id = orderId.replace("MP", '');
+    const orderData = await getDocumentById(id, 'order');
     setTrackingInfo(orderData);
     //setOrderId("");
   }; 
