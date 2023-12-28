@@ -150,42 +150,47 @@ const ViewOrder = ({user}) => {
                   <td className="border p-2">{order.consignor?.postcode}</td>
                   <td className="border p-2">{order.consignee?.postcode}</td>
                   <td className="border p-2">{order.shipping_detail?.date}</td>
-                  <td className="border p-2">
-                    {editingOrderId === order.id ? (
-                      <select
-                        className="w-full"
-                        //value={order.status}
-                        onChange={(e) => handleStatusChange(order, index, office, e.target.value)}
-                      >
-                        {index !== 3 ? (
-                          <>
-                            <option value="0">Chờ vận chuyển</option>
-                            <option value="1">Đã rời bưu cục</option>
-                          </>
-                        ) : (
-                          <>
-                            {order.status[3] !== 1 && (
-                              <>
-                                <option value="0">Chờ vận chuyển</option>
-                                <option value="1">Đang giao hàng</option>
-                              </>
-                            )}
-                            {order.status[3] === 1 && (
-                              <>
-                                <option value="0">Đang giao hàng</option>
-                                <option value="1">Hoãn giao lần 1</option>
-                                <option value="2">Hoãn giao lần 2</option>
-                                <option value="3">Giao hàng thành công</option>
-                                <option value="4">Đơn hàng bị hủy</option>
-                              </>
-                            )}
-                          </>
-                        )}
-                      </select>
-                    ) : (
-                      viewStatus(order, index) // Display the current status when not in edit mode
-                    )}
-                  </td>
+                  {position === "Lãnh đạo công ty" ? (
+                    <td className="border p-2">{order.order_status}</td>
+                  ):(
+                    <td className="border p-2">
+                      {editingOrderId === order.id ? (
+                        <select
+                          className="w-full"
+                          //value={order.status}
+                          onChange={(e) => handleStatusChange(order, index, office, e.target.value)}
+                        >
+                          {index !== 3 ? (
+                            <>
+                              <option value="0">Chờ vận chuyển</option>
+                              <option value="1">Đã rời bưu cục</option>
+                            </>
+                          ) : (
+                            <>
+                              {order.status[3] !== 1 && (
+                                <>
+                                  <option value="0">Chờ vận chuyển</option>
+                                  <option value="1">Đang giao hàng</option>
+                                </>
+                              )}
+                              {order.status[3] === 1 && (
+                                <>
+                                  <option value="0">Đang giao hàng</option>
+                                  <option value="1">Hoãn giao lần 1</option>
+                                  <option value="2">Hoãn giao lần 2</option>
+                                  <option value="3">Giao hàng thành công</option>
+                                  <option value="4">Đơn hàng bị hủy</option>
+                                </>
+                              )}
+                            </>
+                          )}
+                        </select>
+                      ) : (
+                        viewStatus(order, index) // Display the current status when not in edit mode
+                      )}
+                    </td>
+                  )}
+                  
                   <td className="border p-2 cursor-pointer">
                     <div onClick={() => handleOnClick(order)}>
                       Xem chi tiết
