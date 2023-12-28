@@ -44,17 +44,17 @@ const Order = ({ user }) => {
       <h1 className="text-3xl text-main-300 font-bold mt-8 mb-10 mx-auto text-center justify-center">
         QUẢN LÝ ĐƠN HÀNG
       </h1>
-      <div className="sticky top-0 w-full bg-[#F0F2F5] inline-block text-left pb-6">
+      <div className="w-full inline-block text-left pb-3">
         <button
           type="button"
           onClick={toggleDropdown}
-          className="inline-flex justify-center w-56 px-4 py-2 font-medium text-base text-white bg-gray-700 border border-transparent rounded-md hover:bg-gray-600 focus:outline-none focus:ring focus:border-blue-300 active:bg-gray-800"
+          className="inline-flex justify-center w-48 ml-10 py-2 font-medium text-base text-black bg-white border border-main-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 active:bg-white"
         >
           {buttonText}
         </button>
 
         {isOpen && (
-          <div className="absolute w-56 mt-2 space-y-2 bg-white border border-gray-300 rounded shadow-md">
+          <div className="absolute w-48 ml-10 mt-2 space-y-1 bg-white border border-gray-300 rounded shadow-md">
             <a
               href="#"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

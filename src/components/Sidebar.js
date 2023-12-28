@@ -84,15 +84,17 @@ const Sidebar = ({ user }) => {
       } flex flex-col justify-between border-r-4`}
     >
       <ul className="space-y-3">
-        <ul className="flex flex-col h-32 justify-center px-2 py-8 space-x-2 mb-20 rounded-sm shadow-lg">
+        <ul className="flex flex-col h-40 justify-center px-2 py-8 space-x-2 mb-24 rounded-sm shadow-lg">
           <NavLink
             to={`/private/profile`}
-            className="flex px-2 pb-4"
+            className="flex flex-col px-2 pb-4"
             onClick={handleProfileClick}
           >
-            <FaRegUser size={30} />
+            {/* <FaRegUser size={30} /> */}
+            {
+              <img class="h-auto w-16 mx-auto py-2" src={require('../image/shipping_box.png')} alt="image description"></img>}
             {expanded && (
-              <div className="text-sm pl-2">
+              <div className="text-sm pl-2 mx-auto">
                 <p>{user.email}</p>
                 <p className="text-[11px]">{user.position}</p>
                 {user.position !== "Lãnh đạo công ty" && (
@@ -101,9 +103,6 @@ const Sidebar = ({ user }) => {
               </div>
             )}
           </NavLink>
-          <div className="flex cursor-pointer">
-            <MdLogout size={30} onClick={handleLogout} />
-          </div>
         </ul>
         {pages.map((page, index) => (
           <li key={index}>
@@ -132,6 +131,10 @@ const Sidebar = ({ user }) => {
           )}
         </div>
       </ul>
+      <div className="flex items-center space-x-2 px-2 mb-6 py-2 ml-3 rounded-l-2xl hover:bg-white hover:text-main-300 cursor-pointer">
+        <MdLogout size={30} onClick={handleLogout} />
+        {expanded && <span className="text-base">Đăng xuất</span>}
+      </div>
     </div>
   );
 };

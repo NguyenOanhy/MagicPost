@@ -93,25 +93,25 @@ const Public = () => {
           </Link>
         </div>
       </div>
-      <div className="w-full flex flex-col">
+      <div className="w-3/4 flex flex-col shadow-lg items-center mx-auto">
         <Tabs defaultIndex={0}>
-          <TabList className={"mb-0 bg-main-300 sticky top-0 "}>
-            <div className='grid grid-cols-4 text-center font-bold text-md text-white'>
-              <Tab className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Tra cứu đơn hàng</Tab>
-              <Tab className={"shadow-lg py-4 justify-center rounded-none cursor-pointer"}>Tra cứu cước phí</Tab>
+          <TabList className={"w-full bg-[#F0F2F5] shadow-lg items-center mx-auto"}>
+            <div className='grid grid-cols-2 text-center font-bold text-md text-gray-900'>
+              <Tab className={"py-4 justify-center rounded-none cursor-pointer"}>Tra cứu đơn hàng</Tab>
+              <Tab className={"py-4 justify-center rounded-none cursor-pointer"}>Tra cứu cước phí</Tab>
             </div>
           </TabList>
 
           <TabPanel>
-            <div className="flex flex-row items-center">
-              <div className="flex-col w-full mt-24 flex items-start justify-center ml-36">
+            <div className="flex min-h-[500px] flex-col items-center">
+              <div className="flex-col mt-24 flex items-start justify-center">
                 {/* Search bar */}
                 <p className="font-bold text-xl ml-5 mb-5">
                   Nhập mã vận đơn của bạn
                 </p>
-                <form onSubmit={search} className="flex items-center space-x-2">
+                <form onSubmit={search} className="flex w-1/2 items-center space-x-2">
                   <input
-                    className="w-850 border border-blue-400 rounded-lg py-2 px-4 focus:outline-none focus:border-blue-500"
+                    className="border border-blue-400 rounded-3xl py-2 px-4 focus:outline-none focus:border-blue-500"
                     type="text"
                     value={orderId}
                     onChange={(e) => setOrderId(e.target.value)}

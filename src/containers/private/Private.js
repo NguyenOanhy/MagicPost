@@ -5,7 +5,7 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 
 const Private = ({user}) => {
   return (
-    <div className='flex h-screen bg-[#F0F2F5]'>
+    <div className='flex h-screen bg-white'>
       <div className='flex'>
         <Sidebar user={user}/>
       </div>

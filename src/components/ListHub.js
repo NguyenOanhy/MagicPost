@@ -23,17 +23,17 @@ const ListHub = () => {
     <table className="w-full border-collapse mt-7">
       <thead>
         <tr className="rounded-lg shadow-lg">
-          <th className="border bg-main-300 p-2" style={{ width: "7%" }}>STT</th>
-          <th className="border bg-main-300 p-2" style={{ width: "7%" }}>Tên điểm tập kết</th>
-          <th className="border bg-main-300 p-2" style={{ width: "7%" }}>Mã bưu chính</th>
+          <th className="border bg-main-300 p-2" style={{ width: "25%" }}>STT</th>
+          <th className="border bg-main-300 p-2" style={{ width: "50%" }}>Tên điểm tập kết</th>
+          <th className="border bg-main-300 p-2" style={{ width: "25%" }}>Mã bưu chính</th>
         </tr>
       </thead>
       <tbody>
         {data.map((item, index) => (
           <tr key={item.id}>
-            <td>{index + 1}</td>
+            <td className='text-center'>{index + 1}</td>
             <td>{item.name}</td>
-            <td>{item.postcode}</td>
+            <td className='text-center'>{item.postcode}</td>
           </tr>
         ))}
       </tbody>

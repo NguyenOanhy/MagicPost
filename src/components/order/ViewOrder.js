@@ -119,33 +119,33 @@ const ViewOrder = ({ user }) => {
     <div className="app-container flex flex-col gap-10 text-base mx-10">
       <table className="w-full border-collapse mt-7">
         <thead>
-          <tr className="rounded-lg shadow-lg">
-            <th className="border bg-main-300 p-2" style={{ width: "7%" }}>
+          <tr className="rounded-lg">
+            <th className="border bg-white text-gray-400 py-3" style={{ width: "7%", border: "none"}}>
               Mã đơn
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "13%" }}>
+            <th className="border bg-white text-gray-400 " style={{ width: "13%", border:"none"}}>
               Thông tin người gửi
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "13%" }}>
+            <th className="border bg-white text-gray-400" style={{ width: "13%", border:"none"}}>
               Thông tin người nhận
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "13%" }}>
+            <th className="border bg-white text-gray-400" style={{ width: "13%", border:"none"}}>
               Mã điểm GD bên gửi
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "13%" }}>
+            <th className="border bg-white text-gray-400" style={{ width: "13%", border:"none"}}>
               Mã điểm GD bên nhận
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "11%" }}>
+            <th className="border bg-white text-gray-400" style={{ width: "11%", border:"none"}}>
               Ngày giờ gửi
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "8%" }}>
+            <th className="border bg-white text-gray-400" style={{ width: "8%", border:"none"}}>
               Trạng thái
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "13%" }}>
+            <th className="border bg-white text-gray-400" style={{ width: "13%", border:"none"}}>
               Phiếu vận chuyển
             </th>
             {position !== "Lãnh đạo công ty" && (
-              <th className="border bg-main-300 p-2" style={{ width: "9%" }}>
+              <th className="border bg-white text-gray-400 p-2" style={{ width: "9%", border:"none"}}>
                 Chỉnh sửa
               </th>
             )}
@@ -161,29 +161,29 @@ const ViewOrder = ({ user }) => {
               (position === "Lãnh đạo công ty" && order.id !== "total")
             ) {
               return (
-                <tr key={order.id}>
-                  <td className="border p-2 text-center">{order.id}</td>
-                  <td className="border p-2">
+                <tr key={order.id} >
+                  <td className="border border-r-0 text-center h-[65px]"style={{ borderLeft: "none", borderRight: "none"}}>{'MP'+order.id}</td>
+                  <td className="border p-2 " style={{ borderLeft: "none", borderRight: "none"}}>
                     {order.consignor?.name} - {order.consignor?.phone}
                   </td>
-                  <td className="border p-2">
+                  <td className="border p-2" style={{ borderLeft: "none", borderRight: "none"}}>
                     {order.consignee?.name} - {order.consignee?.phone}
                   </td>
-                  <td className="border p-2 text-center">
+                  <td className="border p-2 text-center" style={{ borderLeft: "none", borderRight: "none"}}>
                     {order.consignor?.postcode}
                   </td>
-                  <td className="border p-2 text-center">
+                  <td className="border p-2 text-center" style={{ borderLeft: "none", borderRight: "none"}}>
                     {order.consignee?.postcode}
                   </td>
-                  <td className="border p-2 text-center">
+                  <td className="border p-2 text-center" style={{ borderLeft: "none", borderRight: "none"}}>
                     {order.shipping_detail?.date}
                   </td>
                   {position === "Lãnh đạo công ty" ? (
-                    <td className="border p-2 text-center">
+                    <td className="border p-2 text-center" style={{ borderLeft: "none", borderRight: "none"}}>
                       {order.order_status}
                     </td>
                   ) : (
-                    <td className="border p-2 text-center">
+                    <td className="border p-2 text-center" style={{ borderLeft: "none", borderRight: "none"}}>
                       {editingOrderId === order.id ? (
                         <select
                           className="w-full"
@@ -230,11 +230,11 @@ const ViewOrder = ({ user }) => {
                     </td>
                   )}
 
-                  <td className="border p-2 cursor-pointer text-center">
+                  <td className="border p-2 cursor-pointer text-center"style={{ borderLeft: "none", borderRight: "none"}}>
                     <div onClick={() => handleOnClick(order)}>Xem chi tiết</div>
                   </td>
                   {position !== "Lãnh đạo công ty" && (
-                    <td className="border p-2">
+                    <td className="border p-2" style={{ borderLeft: "none", borderRight: "none"}}>
                       {editTest(order, index) &&
                         (editingOrderId === order.id ? (
                           <button onClick={handleDoneClick}>Done</button>
