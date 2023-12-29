@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import icons from "../../utils/icons";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import {getDocumentById, getShippingFeeByCustomer} from "../../firebase"
+import { getDocumentById, getShippingFeeByCustomer } from "../../firebase";
 import { Timeline } from "./timeline/timeline";
 import { useNavigate } from "react-router-dom";
-
+import Slider from "./Slider";
 
 const { CiSearch } = icons;
 const Public = () => {
@@ -16,41 +16,45 @@ const Public = () => {
   const [shippingPrice, setShippingPrice] = useState(null);
   const [id, setId] = useState("");
 
-
   const search = async (e) => {
     e.preventDefault();
     /* Perform the search for order id and update trackingInfo */
     // Example: You can fetch data from an API here
     // For now, setting a dummy tracking info
-    const id = orderId.replace("MP", '');
-    const orderData = await getDocumentById(id, 'order');
+    const id = orderId.replace("MP", "");
+    const orderData = await getDocumentById(id, "order");
     setTrackingInfo(orderData);
     //setOrderId("");
-  }; 
-  
+  };
+
   const date = (dateTime) => {
-    const stringArray = dateTime.split(' ');
+    const stringArray = dateTime.split(" ");
     return stringArray[0];
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Get values from form fields
-    const senderProvince = document.getElementById('province_from').value;
-    const receiverProvince = document.getElementById('to_province').value;
-    const productType = document.getElementById('product_type').value;
-    const weight = document.getElementById('trongluong').value;
-  
+    const senderProvince = document.getElementById("province_from").value;
+    const receiverProvince = document.getElementById("to_province").value;
+    const productType = document.getElementById("product_type").value;
+    const weight = document.getElementById("trongluong").value;
+
     // You can perform any additional validations here
-  
+
     // Example: You can fetch shipping fee data from an API
-    const shippingFee = await getShippingFeeByCustomer(senderProvince, receiverProvince, weight, productType);
-  
+    const shippingFee = await getShippingFeeByCustomer(
+      senderProvince,
+      receiverProvince,
+      weight,
+      productType
+    );
+
     // Do something with the shipping fee, for example, display it to the user
-    console.log('Shipping Fee:', shippingFee);
+    console.log("Shipping Fee:", shippingFee);
     setShippingPrice(shippingFee);
-  
+
     // Clear form fields or reset form state if needed
     // setSenderProvince('');
     // setReceiverProvince('');
@@ -59,22 +63,17 @@ const Public = () => {
     // setShippingType('');
   };
   const handleOnClick = () => {
-    navigate(`/orders/${orderId.replace("MP", '')}`, {
+    navigate(`/orders/${orderId.replace("MP", "")}`, {
       state: {
-        orderId: orderId.replace("MP", ''),
+        orderId: orderId.replace("MP", ""),
         orderData: trackingInfo,
       },
     });
   };
-  
-  // ...
-  
-  // Add onSubmit attribute to the form tag
-  
 
   return (
     <div className="flex flex-col">
-      <div className="w-full flex items-center justify-between px-8 py-2">
+      <div className="w-full flex items-center justify-between px-8 py-2 mb-10">
         <div className="flex flex-row items-center justify-center">
           <img
             class="w-24 px-3 py-0"
@@ -93,47 +92,54 @@ const Public = () => {
           </Link>
         </div>
       </div>
-      <div className="section-banner relative">
-        <img src="https://viettelpost.com.vn/wp-content/themes/viettel/images/page-banner.jpg" class="w-100"></img>
-        <div class="content absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center text-center">
-          <div>
-            <p className="text-[26px] uppercase font-bold tracking-[.30em] text-white mb-[1em]">Magic Post</p>
-            <p class="text-white tracking-[.25em] text-[20px]">Chúng tôi không chỉ gửi hàng, chúng tôi gửi niềm tin</p>
-          </div>
-      </div>
-	</div>
       <div className="w-3/4 flex flex-col shadow-lg items-center mx-auto">
         <Tabs className={"w-full"} defaultIndex={0}>
           <TabList className={"w-full bg-[#F0F2F5] shadow-lg items-center"}>
-            <div className='grid grid-cols-2 text-center font-bold text-md text-gray-900'>
-              <Tab className={"py-4 justify-center rounded-none cursor-pointer"}>Tra cứu đơn hàng</Tab>
-              <Tab className={"py-4 justify-center rounded-none cursor-pointer"}>Tra cứu cước phí</Tab>
+            <div className="grid grid-cols-2 text-center font-bold text-md text-gray-900">
+              <Tab
+                className={"py-4 justify-center rounded-none cursor-pointer"}
+              >
+                Tra cứu đơn hàng
+              </Tab>
+              <Tab
+                className={"py-4 justify-center rounded-none cursor-pointer"}
+              >
+                Tra cứu cước phí
+              </Tab>
             </div>
           </TabList>
 
           <TabPanel>
             <div className="flex min-h-[500px] flex-col items-center">
-              <div className="flex-col mt-24 flex items-center justify-center">
+              <div className="flex-col mt-12 flex items-center justify-center">
                 {/* Search bar */}
-                <p className="font-bold text-xl ml-5 mb-5">
+                <p className="font-bold text-xl mb-5">
                   Nhập mã vận đơn của bạn
                 </p>
-                <form onSubmit={search} className="items-center space-x-2">
+              </div>
+              <div className="w-full flex flex-col items-center space-x-2">
+                <form
+                  onSubmit={search}
+                  className="w-full flex flex-row items-center justify-center space-x-2"
+                >
                   <input
-                    className="border border-blue-400 rounded-3xl py-2 px-4 focus:outline-none focus:border-blue-500"
+                    className="w-1/3 border border-blue-400 rounded-3xl py-2 px-4 focus:outline-none focus:border-blue-500"
                     type="text"
                     value={orderId}
                     onChange={(e) => setOrderId(e.target.value)}
-                    placeholder="VD: MP123"
+                    placeholder="VD: Magic123"
                   />
                   <button
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full"
                   >
-                    <CiSearch size={20} />
+                    <CiSearch size={25} />
                   </button>
                 </form>
-                {/* Display tracking info if available */}
+              </div>
+              {/* Display tracking info if available */}
+              <div className="mt-12 w-full flex flex-col items-center justify-center mx-auto">
+                {<Slider />}
                 {trackingInfo && (
                   <div className="w-5/6">
                     <div className="mt-5 bg-[#F0F2F5] rounded-lg p-4 shadow-md mb-5">
@@ -144,49 +150,83 @@ const Public = () => {
                             <p className="font-bold">Mã vận đơn:</p>
                             <p className="ml-auto">{orderId}</p>
                           </div>
-                          <div className="flex mr-3 mb-2" onClick={handleOnClick} style={{ cursor: 'pointer' }}>
+                          <div
+                            className="flex mr-3 mb-2"
+                            onClick={handleOnClick}
+                            style={{ cursor: "pointer" }}
+                          >
                             <p className="font-bold">Chi tiết đơn hàng:</p>
-                            <p className="ml-auto" style={{ color: 'blue', textDecoration: 'underline' }}>Xem chi tiết</p>
+                            <p
+                              className="ml-auto"
+                              style={{
+                                color: "blue",
+                                textDecoration: "underline",
+                              }}
+                            >
+                              Xem chi tiết
+                            </p>
                           </div>
                           <div className="flex mb-2">
                             <p className="font-bold">Người gửi:</p>
-                            <p className="ml-12">{trackingInfo.consignor.name} - {trackingInfo.consignor.city}</p>
+                            <p className="ml-12">
+                              {trackingInfo.consignor.name} -{" "}
+                              {trackingInfo.consignor.city}
+                            </p>
                           </div>
                           <div className="flex mb-2">
                             <p className="font-bold">Người nhận:</p>
-                            <p className="ml-12">{trackingInfo.consignee.name} - {trackingInfo.consignee.city}</p>
+                            <p className="ml-12">
+                              {trackingInfo.consignee.name} -{" "}
+                              {trackingInfo.consignee.city}
+                            </p>
                           </div>
-                        </div >
+                        </div>
                         <div className="w-1/3 border-t-0 border-r border-b-0 border-l-0 border-black border-solid">
                           <div className="flex mr-3 mb-2">
                             <p className="font-bold">Loại hàng hóa:</p>
-                            <p className="ml-auto">{trackingInfo.product.type}</p>
+                            <p className="ml-auto">
+                              {trackingInfo.product.type}
+                            </p>
                           </div>
                           <div className="flex mr-3 mb-2">
                             <p className="font-bold">Khối lượng (g):</p>
-                            <p className="ml-auto">{trackingInfo.product.weight}</p>
+                            <p className="ml-auto">
+                              {trackingInfo.product.weight}
+                            </p>
                           </div>
                           <div className="flex mr-3 mb-2">
                             <p className="font-bold">Dịch vụ:</p>
-                            <p className="ml-auto">{trackingInfo.shipping_detail.type}</p>
+                            <p className="ml-auto">
+                              {trackingInfo.shipping_detail.type}
+                            </p>
                           </div>
                           <div className="flex mr-3 mb-2">
                             <p className="font-bold">Trạng thái:</p>
-                            <p className="ml-auto">{trackingInfo.order_status}</p>
+                            <p className="ml-auto">
+                              {trackingInfo.order_status}
+                            </p>
                           </div>
                         </div>
                         <div className="w-1/3">
                           <div className="flex mr-3 mb-2">
                             <p className="font-bold">Ngày tạo:</p>
-                            <p className="ml-auto">{date(trackingInfo.shipping_detail.date)}</p>
+                            <p className="ml-auto">
+                              {date(trackingInfo.shipping_detail.date)}
+                            </p>
                           </div>
                           <div className="flex mr-3 mb-2">
                             <p className="font-bold">Ngày nhận hàng: </p>
-                            <p className="ml-auto">{trackingInfo.shipping_detail.shipping_date}</p>
+                            <p className="ml-auto">
+                              {trackingInfo.shipping_detail.shipping_date}
+                            </p>
                           </div>
                           <div className="flex mr-3 mb-2">
-                            <p className="font-bold">Ngày giao hàng dự kiến: </p>
-                            <p className="ml-auto">{trackingInfo.shipping_detail.estimated_date}</p>
+                            <p className="font-bold">
+                              Ngày giao hàng dự kiến:{" "}
+                            </p>
+                            <p className="ml-auto">
+                              {trackingInfo.shipping_detail.estimated_date}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -194,9 +234,7 @@ const Public = () => {
                     </div>
                     <div className="mt-5 bg-[#F0F2F5] rounded-lg p-4 shadow-md mb-5">
                       <h2 className="font-bold text-lg ">LỊCH SỬ VẬN ĐƠN</h2>
-                        <Timeline 
-                          data={trackingInfo.log}
-                        />
+                      <Timeline data={trackingInfo.log} />
                     </div>
                   </div>
                 )}
@@ -218,7 +256,9 @@ const Public = () => {
                       required
                     >
                       <option value="Hà Nội">Hà Nội</option>
-                      <option value="Hồ Chí Minh" selected>Hồ Chí Minh</option>
+                      <option value="Hồ Chí Minh" selected>
+                        Hồ Chí Minh
+                      </option>
                       <option value="Hải Phòng">Hải Phòng</option>
                       <option value="Đà Nẵng">Đà Nẵng</option>
                       <option value="Cần Thơ">Cần Thơ</option>
@@ -268,7 +308,9 @@ const Public = () => {
                       <option value="Bình Dương">Bình Dương</option>
                       <option value="Đồng Nai">Đồng Nai</option>
                       <option value="Bình Thuận">Bình Thuận</option>
-                      <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
+                      <option value="Bà Rịa - Vũng Tàu">
+                        Bà Rịa - Vũng Tàu
+                      </option>
                       <option value="Long An">Long An</option>
                       <option value="Đồng Tháp">Đồng Tháp</option>
                       <option value="An Giang">An Giang</option>
@@ -299,7 +341,9 @@ const Public = () => {
                       required
                     >
                       <option value="Hà Nội">Hà Nội</option>
-                      <option value="Hồ Chí Minh" selected>Hồ Chí Minh</option>
+                      <option value="Hồ Chí Minh" selected>
+                        Hồ Chí Minh
+                      </option>
                       <option value="Hải Phòng">Hải Phòng</option>
                       <option value="Đà Nẵng">Đà Nẵng</option>
                       <option value="Cần Thơ">Cần Thơ</option>
@@ -349,7 +393,9 @@ const Public = () => {
                       <option value="Bình Dương">Bình Dương</option>
                       <option value="Đồng Nai">Đồng Nai</option>
                       <option value="Bình Thuận">Bình Thuận</option>
-                      <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
+                      <option value="Bà Rịa - Vũng Tàu">
+                        Bà Rịa - Vũng Tàu
+                      </option>
                       <option value="Long An">Long An</option>
                       <option value="Đồng Tháp">Đồng Tháp</option>
                       <option value="An Giang">An Giang</option>
@@ -426,7 +472,7 @@ const Public = () => {
                 ></img>
               </div>
               <div className="col-start-2 col-span-4">
-              {shippingPrice && (
+                {shippingPrice && (
                   <div className="ml-16 mb-16">
                     <table className="w-full border-collapse mt-7">
                       <thead>
@@ -438,13 +484,22 @@ const Public = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {shippingPrice.map ((shipping_price) => {
+                        {shippingPrice.map((shipping_price) => {
                           return (
                             <tr>
-                              <td className="border p-2">{shipping_price.type}</td>
-                              <td className="border p-2 text-center">{shipping_price.shipping_fee}</td>
-                              <td className="border p-2 text-center">{shipping_price.additional_fee}</td>
-                              <td className="border p-2 text-center">{shipping_price.shipping_fee + shipping_price.additional_fee}</td>
+                              <td className="border p-2">
+                                {shipping_price.type}
+                              </td>
+                              <td className="border p-2 text-center">
+                                {shipping_price.shipping_fee}
+                              </td>
+                              <td className="border p-2 text-center">
+                                {shipping_price.additional_fee}
+                              </td>
+                              <td className="border p-2 text-center">
+                                {shipping_price.shipping_fee +
+                                  shipping_price.additional_fee}
+                              </td>
                             </tr>
                           );
                         })}
