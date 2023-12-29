@@ -27,13 +27,18 @@ const ReportItem = ({ user }) => {
       try {
         let result;
         if (selectedOption === "") {
+          if (user.position === "Lãnh đạo công ty") {
           result = await countOrdersByStatus(user.office, true);
+          } else {
+            result = await countOrdersByStatus(user.office, false);
+          }
         } else if (selectedHub) {
           result = await countOrdersByStatus(selectedHub, false);
         } else if (selectedTransPoint) {
           result = await countOrdersByStatus(selectedTransPoint, false);
+        } else {
+          result = await countOrdersByStatus(user.office, false);
         }
-
         const { deliveringCount, deliveredCount, cancelledCount } = result;
 
         setData({

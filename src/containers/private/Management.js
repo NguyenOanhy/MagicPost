@@ -55,7 +55,8 @@ const Management = ({ user }) => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col">
+    (user.position == "Lãnh đạo công ty") || (user.position == "Trưởng điểm tập kết") || (user.position == "Trưởng điểm giao dịch") ? (
+      <div className="w-full h-screen flex flex-col">
       <h1 className="text-3xl text-main-300 font-bold mt-8 mb-10 mx-auto text-center justify-center">
         QUẢN LÝ NHÂN VIÊN
       </h1>
@@ -98,6 +99,7 @@ const Management = ({ user }) => {
                 Danh sách điểm giao dịch
               </a>
             )}
+            {user.position === "Lãnh đạo công ty" ? (
             <a
               href="#"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -109,7 +111,18 @@ const Management = ({ user }) => {
               }}
             >
               Danh sách trưởng điểm
-            </a>
+            </a>) : (<a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              onClick={() => {
+                handleListStaffClick();
+                handleOptionClick({
+                  label: "Danh sách nhân viên",
+                });
+              }}
+            >
+              Danh sách nhân viên
+            </a>)}
             <a
               href="#"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -133,7 +146,9 @@ const Management = ({ user }) => {
           {showSignup && <Signup />}
         </div>
       </div>
-    </div>
+    </div>) : (
+      <div className="m-20">Bạn không đủ quyền hạn để xem tính năng này</div>
+    )
   );
 };
 

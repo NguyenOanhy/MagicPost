@@ -123,8 +123,8 @@ const Order = ({ user }) => {
                 Đơn hàng đang chờ
               </a>
             )}
-            {!showOrderCreate && (user.position == "Trưởng điểm giao dịch" || user.position == "Nhân viên tại điểm giao dịch") && (
-              <a
+            {!showOrderCreate && (user.position == "Trưởng điểm giao dịch" || user.position == "Nhân viên tại điểm giao dịch" || user.position == "Nhân viên tại điểm tập kết") && (
+              <a  
                 href="#"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 onClick={() => {
