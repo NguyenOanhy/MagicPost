@@ -64,31 +64,31 @@ const PendingOrder = ({ user, searchId }) => {
 
   return (
     <div className="app-container flex flex-col gap-10 text-base mx-10">
-      <table className="w-full border-collapse mt-7">
+      <table className="w-full border-collapse mt-7 rounded-xl overflow-hidden">
         <thead>
           <tr className="rounded-lg shadow-lg">
-            <th className="border bg-main-300 p-2" style={{ width: "7%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "7%" }}>
               Mã đơn
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "15%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "15%" }}>
               Thông tin người gửi
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "15%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "15%" }}>
               Thông tin người nhận
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "15%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "15%" }}>
               Mã điểm GD bên gửi
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "17%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "17%" }}>
               Mã điểm GD bên nhận
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "12%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "12%" }}>
               Ngày giờ gửi
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "8%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "8%" }}>
               Trạng thái
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "11%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "11%" }}>
               Xác nhận
             </th>
           </tr>
