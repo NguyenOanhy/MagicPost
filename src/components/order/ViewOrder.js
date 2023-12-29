@@ -1,22 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getDataFromFirestore, updateStatusAtIndex } from "../../firebase";
+import { getDataFromFirestore, getDocumentById, updateStatusAtIndex } from "../../firebase";
 
-const ViewOrder = ({ user }) => {
+const ViewOrder = ({ user, searchId }) => {
   const navigate = useNavigate();
   const office = user.office;
   const position = user.position;
   const [orders, setOrders] = useState([]);
   const [editingOrderId, setEditingOrderId] = useState(null);
+  const [searchOrderId, setSearchOrderId] = useState("");
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const ordersData = await getDataFromFirestore("order");
-      setOrders(ordersData);
+      if (orders.length === 0) {
+        const ordersData = await getDataFromFirestore("order");
+        setOrders(ordersData);
+      }
     };
-
+    const getSearchOrder = async () => {
+      if (searchId !== "") {
+        setSearchOrderId(searchId);
+        const orderData = await getDocumentById(searchId, "order");
+        orderData.id = searchOrderId;
+        if (orderData) {
+          setOrders([orderData]);
+        }
+        console.log("Search" + searchOrderId);
+        // Note: It's better to use setSearchId('') to clear the searchId state
+        // to avoid rendering the component again with the same searchId.
+        // setSearchId('');
+      }
+    };
+  
     fetchOrders();
-  }, []);
+    getSearchOrder();
+    // getSearchOrder();
+    searchId = "";
+  }, [searchId]);
+
 
   const editTest = (order, index) => {
     if (order.status[4] !== 3 && order.status[4] !== 4) {

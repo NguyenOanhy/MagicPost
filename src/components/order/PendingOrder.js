@@ -1,17 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { getDataFromFirestore, updateStatusAtIndex } from "../../firebase";
+import { getDataFromFirestore, updateStatusAtIndex, getDocumentById} from "../../firebase";
 
-const PendingOrder = ({ user }) => {
+const PendingOrder = ({ user, searchId }) => {
   const office = user.office;
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     const fetchOrders = async () => {
-      const ordersData = await getDataFromFirestore("order");
-      setOrders(ordersData);
+      if (orders.length === 0) {
+        const ordersData = await getDataFromFirestore("order");
+        setOrders(ordersData);
+      }
     };
-
+    const getSearchOrder = async () => {
+      if (searchId !== "") {
+        const orderData = await getDocumentById(searchId, "order");
+        orderData.id = searchId;
+        if (orderData) {
+          setOrders([orderData]);
+        }
+        console.log("Search" + searchId);
+        // Note: It's better to use setSearchId('') to clear the searchId state
+        // to avoid rendering the component again with the same searchId.
+        // setSearchId('');
+      }
+    };
+  
     fetchOrders();
-  }, []);
+    getSearchOrder();
+    // getSearchOrder();
+  }, [searchId]);
 
   const handleStatusChange = async (orderId, index, office) => {
     const updatedOrders = orders.map((order) => {
