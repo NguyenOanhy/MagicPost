@@ -10,10 +10,8 @@ const {
   FaClipboardList,
   FaUsers,
   FaInfoCircle,
-  TbLayoutSidebarRightExpand,
-  TbLayoutSidebarLeftExpand,
-  GoHomeFill,
-  FaRegUser,
+  FaAngleLeft, 
+  FaAngleRight
 } = icons;
 
 const Sidebar = ({ user }) => {
@@ -96,9 +94,9 @@ const Sidebar = ({ user }) => {
             {expanded && (
               <div className="text-sm pl-2 mx-auto">
                 {/* <p>{user.email}</p> */}
-                <p className="text-[11px]">{user.position}</p>
+                <p className="">{user.position}</p>
                 {user.position !== "Lãnh đạo công ty" && (
-                  <p className="text-[11px]">{`Bưu cục ` + user.office}</p>
+                  <p className="">{`Bưu cục ` + user.office}</p>
                 )}
               </div>
             )}
@@ -119,22 +117,23 @@ const Sidebar = ({ user }) => {
             </NavLink>
           </li>
         ))}
-        <div
-          className="flex px-2 py-2 text-white hover:bg-white hover:text-main-300 hover:rounded-s-2xl ml-3"
+        
+        <div className="flex items-center space-x-2 px-2 mb-6 py-2 ml-3 rounded-l-2xl hover:bg-white hover:text-main-300 cursor-pointer">
+        <MdLogout size={30} onClick={handleLogout} />
+        {expanded && <span className="text-base">Đăng xuất</span>}
+      </div>
+      </ul>
+      <div
+          className="flex px-2 py-2 text-white hover:bg-white hover:text-main-300 hover:rounded-s-2xl ml-3 mb-4"
           onClick={toggleExpand}
           role="button"
         >
           {expanded ? (
-            <TbLayoutSidebarRightExpand size={30} />
+            <FaAngleLeft size={30} />
           ) : (
-            <TbLayoutSidebarLeftExpand size={30} />
+            <FaAngleRight size={30} />
           )}
         </div>
-      </ul>
-      <div className="flex items-center space-x-2 px-2 mb-6 py-2 ml-3 rounded-l-2xl hover:bg-white hover:text-main-300 cursor-pointer">
-        <MdLogout size={30} onClick={handleLogout} />
-        {expanded && <span className="text-base">Đăng xuất</span>}
-      </div>
     </div>
   );
 };

@@ -74,7 +74,7 @@ const Public = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="w-full flex items-center justify-between px-8 py-2 mb-10">
+      <div className="w-full flex items-center justify-between px-8 py-2">
         <div className="flex flex-row items-center justify-center">
           <img
             class="w-24 px-3 py-0"
@@ -93,6 +93,15 @@ const Public = () => {
           </Link>
         </div>
       </div>
+      <div className="section-banner relative">
+        <img src="https://viettelpost.com.vn/wp-content/themes/viettel/images/page-banner.jpg" class="w-100"></img>
+        <div class="content absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center text-center">
+          <div>
+            <p className="text-[26px] uppercase font-bold tracking-[.30em] text-white mb-[1em]">Magic Post</p>
+            <p class="text-white tracking-[.25em] text-[20px]">Chúng tôi không chỉ gửi hàng, chúng tôi gửi niềm tin</p>
+          </div>
+      </div>
+	</div>
       <div className="w-3/4 flex flex-col shadow-lg items-center mx-auto">
         <Tabs className={"w-full"} defaultIndex={0}>
           <TabList className={"w-full bg-[#F0F2F5] shadow-lg items-center"}>
@@ -115,7 +124,7 @@ const Public = () => {
                     type="text"
                     value={orderId}
                     onChange={(e) => setOrderId(e.target.value)}
-                    placeholder="VD: Magic123"
+                    placeholder="VD: MP123"
                   />
                   <button
                     type="submit"
