@@ -8,7 +8,6 @@ const ViewOrder = ({ user, searchId }) => {
   const position = user.position;
   const [orders, setOrders] = useState([]);
   const [editingOrderId, setEditingOrderId] = useState(null);
-  const [searchOrderId, setSearchOrderId] = useState("");
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -19,13 +18,11 @@ const ViewOrder = ({ user, searchId }) => {
     };
     const getSearchOrder = async () => {
       if (searchId !== "") {
-        setSearchOrderId(searchId);
         const orderData = await getDocumentById(searchId, "order");
-        orderData.id = searchOrderId;
+        orderData.id = searchId;
         if (orderData) {
           setOrders([orderData]);
         }
-        console.log("Search" + searchOrderId);
         // Note: It's better to use setSearchId('') to clear the searchId state
         // to avoid rendering the component again with the same searchId.
         // setSearchId('');
@@ -35,7 +32,7 @@ const ViewOrder = ({ user, searchId }) => {
     fetchOrders();
     getSearchOrder();
     // getSearchOrder();
-    searchId = "";
+    //searchId = "";
   }, [searchId]);
 
 

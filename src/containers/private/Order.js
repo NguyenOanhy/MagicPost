@@ -17,7 +17,7 @@ const Order = ({ user }) => {
   const search = (e) => {
     e.preventDefault();
     setSearchId(orderSearch);
-    setOrderSearch("");
+    //setOrderSearch("");
   };
 
   const handlePendingOrderClick = () => {
