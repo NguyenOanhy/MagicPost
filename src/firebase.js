@@ -308,7 +308,6 @@ const countOrdersByStatus = async (userOffice, isTrue) => {
     // Thực hiện truy vấn để lấy danh sách đơn hàng
     const querySnapshot = await getDocs(ordersRef);
     const orders = querySnapshot.docs.map((doc) => doc.data());
-    console.log(orders)
     let deliveringCount = 0;
     let deliveredCount = 0;
     let cancelledCount = 0;
@@ -320,7 +319,7 @@ const countOrdersByStatus = async (userOffice, isTrue) => {
           deliveringCount++;
         } else if (order.order_status === 'Đã vận chuyển') {
           deliveredCount++;
-        } else if (order.order_status === 'Đã bị huỷ') {
+        } else if (order.order_status === 'Đã bị hủy') {
           cancelledCount++;
         }
       }
@@ -329,10 +328,11 @@ const countOrdersByStatus = async (userOffice, isTrue) => {
           deliveringCount++;
         } else if (order.order_status === 'Đã vận chuyển') {
           deliveredCount++;
-        } else if (order.order_status === 'Đã bị huỷ') {
+        } else if (order.order_status === 'Đã bị hủy') {
           cancelledCount++;
         }
       }
+      console.log(cancelledCount)
     }
 
     return {
