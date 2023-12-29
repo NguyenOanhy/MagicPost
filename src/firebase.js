@@ -301,9 +301,8 @@ const getUsersByOffice = async (currentUser) => {
     return [];
   }
 };
-const countOrdersByStatus = async (user) => {
+const countOrdersByStatus = async (userOffice, isTrue) => {
   try {
-    const userOffice = user.office;
     const ordersRef = collection(db, 'order');
 
     // Thực hiện truy vấn để lấy danh sách đơn hàng
@@ -316,7 +315,7 @@ const countOrdersByStatus = async (user) => {
 
     // Đếm số lượng đơn hàng theo trạng thái
     for (const order of orders) {
-      if (user.position === "Lãnh đạo công ty") {
+      if (isTrue) {
         if (order.order_status === 'Đang vận chuyển') {
           deliveringCount++;
         } else if (order.order_status === 'Đã vận chuyển') {
@@ -325,7 +324,7 @@ const countOrdersByStatus = async (user) => {
           cancelledCount++;
         }
       }
-      else if (order.path && order.path.includes(userOffice) && user.position != "Lãnh đạo công ty") { // Kiểm tra order.path tồn tại và userOffice là chuỗi con của order.path
+      else if (order.path && order.path.includes(userOffice) && !isTrue) { // Kiểm tra order.path tồn tại và userOffice là chuỗi con của order.path
         if (order.order_status === 'Đang vận chuyển') {
           deliveringCount++;
         } else if (order.order_status === 'Đã vận chuyển') {

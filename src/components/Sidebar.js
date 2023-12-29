@@ -120,7 +120,7 @@ const Sidebar = ({ user }) => {
         
         <div className="flex items-center space-x-2 px-2 mb-6 py-2 ml-3 rounded-l-2xl hover:bg-white hover:text-main-300 cursor-pointer">
         <MdLogout size={30} onClick={handleLogout} />
-        {expanded && <span className="text-base">Đăng xuất</span>}
+        {expanded && <span onClick={handleLogout} className="text-base">Đăng xuất</span>}
       </div>
       </ul>
       <div
