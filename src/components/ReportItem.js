@@ -110,14 +110,14 @@ const handleTransPointSelection = (e) => {
     </h1>
       {user.position === "Lãnh đạo công ty" && (
         <div>
-          <select value={selectedOption} onChange={handleDropdownChange} className="mb-8 border mr-4 rounded-lg border-main-300 ml-28 px-4 py-2 text-sm text-gray-700 bg-gray-100 text-base">
+          <select value={selectedOption} onChange={handleDropdownChange} className="mb-8 border mr-4 rounded-lg border-main-300 ml-28 px-4 py-2 text-gray-700 bg-gray-100 text-base">
             <option value="">Tổng quan</option>
             <option value="Điểm tập kết">Điểm tập kết</option>
             <option value="Điểm giao dịch">Điểm giao dịch</option>
           </select>
 
           {selectedOption === "Điểm tập kết" && (
-            <select value={selectedHub} onChange={handleHubSelection} className="border rounded-lg border-main-300 px-4 py-2 text-sm text-gray-700 bg-gray-100">
+            <select value={selectedHub} onChange={handleHubSelection} className="border rounded-lg border-main-300 px-4 py-2 text-gray-700 bg-gray-100  text-base">
               <option>Chọn điểm tập kết</option>
               {hubOptions.map((hub) => (
                 <option key={hub.id} value={hub.name}>
@@ -128,7 +128,7 @@ const handleTransPointSelection = (e) => {
           )}
 
           {selectedOption === "Điểm giao dịch" && (
-            <select value={selectedTransPoint} onChange={handleTransPointSelection} className="border rounded-lg border-main-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <select value={selectedTransPoint} onChange={handleTransPointSelection} className="border rounded-lg border-main-300 px-4 py-2  text-base text-gray-700 bg-gray-100">
               <option>Chọn điểm giao dịch</option>
               {transPointOptions.map((transPoint) => (
                 <option key={transPoint.id} value={transPoint.name}>
