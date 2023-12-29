@@ -24,12 +24,12 @@ const OrderDetail = () => {
         return null; // or display an error message
     }
     const VAT = (fee_1, fee_2) => {
-        return (parseInt(fee_1, 10) + parseInt(fee_2, 10))*1.08;
+        return parseInt((parseInt(fee_1, 10) + parseInt(fee_2, 10))*1.08);
     }
 
     return (
     <div>
-      <div className="flex justify-center">
+      <div className="flex justify-center mb-5">
         <div className="w-5/6 mt-6 flex flex-col gap-5 border border-gray-300 p-3 rounded-lg">
             <div className="mt-5 p-2 mb-5">
                 <div className="mb-2 border border-gray-300 border-t-0 border-r-0 border-b border-l-0 border-solid">
@@ -183,7 +183,10 @@ const OrderDetail = () => {
                             <p className="font-bold ml-[-2rem]">người được ủy quyền nhận</p>
                         </div>
                     </div >
-                    <div className="w-1/3 ">
+                    <div className="w-1/3 flex flex-col">
+                        <div className="font-bold pl-14 mb-3">
+                            {base64Value}
+                        </div>
                         <div>
                             <QRCode value={base64Value} size={156} />
                         </div>

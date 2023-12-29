@@ -4,9 +4,9 @@ import "./index.scss";
 export const SubItem = ({ data, index, count }) => (
   <div className="subitem">
     <div className="subitem-content flex-col">   
-      {index === 0 && (
+      {data.title !== null && (
         <>
-          <p class="mt-[-5px] text-[16px] font-bold mb-1" style={{color: '#4991FC'}}>Đơn hàng được tạo thành công</p>
+          <p class="mt-[-5px] text-[16px] font-bold mb-1" style={{color: '#4991FC'}}>{data.title}</p>
           {/* Additional content for key === 0 */}
         </>
       )} 
