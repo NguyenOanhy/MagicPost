@@ -122,7 +122,7 @@ const Order = ({ user }) => {
                 Đơn hàng đang chờ
               </a>
             )}
-            {!showOrderCreate && user.position !== "Lãnh đạo công ty" && (
+            {!showOrderCreate && (user.position == "Trưởng điểm giao dịch" || user.position == "Nhân viên tại điểm giao dịch") && (
               <a
                 href="#"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

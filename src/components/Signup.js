@@ -4,7 +4,7 @@ import path from "../utils/path";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, addUserToFirestore } from "../firebase";
 
-function Signup({ onComplete }) {
+function Signup() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -28,7 +28,7 @@ function Signup({ onComplete }) {
     // Create the user with email and password
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
-        onComplete();
+        window.alert("Đã thêm tài khoản thành công");
         addUserToFirestore(
           name,
           phone,

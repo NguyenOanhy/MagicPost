@@ -24,7 +24,8 @@ const ListTransition = () => {
         <thead>
           <tr className="rounded-lg shadow-lg">
             <th className="border bg-main-300 text-white p-3" style={{ width: "25%" }}>STT</th>
-            <th className="border bg-main-300 text-white p-3" style={{ width: "50%" }}>Tên điểm giao dịch</th>
+            <th className="border bg-main-300 text-white p-3" style={{ width: "25%" }}>Tên điểm giao dịch</th>
+            <th className="border bg-main-300 text-white p-3" style={{ width: "25%" }}>Điểm tập kết tương ứng</th>
             <th className="border bg-main-300 text-white p-3" style={{ width: "25%" }}>Mã bưu chính</th>
           </tr>
         </thead>
@@ -33,6 +34,7 @@ const ListTransition = () => {
             <tr key={item.id}>
               <td className="border p-2 text-center"style={{ borderRight: "none"}}>{index + 1}</td>
               <td className="border p-2 pl-20"style={{ borderRight: "none", borderLeft: "none"}}>{item.name}</td>
+              <td className="border p-2 text-center"style={{ borderRight: "none", borderLeft: "none"}}>{item.hub}</td>
               <td className="border p-2 text-center"style={{ borderLeft: "none"}}>{item.postcode}</td>
             </tr>
           ))}
