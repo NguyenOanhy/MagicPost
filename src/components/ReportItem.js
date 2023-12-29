@@ -104,7 +104,7 @@ const handleTransPointSelection = (e) => {
 
   return (
     <div className="grid grid-cols-4">
-    <div className="col-start-1 col-span-3 container mt-8">
+      <div className="col-start-1 col-span-4">
       <h1 className="text-3xl text-main-300 font-bold mt-8 mb-10 mx-auto text-center justify-center">
       THỐNG KÊ ĐƠN HÀNG
     </h1>
@@ -139,11 +139,13 @@ const handleTransPointSelection = (e) => {
           )}
         </div>
       )}
+      </div>
+    <div className="col-start-1 col-span-3 container">
       <div className="bg-white border rounded-lg shadow-md px-16 w-3/4 h-[600px] mb-8 mx-auto flex items-center justify-center">
         {chartData ? <Pie data={chartData} className="p-16"/> : null}
       </div>
       </div>
-      <div className="col-start-4 col-span-1 h-[600px] mt-[208px] container ml-[-50px] my-auto bg-white rounded-lg border shadow-md ">
+      <div className="col-start-4 col-span-1 mt-[-2px] h-[600px] container ml-[-50px] my-auto bg-white rounded-lg border shadow-md ">
         <div className="mx-auto py-12 w-5/6">
           <div className="flex flex-row rounded-lg p-4 mb-5" style={{backgroundColor: "rgb(58,140,207)"}}>
             <div>

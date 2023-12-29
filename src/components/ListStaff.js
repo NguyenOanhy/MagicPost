@@ -35,12 +35,12 @@ const ListStaff = ({ user }) => {
           {staffList.map((staff, index) => (
             <tr key={staff.id}>
               <td className="border p-3 text-center"style={{borderRight: "none"}}>{index + 1}</td>
-              <td className="border p-3"style={{ borderRight: "none", borderLeft: "none"}}>{staff.name}</td>
+              <td className="border p-3 text-center"style={{ borderRight: "none", borderLeft: "none"}}>{staff.name}</td>
               <td className="border p-3 text-center"style={{ borderRight: "none", borderLeft: "none"}}>{staff.birth}</td>
-              <td className="border p-3"style={{ borderRight: "none", borderLeft: "none"}}>{staff.email}</td>
-              <td className="border p-3"style={{ borderRight: "none", borderLeft: "none"}}>{staff.position}</td>
-              <td className="border p-3"style={{ borderRight: "none", borderLeft: "none"}}>{staff.office}</td>
-              <td className="border p-3"style={{ borderLeft: "none"}}>{staff.phone}</td>
+              <td className="border p-3 text-center"style={{ borderRight: "none", borderLeft: "none"}}>{staff.email}</td>
+              <td className="border p-3 text-center"style={{ borderRight: "none", borderLeft: "none"}}>{staff.position}</td>
+              <td className="border p-3 text-center"style={{ borderRight: "none", borderLeft: "none"}}>{staff.office}</td>
+              <td className="border p-3 text-center"style={{ borderLeft: "none"}}>{staff.phone}</td>
             </tr>
           ))}
         </tbody>

@@ -13,8 +13,8 @@ export default function Slider() {
     }
   };
   const items = [
-    { number: "1", src: require('../../image/ship1.jpg'), alt: "image description" },
-    { number: "2", src: require('../../image/ship2.jpg'), alt: "image description" },
+    { number: "1", src: require('../../image/shipping_box.png'), alt: "image description" },
+    { number: "2", src: require('../../image/shipping_box.png'), alt: "image description" },
     { number: "3", src: require('../../image/ship3.png'), alt: "image description"  },
     { number: "4", src: require('../../image/shipper.png'), alt: "image description"  },
     { number: "5", src: require('../../image/shipper.png'), alt: "image description"  },
@@ -39,35 +39,3 @@ export default function Slider() {
   );
 };
   
-
-// import { Carousel, Image } from 'react-bootstrap';
-
-// function Slider() {
-//   return (
-//     <Carousel>
-//       <Carousel.Item interval={1000}>
-//         <Image src={require('../../image/shipper.png')} alt="image description"/>
-//         <Carousel.Caption>
-//         <h3>First slide label</h3>
-//           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-//         </Carousel.Caption>
-//       </Carousel.Item>
-//       <Carousel.Item interval={1000}>
-//         <Image src={require('../../image/shipper.png')} alt="image description"/>
-//         <Carousel.Caption>
-//         <h3>First slide label</h3>
-//           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-//         </Carousel.Caption>
-//       </Carousel.Item>
-//       <Carousel.Item interval={1000}>
-//         <Image src={require('../../image/shipper.png')} alt="image description"/>
-//         <Carousel.Caption>
-//         <h3>First slide label</h3>
-//           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-//         </Carousel.Caption>
-//       </Carousel.Item>
-//     </Carousel>
-//   );
-// }
-
-// export default Slider;

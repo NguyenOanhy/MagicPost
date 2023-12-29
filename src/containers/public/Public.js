@@ -113,7 +113,7 @@ const Public = () => {
       </div>
       <div className="w-5/6 flex flex-col shadow-lg mt-5 items-center mx-auto">
         <Tabs className={"w-full"} defaultIndex={0}>
-          <TabList className={"w-full bg-slate-200 shadow-lg items-center border"}>
+          <TabList className={"w-full bg-slate-100 shadow-lg text-xl items-center border"}>
             <div className="grid grid-cols-2 text-center font-bold text-md">
               <Tab
                 className={"py-4 justify-center rounded-none cursor-pointer"}

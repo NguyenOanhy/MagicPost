@@ -24,10 +24,10 @@ function ForgotPassword() {
 
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-      <form className="bg-white max-w-sm shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-        <h3 className="text-center font-bold text-3xl mb-6">Quên mật khẩu</h3>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
+      <form className="bg-white w-2/5 shadow-md justify-center rounded px-8 pt-8 pb-8 mb-4" onSubmit={handleSubmit}>
+        <h3 className="text-center font-bold text-3xl text-main-300 mb-16">Quên mật khẩu</h3>
+        <div className="mb-4 w-3/4 items-center mx-auto justify-center">
+          <label className="block text-gray-700 font-bold mb-2 ml-6" htmlFor="email">
             Email
           </label>
           <input
@@ -38,12 +38,12 @@ function ForgotPassword() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center py-8">
           <button
             className="bg-main-100 hover:bg-main-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            Đặt mật khẩu
+            Đặt lại mật khẩu
           </button>
         </div>
       </form>

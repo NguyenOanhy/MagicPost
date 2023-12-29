@@ -32,7 +32,7 @@ const ViewOrder = ({ user, searchId }) => {
     fetchOrders();
     getSearchOrder();
     // getSearchOrder();
-    //searchId = "";
+    //// searchId = "";
   }, [searchId]);
 
 
@@ -180,7 +180,7 @@ const ViewOrder = ({ user, searchId }) => {
             ) {
               return (
                 <tr key={order.id} >
-                  <td className="border border-r-0 text-center h-[65px]"style={{ borderLeft: "none", borderRight: "none"}}>{'MP'+order.id}</td>
+                  <td className="border border-r-0 text-center h-[65px]"style={{ borderLeft: "none", borderRight: "none"}}>{'MP'+ order.id}</td>
                   <td className="border p-2 " style={{ borderLeft: "none", borderRight: "none"}}>
                     {order.consignor?.name} - {order.consignor?.phone}
                   </td>

@@ -15,9 +15,9 @@ const PriceShipping = () => {
 
   return (
     <div>
-      <div class="py-16">
-        <p class="text-5xl px-16 py-5 text-blue-600">Magic Post</p>
-        <p class="px-16">Địa chỉ: Xuân Thủy, Cầu Giấy, Hà Nội</p>
+      <div class="py-8">
+        <p class="text-5xl px-16 py-5 text-main-300">Magic Post</p>
+        <p class="px-16 text-xl">Địa chỉ: Xuân Thủy, Cầu Giấy, Hà Nội</p>
       </div>
     <table className="w-850 mx-auto divide-y divide-gray-200 border-collapse border border-slate-500">
       <thead>
@@ -37,7 +37,7 @@ const PriceShipping = () => {
       </tbody>
     </table>
     <div>
-    <img class="h-auto w-48 mx-auto py-10" src={require('../../image/shipper.png')} alt="image description"></img>
+    <img class="h-auto w-1/2 mx-auto py-3" src={require('../../image/ship3.png')} alt="image description"></img>
     </div>
     </div>
   );

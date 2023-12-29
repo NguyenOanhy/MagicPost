@@ -7,18 +7,18 @@ const Profile = ({ user }) => {
         <div className="w-1/2 mx-auto">
           <div className="mb-4">
             <h1 className="text-3xl text-main-300 font-bold mb-20 mx-auto mt-10 text-center justify-center">
-              Thông tin người dùng
+              THÔNG TIN NGƯỜI DÙNG
             </h1>
           </div>
           <div className="items-center justify-center">
             <img
-              class="h-auto w-24 mx-auto "
-              src={require("../../image/shipper.png")}
+              class="h-auto w-48 mx-auto "
+              src={require("../../image/admin.png")}
               alt="image description"
             ></img>
           </div>
           <div className="w-full grid grid-cols-2 items-center justify-center">
-            <table className="w-fit mx-auto mt-10">
+            <table className="w-fit ml-24 p-2 text-lg mt-10">
               <tbody>
                 <tr>
                   <td className="font-semibold">Chức vụ:</td>
@@ -43,7 +43,7 @@ const Profile = ({ user }) => {
                 </tr>
               </tbody>
             </table>
-            <table className="mx-auto w-fit mt-10">
+            <table className="mx-auto text-lg w-fit mt-10">
               <tbody>
                 <tr>
                   <td>{user.position}</td>
