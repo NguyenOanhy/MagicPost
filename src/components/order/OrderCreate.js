@@ -160,6 +160,8 @@ const OrderCreate = () => {
         ward: consigneeInput.ward,
         postcode: consigneeInput.postcode,
       },
+      product: productInput,
+      shipping_detail: shipping_detail,
     });
   };
 
