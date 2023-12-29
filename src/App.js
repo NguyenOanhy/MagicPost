@@ -33,22 +33,22 @@ export default function App() {
   }, [location]);
 
   return (
-    <>
+    <div className='font-mono'>
       <Routes>
-        <Route path={path.PUBLIC} element={<Public />} />
-        <Route path={path.LOGIN} element={<Login />} />
-        <Route path={path.FORGOTPW} element={<Forgotpassword />} />
-        <Route path={path.PRIVATE} element={<Private user={user} />}>
-          <Route path={path.ORDERS} element={<Order user={user} />} />
-          <Route path={`${path.ORDERS}/:orderId`} element={<OrderDetail />} />
-          <Route path={path.SIGNUP} element={<Signup />} />
-          <Route path={path.PRICESHIPPING} element={<PriceShipping />} />
-          <Route path={path.MANAGEMENT} element={<Management user={user} />} />
-          <Route path={path.REPORTS} element={<Reports user={user} />} />
-          <Route path={path.PROFILE} element={<Profile user={user} />} />
+        <Route path={path.PUBLIC} element={<Public className='font-mono'/>} />
+        <Route path={path.LOGIN} element={<Login className='font-mono'/>} />
+        <Route path={path.FORGOTPW} element={<Forgotpassword className='font-mono'/>} />
+        <Route path={path.PRIVATE} element={<Private user={user} className='font-mono'/>}>
+          <Route path={path.ORDERS} element={<Order user={user} className='font-mono'/>} />
+          <Route path={`${path.ORDERS}/:orderId`} element={<OrderDetail className='font-mono'/>} />
+          <Route path={path.SIGNUP} element={<Signup className='font-mono'/>} />
+          <Route path={path.PRICESHIPPING} element={<PriceShipping className='font-mono'/>} />
+          <Route path={path.MANAGEMENT} element={<Management user={user} className='font-mono'/>} />
+          <Route path={path.REPORTS} element={<Reports user={user} className='font-mono'/>} />
+          <Route path={path.PROFILE} element={<Profile user={user} className='font-mono'/>} />
         </Route>
-        <Route path={`${path.ORDERS}/:orderId`} element={<OrderDetail />} />
+        <Route path={`${path.ORDERS}/:orderId`} element={<OrderDetail className='font-mono'/>} />
       </Routes>
-    </>
+    </div>
   );
 }

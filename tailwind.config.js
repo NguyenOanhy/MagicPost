@@ -6,6 +6,7 @@ module.exports = {
   ],
   theme: {
     extend: {
+      
       backgroundColor: {
         'main-100': '#2196f3',
         'main-200': '#0D47A1',
