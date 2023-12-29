@@ -15,7 +15,7 @@ export default function Slider() {
   const items = [
     { number: "1", src: require('../../image/ship1.jpg'), alt: "image description" },
     { number: "2", src: require('../../image/ship2.jpg'), alt: "image description" },
-    { number: "3", src: require('../../image/shipper.png'), alt: "image description"  },
+    { number: "3", src: require('../../image/ship3.png'), alt: "image description"  },
     { number: "4", src: require('../../image/shipper.png'), alt: "image description"  },
     { number: "5", src: require('../../image/shipper.png'), alt: "image description"  },
     { number: "6", src: require('../../image/shipper.png'), alt: "image description"  },

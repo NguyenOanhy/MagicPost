@@ -1,17 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { getDataFromFirestore, updateStatusAtIndex } from "../../firebase";
+import { getDataFromFirestore, updateStatusAtIndex, getDocumentById} from "../../firebase";
 
-const PendingOrder = ({ user }) => {
+const PendingOrder = ({ user, searchId }) => {
   const office = user.office;
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     const fetchOrders = async () => {
-      const ordersData = await getDataFromFirestore("order");
-      setOrders(ordersData);
+      if (orders.length === 0) {
+        const ordersData = await getDataFromFirestore("order");
+        setOrders(ordersData);
+      }
     };
-
+    const getSearchOrder = async () => {
+      if (searchId !== "") {
+        const orderData = await getDocumentById(searchId, "order");
+        orderData.id = searchId;
+        if (orderData) {
+          setOrders([orderData]);
+        }
+        console.log("Search" + searchId);
+        // Note: It's better to use setSearchId('') to clear the searchId state
+        // to avoid rendering the component again with the same searchId.
+        // setSearchId('');
+      }
+    };
+  
     fetchOrders();
-  }, []);
+    getSearchOrder();
+    // getSearchOrder();
+  }, [searchId]);
 
   const handleStatusChange = async (orderId, index, office) => {
     const updatedOrders = orders.map((order) => {
@@ -47,31 +64,31 @@ const PendingOrder = ({ user }) => {
 
   return (
     <div className="app-container flex flex-col gap-10 text-base mx-10">
-      <table className="w-full border-collapse mt-7">
+      <table className="w-full border-collapse mt-7 rounded-xl overflow-hidden">
         <thead>
           <tr className="rounded-lg shadow-lg">
-            <th className="border bg-main-300 p-2" style={{ width: "7%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "7%" }}>
               Mã đơn
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "15%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "15%" }}>
               Thông tin người gửi
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "15%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "15%" }}>
               Thông tin người nhận
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "15%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "15%" }}>
               Mã điểm GD bên gửi
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "17%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "17%" }}>
               Mã điểm GD bên nhận
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "12%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "12%" }}>
               Ngày giờ gửi
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "8%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "8%" }}>
               Trạng thái
             </th>
-            <th className="border bg-main-300 p-2" style={{ width: "11%" }}>
+            <th className="border  bg-main-300 text-white p-2" style={{ width: "11%" }}>
               Xác nhận
             </th>
           </tr>

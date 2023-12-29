@@ -7,6 +7,7 @@ import { getDocumentById, getShippingFeeByCustomer } from "../../firebase";
 import { Timeline } from "./timeline/timeline";
 import { useNavigate } from "react-router-dom";
 import Slider from "./Slider";
+import { FaArrowRight } from "react-icons/fa6";
 
 const { CiSearch } = icons;
 const Public = () => {
@@ -15,6 +16,7 @@ const Public = () => {
   const [trackingInfo, setTrackingInfo] = useState(null);
   const [shippingPrice, setShippingPrice] = useState(null);
   const [id, setId] = useState("");
+  const [showSlider, setShowslider] = useState(true);
 
   const search = async (e) => {
     e.preventDefault();
@@ -24,6 +26,7 @@ const Public = () => {
     const id = orderId.replace("MP", "");
     const orderData = await getDocumentById(id, "order");
     setTrackingInfo(orderData);
+    setShowslider(false);
     //setOrderId("");
   };
 
@@ -84,7 +87,7 @@ const Public = () => {
             Magic Post
           </p>
         </div>
-        <div className="flex flex-row px-3 py-2 space-x-2 mr-15 rounded-md bg-blue-300">
+        <div className="flex flex-row px-3 py-2 space-x-2 mr-12 rounded-md text-white bg-main-100">
           <Link to="/login" className="btn small">
             <div class="px-2 ">
               <i className="fas fa-sign-in-alt"></i> ĐĂNG NHẬP
@@ -93,18 +96,25 @@ const Public = () => {
         </div>
       </div>
       <div className="section-banner relative">
-        <img src="https://viettelpost.com.vn/wp-content/themes/viettel/images/page-banner.jpg" class="w-100"></img>
+        <img
+          src="https://viettelpost.com.vn/wp-content/themes/viettel/images/page-banner.jpg"
+          class="w-100"
+        ></img>
         <div class="content absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center text-center">
           <div>
-            <p className="text-[26px] uppercase font-bold tracking-[.30em] text-white mb-[1em]">Magic Post</p>
-            <p class="text-white tracking-[.25em] text-[20px]">Chúng tôi không chỉ gửi hàng, chúng tôi gửi niềm tin</p>
+            <p className="text-[26px] uppercase font-bold tracking-[.30em] text-white mb-[1em]">
+              Magic Post
+            </p>
+            <p class="text-white tracking-[.25em] text-[20px]">
+              Chúng tôi không chỉ gửi hàng, chúng tôi gửi niềm tin
+            </p>
           </div>
+        </div>
       </div>
-	</div>
-      <div className="w-3/4 flex flex-col shadow-lg items-center mx-auto">
+      <div className="w-5/6 flex flex-col shadow-lg mt-5 items-center mx-auto">
         <Tabs className={"w-full"} defaultIndex={0}>
-          <TabList className={"w-full bg-[#F0F2F5] shadow-lg items-center"}>
-            <div className="grid grid-cols-2 text-center font-bold text-md text-gray-900">
+          <TabList className={"w-full bg-slate-200 shadow-lg items-center border"}>
+            <div className="grid grid-cols-2 text-center font-bold text-md">
               <Tab
                 className={"py-4 justify-center rounded-none cursor-pointer"}
               >
@@ -119,38 +129,48 @@ const Public = () => {
           </TabList>
 
           <TabPanel>
-            <div className="flex min-h-[500px] flex-col items-center">
-              <div className="flex-col mt-12 flex items-center justify-center">
-                {/* Search bar */}
-                <p className="font-bold text-xl mb-5">
-                  Nhập mã vận đơn của bạn
-                </p>
-              </div>
-              <div className="w-full flex flex-col items-center space-x-2">
-                <form
-                  onSubmit={search}
-                  className="w-full flex flex-row items-center justify-center space-x-2"
-                >
-                  <input
-                    className="w-1/3 border border-blue-400 rounded-3xl py-2 px-4 focus:outline-none focus:border-blue-500"
-                    type="text"
-                    value={orderId}
-                    onChange={(e) => setOrderId(e.target.value)}
-                    placeholder="VD: Magic123"
-                  />
-                  <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full"
+            <div className="mt-5 grid grid-cols-6 gap-4">
+              <div className="col-start-1 col-span-3 justify-center">
+                <div className="flex-col mt-10 flex items-center justify-start">
+                  {/* Search bar */}
+                  <p className="font-bold text-gray-600 text-xl mb-5">
+                    Nhập mã vận đơn của bạn
+                  </p>
+                </div>
+                <div className="w-full flex flex-col items-center space-x-2">
+                  <form
+                    onSubmit={search}
+                    className="w-full flex flex-col items-center justify-center space-x-2"
                   >
-                    <CiSearch size={25} />
-                  </button>
-                </form>
+                    <input
+                      className="w-2/3 px-5 border border-blue-400 rounded-3xl py-2 focus:outline-none focus:border-blue-500"
+                      type="text"
+                      value={orderId}
+                      onChange={(e) => setOrderId(e.target.value)}
+                      placeholder="VD: MP123"
+                    />
+                    <button
+                      type="submit"
+                      className="bg-blue-500 w-36 mt-5 flex flex-row hover:bg-blue-600 text-white py-2 px-4 rounded-xl"
+                    > 
+                    <span className="mr-3">TRA CỨU</span>  
+                      <FaArrowRight size={20}/>
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <div className="col-start-4 col-span-3">
+                <img
+                  class="h-auto w-2/3 mx-auto py-2"
+                  src={require("../../image/ship3.png")}
+                  alt="image description"
+                ></img>
               </div>
               {/* Display tracking info if available */}
-              <div className="mt-12 w-full flex flex-col items-center justify-center mx-auto">
-                {<Slider />}
+              <div className="mt-12 w-full col-start-1 col-span-6 items-center justify-center mx-auto">
+                {/* {showSlider && <Slider />} */}
                 {trackingInfo && (
-                  <div className="w-5/6">
+                  <div className="w-5/6 mx-auto">
                     <div className="mt-5 bg-[#F0F2F5] rounded-lg p-4 shadow-md mb-5">
                       <h2 className="font-bold text-lg">THÔNG TIN VẬN ĐƠN</h2>
                       <div className="flex flex-row space-x-4 mt-5">
@@ -467,29 +487,37 @@ const Public = () => {
                   <button
                     type="submit"
                     onClick={(e) => handleSubmit(e)}
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    class="text-white ml-36 mx-auto bg-main-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
-                    Tra cứu
+                    TRA CỨU
                   </button>
                 </form>
               </div>
               <div className="col-start-4 col-span-3">
                 <img
-                  class="w-full px-3 py-5"
-                  src={require("../../image/maps.png")}
+                  class="w-3/4 mx-auto mt-[-20px] py-2"
+                  src={require("../../image/ship4.png")}
                   alt="image description"
                 ></img>
               </div>
               <div className="col-start-2 col-span-4">
                 {shippingPrice && (
                   <div className="ml-16 mb-16">
-                    <table className="w-full border-collapse mt-7">
+                    <table className="w-full border-collapse mt-7 rounded-xl overflow-hidden">
                       <thead>
                         <tr className="rounded-lg shadow-lg">
-                          <th className="border p-2">Tên dịch vụ</th>
-                          <th className="border p-2">Phí vận chuyển (VNĐ)</th>
-                          <th className="border p-2">Phụ phí (VNĐ)</th>
-                          <th className="border p-2">Tổng cộng (VNĐ)</th>
+                          <th className="border p-2 bg-main-300 text-white">
+                            Tên dịch vụ
+                          </th>
+                          <th className="border p-2 bg-main-300 text-white">
+                            Phí vận chuyển (VNĐ)
+                          </th>
+                          <th className="border p-2 bg-main-300 text-white">
+                            Phụ phí (VNĐ)
+                          </th>
+                          <th className="border p-2 bg-main-300 text-white">
+                            Tổng cộng (VNĐ)
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
